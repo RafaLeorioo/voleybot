@@ -2,8 +2,10 @@ name: Actualizar Resultados Voleibol
 
 on:
   schedule:
-    - cron: '0 8 * * 1'
-  workflow_dispatch:
+    # Se ejecuta cada 4 horas los domingos (0), lunes (1) y martes (2)
+    # Expresión Cron: Minuto 0, cada 4 horas, solo días 0, 1 y 2 de la semana
+    - cron: '0 */4 * * 0,1,2'
+  workflow_dispatch: # Permite forzar la ejecución manual desde la web cuando quieras
 
 jobs:
   build:
@@ -30,5 +32,5 @@ jobs:
           git config --global user.name "GitHub Action Bot"
           git config --global user.email "action@github.com"
           git add partidos.json
-          git commit -m "Auto-actualizacion partidos.json [skip ci]" || exit 0
+          git commit -m "Auto-actualizacion de resultados partidos.json [skip ci]" || exit 0
           git push
