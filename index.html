@@ -201,17 +201,19 @@
             padding: 4px 6px;
         }
 
-        .vs-divider {
+        .location-box {
+            margin-top: 10px;
+            font-size: 0.78rem;
+            color: var(--accent-blue);
             text-align: center;
-            font-family: 'Teko', sans-serif;
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            letter-spacing: 1px;
-            margin: 2px 0;
+            background: rgba(56, 189, 248, 0.05);
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(56, 189, 248, 0.1);
         }
 
         .parciales-box {
-            margin-top: 12px;
+            margin-top: 8px;
             background: rgba(10, 14, 23, 0.3);
             border-radius: 8px;
             padding: 8px 10px;
@@ -226,7 +228,7 @@
             color: #e2e8f0;
         }
 
-        /* VISTA PARA TABLETS Y PC (Pantallas de más de 550px) */
+        /* VISTA PARA TABLETS Y PC */
         @media (min-width: 550px) {
             header h1 { font-size: 3.6rem; }
             header p { font-size: 0.9rem; }
@@ -251,7 +253,7 @@
             .team-row.visitante { text-align: left; }
 
             .team-name { font-size: 1.05rem; }
-            .team-score { display: none; } /* Ocultar puntuaciones individuales en fila en PC */
+            .team-score { display: none; }
             
             .score-box-pc {
                 display: block;
@@ -300,13 +302,12 @@
                     const isLocalTarget = p.local.toUpperCase().includes('BIARENSE');
                     const isVisitanteTarget = p.visitante.toUpperCase().includes('BIARENSE');
 
-                    // Separar sets para vista móvil por fila
                     let setLocal = "-";
                     let setVisitante = "-";
                     if (p.resultado && p.resultado.includes('-')) {
                         const partes = p.resultado.split('-');
-                        setLocal = partes[0].strip ? partes[0].strip() : partes[0].trim();
-                        setVisitante = partes[1].strip ? partes[1].strip() : partes[1].trim();
+                        setLocal = partes[0].trim();
+                        setVisitante = partes[1].trim();
                     }
 
                     card.innerHTML = `
@@ -314,7 +315,6 @@
                             <span class="jornada-badge">${p.jornada}</span>
                             <div class="match-info">
                                 <span>📅 ${p.fecha}</span>
-                                <span>⏰ ${p.hora}</span>
                                 <span>🏠 ${p.condicion}</span>
                             </div>
                             <span class="status-badge ${p.estado}">${p.estado}</span>
@@ -336,6 +336,12 @@
                                 <span class="team-score">${setVisitante}</span>
                             </div>
                         </div>
+
+                        ${p.ubicacion ? `
+                            <div class="location-box">
+                                📍 <strong>Pabellón:</strong> ${p.ubicacion}
+                            </div>
+                        ` : ''}
 
                         ${p.parciales ? `
                             <div class="parciales-box">
