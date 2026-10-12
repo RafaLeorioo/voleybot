@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CD BIARENSE - Voleibol</title>
-    <!-- Fuente deportiva e impactante -->
+    <!-- Fuentes deportivas -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
@@ -12,7 +12,7 @@
     <style>
         :root {
             --bg-dark: #0a0e17;
-            --card-bg: rgba(23, 31, 48, 0.7);
+            --card-bg: rgba(23, 31, 48, 0.75);
             --border-glow: rgba(59, 130, 246, 0.2);
             --accent-blue: #38bdf8;
             --accent-gold: #f59e0b;
@@ -25,6 +25,10 @@
             --pending-bg: rgba(148, 163, 184, 0.1);
         }
 
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg-dark);
@@ -34,40 +38,40 @@
             background-attachment: fixed;
             color: var(--text-main);
             margin: 0;
-            padding: 40px 15px;
+            padding: 20px 12px;
             min-height: 100vh;
         }
 
         .container {
-            max-width: 720px;
+            max-width: 680px;
             margin: 0 auto;
         }
 
         header {
             text-align: center;
-            margin-bottom: 40px;
-            position: relative;
+            margin-bottom: 25px;
+            padding: 0 10px;
         }
 
         header h1 {
             font-family: 'Teko', sans-serif;
-            font-size: 3.8rem;
-            letter-spacing: 3px;
+            font-size: 3rem;
+            letter-spacing: 2px;
             text-transform: uppercase;
             margin: 0;
             background: linear-gradient(180deg, #ffffff 30%, var(--accent-blue) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            line-height: 0.9;
+            line-height: 0.95;
             filter: drop-shadow(0 4px 12px rgba(56, 189, 248, 0.2));
         }
 
         header p {
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-top: 8px;
+            letter-spacing: 1.5px;
+            margin-top: 6px;
             font-weight: 600;
         }
 
@@ -75,31 +79,23 @@
             background: var(--card-bg);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border-radius: 20px;
-            padding: 22px 26px;
-            margin-bottom: 22px;
+            border-radius: 16px;
+            padding: 16px 18px;
+            margin-bottom: 16px;
             border: 1px solid var(--border-glow);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
             position: relative;
             overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .match-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(56, 189, 248, 0.5);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.15);
-        }
-
-        /* Tira de color lateral según el resultado */
+        /* Tira lateral indicadora de estado */
         .match-card::before {
             content: '';
             position: absolute;
             left: 0;
             top: 0;
             bottom: 0;
-            width: 5px;
-            border-radius: 20px 0 0 20px;
+            width: 4px;
         }
 
         .match-card.Victoria::before { background: var(--win-glow); box-shadow: 0 0 10px var(--win-glow); }
@@ -110,36 +106,40 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 18px;
-            font-size: 0.82rem;
-            font-weight: 600;
+            margin-bottom: 14px;
+            gap: 8px;
+            flex-wrap: wrap;
         }
 
         .jornada-badge {
             font-family: 'Teko', sans-serif;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             letter-spacing: 1px;
             color: var(--accent-blue);
             background: rgba(56, 189, 248, 0.1);
-            padding: 2px 12px;
+            padding: 1px 10px;
             border-radius: 6px;
             border: 1px solid rgba(56, 189, 248, 0.2);
+            line-height: 1.2;
         }
 
         .match-info {
             color: var(--text-muted);
+            font-size: 0.78rem;
+            font-weight: 600;
             display: flex;
-            gap: 15px;
+            gap: 10px;
             align-items: center;
         }
 
         .status-badge {
-            padding: 5px 14px;
-            border-radius: 30px;
-            font-size: 0.72rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.68rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.8px;
+            margin-left: auto;
         }
 
         .status-badge.Victoria {
@@ -154,57 +154,122 @@
             border: 1px solid rgba(148, 163, 184, 0.2);
         }
 
+        /* SCOREBOARD ADAPTATIVO */
         .scoreboard {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            align-items: center;
-            gap: 15px;
-            margin: 18px 0;
-        }
-
-        .team {
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: #cbd5e1;
-            line-height: 1.3;
-        }
-
-        .team.target {
-            color: #ffffff;
-            text-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
-        }
-
-        .team.local { text-align: right; }
-        .team.visitante { text-align: left; }
-
-        .score-box {
-            font-family: 'Teko', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            background: rgba(10, 14, 23, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 12px 0;
+            background: rgba(10, 14, 23, 0.5);
+            padding: 12px 14px;
             border-radius: 12px;
-            padding: 2px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .team-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .team-name {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #94a3b8;
+            word-break: break-word;
+            line-height: 1.25;
+            flex: 1;
+        }
+
+        .team-row.target .team-name {
             color: #ffffff;
-            min-width: 70px;
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+        }
+
+        .team-score {
+            font-family: 'Teko', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            background: rgba(10, 14, 23, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            min-width: 38px;
             text-align: center;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+            line-height: 1;
+            padding: 4px 6px;
+        }
+
+        .vs-divider {
+            text-align: center;
+            font-family: 'Teko', sans-serif;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            margin: 2px 0;
         }
 
         .parciales-box {
-            margin-top: 16px;
-            background: rgba(10, 14, 23, 0.4);
-            border-radius: 10px;
-            padding: 10px;
-            font-size: 0.82rem;
+            margin-top: 12px;
+            background: rgba(10, 14, 23, 0.3);
+            border-radius: 8px;
+            padding: 8px 10px;
+            font-size: 0.78rem;
             color: var(--text-muted);
             text-align: center;
             border: 1px dashed rgba(255, 255, 255, 0.08);
+            word-break: break-all;
         }
 
         .parciales-box strong {
             color: #e2e8f0;
+        }
+
+        /* VISTA PARA TABLETS Y PC (Pantallas de más de 550px) */
+        @media (min-width: 550px) {
+            header h1 { font-size: 3.6rem; }
+            header p { font-size: 0.9rem; }
+            .match-card { padding: 20px 24px; }
+            
+            .scoreboard {
+                display: grid;
+                grid-template-columns: 1fr auto 1fr;
+                align-items: center;
+                gap: 14px;
+                background: transparent;
+                padding: 0;
+                border: none;
+            }
+
+            .team-row {
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .team-row.local { text-align: right; }
+            .team-row.visitante { text-align: left; }
+
+            .team-name { font-size: 1.05rem; }
+            .team-score { display: none; } /* Ocultar puntuaciones individuales en fila en PC */
+            
+            .score-box-pc {
+                display: block;
+                font-family: 'Teko', sans-serif;
+                font-size: 2.2rem;
+                font-weight: 700;
+                background: rgba(10, 14, 23, 0.8);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 12px;
+                padding: 2px 18px;
+                color: #ffffff;
+                text-align: center;
+                min-width: 75px;
+            }
+        }
+
+        @media (max-width: 549px) {
+            .score-box-pc { display: none; }
         }
     </style>
 </head>
@@ -235,6 +300,15 @@
                     const isLocalTarget = p.local.toUpperCase().includes('BIARENSE');
                     const isVisitanteTarget = p.visitante.toUpperCase().includes('BIARENSE');
 
+                    // Separar sets para vista móvil por fila
+                    let setLocal = "-";
+                    let setVisitante = "-";
+                    if (p.resultado && p.resultado.includes('-')) {
+                        const partes = p.resultado.split('-');
+                        setLocal = partes[0].strip ? partes[0].strip() : partes[0].trim();
+                        setVisitante = partes[1].strip ? partes[1].strip() : partes[1].trim();
+                    }
+
                     card.innerHTML = `
                         <div class="match-header">
                             <span class="jornada-badge">${p.jornada}</span>
@@ -246,9 +320,20 @@
                         </div>
 
                         <div class="scoreboard">
-                            <div class="team local ${isLocalTarget ? 'target' : ''}">${p.local}</div>
-                            <div class="score-box">${p.resultado}</div>
-                            <div class="team visitante ${isVisitanteTarget ? 'target' : ''}">${p.visitante}</div>
+                            <!-- Fila Local -->
+                            <div class="team-row local ${isLocalTarget ? 'target' : ''}">
+                                <span class="team-name">${p.local}</span>
+                                <span class="team-score">${setLocal}</span>
+                            </div>
+
+                            <!-- Marcador Centralizado para PC -->
+                            <div class="score-box-pc">${p.resultado}</div>
+
+                            <!-- Fila Visitante -->
+                            <div class="team-row visitante ${isVisitanteTarget ? 'target' : ''}">
+                                <span class="team-name">${p.visitante}</span>
+                                <span class="team-score">${setVisitante}</span>
+                            </div>
                         </div>
 
                         ${p.parciales ? `
