@@ -201,15 +201,26 @@
             padding: 4px 6px;
         }
 
+        /* Botón dinámico de Google Maps */
         .location-box {
             margin-top: 10px;
             font-size: 0.78rem;
             color: var(--accent-blue);
-            text-align: center;
             background: rgba(56, 189, 248, 0.05);
-            padding: 6px 10px;
-            border-radius: 6px;
-            border: 1px solid rgba(56, 189, 248, 0.1);
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(56, 189, 248, 0.15);
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .location-box:hover {
+            background: rgba(56, 189, 248, 0.12);
+            border-color: rgba(56, 189, 248, 0.4);
+            transform: translateY(-1px);
         }
 
         .parciales-box {
@@ -338,9 +349,10 @@
                         </div>
 
                         ${p.ubicacion ? `
-                            <div class="location-box">
-                                📍 <strong>Pabellón:</strong> ${p.ubicacion}
-                            </div>
+                            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.ubicacion)}" target="_blank" class="location-box">
+                                <span>📍 <strong>Pabellón:</strong> ${p.ubicacion}</span>
+                                <span style="font-size: 0.72rem; opacity: 0.85; font-weight: 600;">Abrir Maps ↗</span>
+                            </a>
                         ` : ''}
 
                         ${p.parciales ? `
