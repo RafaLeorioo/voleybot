@@ -102,44 +102,49 @@
         .match-card.Derrota::before { background: var(--loss-glow); }
         .match-card.Pendiente::before { background: var(--text-muted); }
 
+        /* ENCABEZADO DE TARJETA ADAPTADO */
         .match-header {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .header-top-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 14px;
-            gap: 8px;
-            flex-wrap: wrap;
+            width: 100%;
         }
 
         .jornada-badge {
             font-family: 'Teko', sans-serif;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             letter-spacing: 1px;
             color: var(--accent-blue);
             background: rgba(56, 189, 248, 0.1);
-            padding: 1px 10px;
+            padding: 2px 10px;
             border-radius: 6px;
             border: 1px solid rgba(56, 189, 248, 0.2);
-            line-height: 1.2;
+            line-height: 1.1;
         }
 
         .match-info {
             color: var(--text-muted);
-            font-size: 0.78rem;
+            font-size: 0.8rem;
             font-weight: 600;
             display: flex;
-            gap: 10px;
+            gap: 12px;
             align-items: center;
         }
 
         .status-badge {
-            padding: 3px 10px;
+            padding: 4px 10px;
             border-radius: 20px;
             font-size: 0.68rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.8px;
-            margin-left: auto;
         }
 
         .status-badge.Victoria {
@@ -159,7 +164,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            margin: 12px 0;
+            margin: 10px 0;
             background: rgba(10, 14, 23, 0.5);
             padding: 12px 14px;
             border-radius: 12px;
@@ -201,31 +206,10 @@
             padding: 4px 6px;
         }
 
-        /* Botón dinámico de Google Maps */
-        .location-box {
-            margin-top: 10px;
-            font-size: 0.78rem;
-            color: var(--accent-blue);
-            background: rgba(56, 189, 248, 0.05);
-            padding: 8px 12px;
-            border-radius: 8px;
-            border: 1px solid rgba(56, 189, 248, 0.15);
-            text-decoration: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.2s ease-in-out;
-        }
-
-        .location-box:hover {
-            background: rgba(56, 189, 248, 0.12);
-            border-color: rgba(56, 189, 248, 0.4);
-            transform: translateY(-1px);
-        }
-
+        /* PARCIALES */
         .parciales-box {
-            margin-top: 8px;
-            background: rgba(10, 14, 23, 0.3);
+            margin: 10px 0 6px 0;
+            background: rgba(10, 14, 23, 0.4);
             border-radius: 8px;
             padding: 8px 10px;
             font-size: 0.78rem;
@@ -239,11 +223,60 @@
             color: #e2e8f0;
         }
 
+        /* BOTÓN DE MAPS AL FINAL DE LA TARJETA */
+        .location-box {
+            margin-top: 8px;
+            font-size: 0.78rem;
+            color: var(--accent-blue);
+            background: rgba(56, 189, 248, 0.05);
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(56, 189, 248, 0.15);
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .location-box span.pabellon-texto {
+            white-space: normal;
+            word-break: break-word;
+            flex: 1;
+        }
+
+        .location-box span.maps-btn {
+            font-size: 0.72rem;
+            opacity: 0.85;
+            font-weight: 600;
+            white-space: nowrap;
+            background: rgba(56, 189, 248, 0.1);
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        .location-box:hover {
+            background: rgba(56, 189, 248, 0.12);
+            border-color: rgba(56, 189, 248, 0.4);
+        }
+
         /* VISTA PARA TABLETS Y PC */
         @media (min-width: 550px) {
             header h1 { font-size: 3.6rem; }
             header p { font-size: 0.9rem; }
             .match-card { padding: 20px 24px; }
+
+            .match-header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .header-top-row {
+                width: auto;
+                gap: 12px;
+            }
             
             .scoreboard {
                 display: grid;
@@ -323,12 +356,14 @@
 
                     card.innerHTML = `
                         <div class="match-header">
-                            <span class="jornada-badge">${p.jornada}</span>
+                            <div class="header-top-row">
+                                <span class="jornada-badge">${p.jornada}</span>
+                                <span class="status-badge ${p.estado}">${p.estado}</span>
+                            </div>
                             <div class="match-info">
                                 <span>📅 ${p.fecha}</span>
                                 <span>🏠 ${p.condicion}</span>
                             </div>
-                            <span class="status-badge ${p.estado}">${p.estado}</span>
                         </div>
 
                         <div class="scoreboard">
@@ -348,17 +383,17 @@
                             </div>
                         </div>
 
-                        ${p.ubicacion ? `
-                            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.ubicacion)}" target="_blank" class="location-box">
-                                <span>📍 <strong>Pabellón:</strong> ${p.ubicacion}</span>
-                                <span style="font-size: 0.72rem; opacity: 0.85; font-weight: 600;">Abrir Maps ↗</span>
-                            </a>
-                        ` : ''}
-
                         ${p.parciales ? `
                             <div class="parciales-box">
                                 📊 <strong>PARCIALES:</strong> ${p.parciales.split('/').join('  •  ')}
                             </div>
+                        ` : ''}
+
+                        ${p.ubicacion ? `
+                            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.ubicacion)}" target="_blank" class="location-box">
+                                <span class="pabellon-texto">📍 <strong>Pabellón:</strong> ${p.ubicacion}</span>
+                                <span class="maps-btn">Abrir Maps ↗</span>
+                            </a>
                         ` : ''}
                     `;
 
