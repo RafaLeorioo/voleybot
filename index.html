@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CD BIARENSE - Voleibol</title>
 
-    <!-- FAVICONS Y MANIFIESTO CORREGIDOS CON RUTA ABSOLUTA -->
+    <!-- FAVICONS Y MANIFIESTO CON RUTA ABSOLUTA -->
     <link rel="apple-touch-icon" sizes="180x180" href="https://rafaleorioo.github.io/voleybot/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="https://rafaleorioo.github.io/voleybot/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="https://rafaleorioo.github.io/voleybot/favicon-16x16.png">
@@ -28,10 +28,9 @@
     <style>
         :root {
             --bg-dark: #0a0e17;
-            --card-bg: rgba(23, 31, 48, 0.75);
-            --border-glow: rgba(59, 130, 246, 0.2);
+            --card-bg: rgba(23, 31, 48, 0.85);
+            --border-glow: rgba(56, 189, 248, 0.25);
             --accent-blue: #38bdf8;
-            --accent-gold: #f59e0b;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             
@@ -49,7 +48,7 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg-dark);
             background-image: 
-                radial-gradient(at 50% 0%, rgba(30, 58, 138, 0.3) 0px, transparent 70%),
+                radial-gradient(at 50% 0%, rgba(30, 58, 138, 0.35) 0px, transparent 70%),
                 radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.08) 0px, transparent 50%);
             background-attachment: fixed;
             color: var(--text-main);
@@ -91,20 +90,20 @@
             font-weight: 600;
         }
 
+        /* TARJETA MEJORADA */
         .match-card {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-radius: 16px;
-            padding: 16px 18px;
+            padding: 16px;
             margin-bottom: 16px;
             border: 1px solid var(--border-glow);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
             position: relative;
             overflow: hidden;
         }
 
-        /* Tira lateral indicadora de estado */
         .match-card::before {
             content: '';
             position: absolute;
@@ -118,44 +117,29 @@
         .match-card.Derrota::before { background: var(--loss-glow); }
         .match-card.Pendiente::before { background: var(--text-muted); }
 
-        /* ENCABEZADO DE TARJETA ADAPTADO */
+        /* CABECERA REDISEÑADA PARA EVITAR AMONTONAMIENTOS */
         .match-header {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-bottom: 14px;
-        }
-
-        .header-top-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 100%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .jornada-badge {
             font-family: 'Teko', sans-serif;
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             letter-spacing: 1px;
             color: var(--accent-blue);
             background: rgba(56, 189, 248, 0.1);
-            padding: 2px 10px;
+            padding: 1px 10px;
             border-radius: 6px;
             border: 1px solid rgba(56, 189, 248, 0.2);
-            line-height: 1.1;
-        }
-
-        .match-info {
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            font-weight: 600;
-            display: flex;
-            gap: 12px;
-            align-items: center;
         }
 
         .status-badge {
-            padding: 4px 10px;
+            padding: 3px 10px;
             border-radius: 20px;
             font-size: 0.68rem;
             font-weight: 700;
@@ -175,14 +159,34 @@
             border: 1px solid rgba(148, 163, 184, 0.2);
         }
 
-        /* SCOREBOARD ADAPTATIVO */
+        /* DETALLES DE FECHA, HORA Y CONDICIÓN (Coche / Casa) */
+        .match-meta-grid {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            background: rgba(10, 14, 23, 0.4);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .match-meta-grid div {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* SCOREBOARD */
         .scoreboard {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin: 10px 0;
-            background: rgba(10, 14, 23, 0.5);
-            padding: 12px 14px;
+            gap: 8px;
+            margin-bottom: 12px;
+            background: rgba(10, 14, 23, 0.6);
+            padding: 12px;
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
@@ -195,11 +199,10 @@
         }
 
         .team-name {
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             font-weight: 700;
             color: #94a3b8;
             word-break: break-word;
-            line-height: 1.25;
             flex: 1;
         }
 
@@ -210,25 +213,25 @@
 
         .team-score {
             font-family: 'Teko', sans-serif;
-            font-size: 1.8rem;
+            font-size: 1.7rem;
             font-weight: 700;
             color: #ffffff;
             background: rgba(10, 14, 23, 0.9);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 8px;
-            min-width: 38px;
+            min-width: 36px;
             text-align: center;
             line-height: 1;
-            padding: 4px 6px;
+            padding: 3px 6px;
         }
 
         /* PARCIALES */
         .parciales-box {
-            margin: 10px 0 6px 0;
+            margin-bottom: 10px;
             background: rgba(10, 14, 23, 0.4);
             border-radius: 8px;
             padding: 8px 10px;
-            font-size: 0.78rem;
+            font-size: 0.76rem;
             color: var(--text-muted);
             text-align: center;
             border: 1px dashed rgba(255, 255, 255, 0.08);
@@ -239,9 +242,8 @@
             color: #e2e8f0;
         }
 
-        /* BOTÓN DE MAPS AL FINAL DE LA TARJETA */
+        /* UBICACIÓN / MAPS */
         .location-box {
-            margin-top: 8px;
             font-size: 0.78rem;
             color: var(--accent-blue);
             background: rgba(56, 189, 248, 0.05);
@@ -257,14 +259,12 @@
         }
 
         .location-box span.pabellon-texto {
-            white-space: normal;
             word-break: break-word;
             flex: 1;
         }
 
         .location-box span.maps-btn {
             font-size: 0.72rem;
-            opacity: 0.85;
             font-weight: 600;
             white-space: nowrap;
             background: rgba(56, 189, 248, 0.1);
@@ -274,25 +274,12 @@
 
         .location-box:hover {
             background: rgba(56, 189, 248, 0.12);
-            border-color: rgba(56, 189, 248, 0.4);
         }
 
-        /* VISTA PARA TABLETS Y PC */
+        /* VISTA PC */
         @media (min-width: 550px) {
             header h1 { font-size: 3.6rem; }
-            header p { font-size: 0.9rem; }
             .match-card { padding: 20px 24px; }
-
-            .match-header {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-            }
-
-            .header-top-row {
-                width: auto;
-                gap: 12px;
-            }
             
             .scoreboard {
                 display: grid;
@@ -370,16 +357,19 @@
                         setVisitante = partes[1].trim();
                     }
 
+                    // Determinar icono de condición (Coche si es Fuera, Casa si es Casa)
+                    const esFuera = p.condicion && p.condicion.toLowerCase().includes('fuera');
+                    const iconoCondicion = esFuera ? '🚗' : '🏠';
+
                     card.innerHTML = `
                         <div class="match-header">
-                            <div class="header-top-row">
-                                <span class="jornada-badge">${p.jornada}</span>
-                                <span class="status-badge ${p.estado}">${p.estado}</span>
-                            </div>
-                            <div class="match-info">
-                                <span>📅 ${p.fecha}</span>
-                                <span>🏠 ${p.condicion}</span>
-                            </div>
+                            <span class="jornada-badge">${p.jornada}</span>
+                            <span class="status-badge ${p.estado}">${p.estado}</span>
+                        </div>
+
+                        <div class="match-meta-grid">
+                            <div>📅 ${p.fecha} ${p.hora ? `• ⏰ ${p.hora}` : ''}</div>
+                            <div>${iconoCondicion} ${p.condicion}</div>
                         </div>
 
                         <div class="scoreboard">
