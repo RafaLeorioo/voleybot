@@ -24,6 +24,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome para iconos deportivos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
@@ -62,6 +64,7 @@
             margin-bottom: 25px;
             width: 100%;
             max-width: 600px;
+            position: relative;
         }
 
         .header img {
@@ -89,12 +92,188 @@
             margin-top: 4px;
         }
 
+        /* Botón de Volver Atrás */
+        .back-btn-container {
+            display: none;
+            margin-bottom: 15px;
+            text-align: left;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--accent-blue);
+        }
+
+        /* Menú de Selección Atractivo (Pantalla 1) */
+        .selector-screen {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            max-width: 600px;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .selector-title {
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 5px;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        @media (min-width: 480px) {
+            .categories-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .category-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 24px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .category-card.femenino::before {
+            background: linear-gradient(90deg, #ec4899, #f472b6);
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 15px 35px 0 rgba(59, 130, 246, 0.25);
+        }
+
+        .category-card.femenino:hover {
+            border-color: #ec4899;
+            box-shadow: 0 15px 35px 0 rgba(236, 72, 153, 0.25);
+        }
+
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.12);
+            color: #60a5fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin-bottom: 4px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            transition: transform 0.3s;
+        }
+
+        .category-card.femenino .category-icon {
+            background: rgba(236, 72, 153, 0.12);
+            color: #f472b6;
+            border-color: rgba(236, 72, 153, 0.3);
+        }
+
+        .category-card:hover .category-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .category-card h2 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .category-card p {
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 4px 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .category-badge-action {
+            margin-top: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #93c5fd;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .category-card.femenino .category-badge-action {
+            color: #fbcfe8;
+        }
+
+        .category-card:hover .category-badge-action {
+            opacity: 1;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Contenedor de Partidos Original */
         .container {
             width: 100%;
             max-width: 600px;
-            display: flex;
+            display: none;
             flex-direction: column;
             gap: 16px;
+            animation: fadeIn 0.4s ease-in-out;
         }
 
         .card {
@@ -179,7 +358,6 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* DISEÑO NUEVO PARA LOS PARCIALES EN PÍLDORAS */
         .parciales-container {
             display: flex;
             flex-direction: column;
@@ -218,7 +396,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* DETALLES FINALES Y BOTÓN MAPS */
         .details {
             display: flex;
             flex-direction: column;
@@ -275,7 +452,6 @@
             background: #2563eb;
         }
 
-        /* TARJETA DE DESCANSO */
         .descanso-card {
             text-align: center;
             padding: 24px;
@@ -297,20 +473,67 @@
 
     <div class="header">
         <img src="https://rafaleorioo.github.io/voleybot/apple-touch-icon.png" alt="CD Biarense Logo">
-        <h1>CD BIARENSE</h1>
-        <p>Voleibol Senior Masculino</p>
+        <h1 id="main-title">CD BIARENSE</h1>
+        <p id="main-subtitle">Selecciona una categoría</p>
     </div>
 
+    <!-- Botón para volver al selector de categorías -->
+    <div class="back-btn-container" id="back-btn-container">
+        <button class="back-btn" onclick="volverAlSelector()"><i class="fa-solid fa-arrow-left"></i> Cambiar de categoría</button>
+    </div>
+
+    <!-- PANTALLA 1: Menú de selección atractivo y deportivo -->
+    <div class="selector-screen" id="selector-screen">
+        <p class="selector-title">Selecciona un Equipo</p>
+        <div class="categories-grid">
+            
+            <!-- Botón Senior Masculino -->
+            <div class="category-card" onclick="cargarCategoria('partidos.json', 'Voleibol Senior Masculino')">
+                <div class="category-icon">
+                    <i class="fa-solid fa-volleyball"></i>
+                </div>
+                <h2>Senior Masculino</h2>
+                <p>Grupo 3 · 2ª División</p>
+                <span class="category-badge-action">Ver calendario <i class="fa-solid fa-chevron-right text-[10px]"></i></span>
+            </div>
+
+            <!-- Botón Juvenil Femenino -->
+            <div class="category-card femenino" onclick="cargarCategoria('partidos_femenino.json', 'Voleibol Juvenil Femenino')">
+                <div class="category-icon">
+                    <i class="fa-solid fa-volleyball"></i>
+                </div>
+                <h2>Juvenil Femenino</h2>
+                <p>Grupo 2 · 2ª División</p>
+                <span class="category-badge-action">Ver calendario <i class="fa-solid fa-chevron-right text-[10px]"></i></span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- PANTALLA 2: Contenedor con las jornadas originales -->
     <div class="container" id="partidos-container">
         <!-- Las tarjetas se cargarán dinámicamente aquí -->
     </div>
 
     <script>
-        async function cargarPartidos() {
+        function volverAlSelector() {
+            document.getElementById('partidos-container').style.display = 'none';
+            document.getElementById('selector-screen').style.display = 'flex';
+            document.getElementById('back-btn-container').style.display = 'none';
+            document.getElementById('main-subtitle').innerText = 'Selecciona una categoría';
+        }
+
+        async function cargarCategoria(archivoJson, subtituloTexto) {
+            document.getElementById('selector-screen').style.display = 'none';
+            document.getElementById('partidos-container').style.display = 'flex';
+            document.getElementById('back-btn-container').style.display = 'block';
+            document.getElementById('main-subtitle').innerText = subtituloTexto;
+
             const contenedor = document.getElementById('partidos-container');
+            contenedor.innerHTML = '<p style="text-align:center; color:var(--text-muted); padding: 20px;">Cargando partidos...</p>';
             
             try {
-                const respuesta = await fetch(`partidos.json?t=${new Date().getTime()}`);
+                const respuesta = await fetch(`${archivoJson}?t=${new Date().getTime()}`);
                 const partidosGuardados = await respuesta.json();
 
                 contenedor.innerHTML = '';
@@ -339,10 +562,8 @@
                         const iconoCondicion = esCasa ? '🏠 Casa' : '🚗 Fuera';
                         const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.ubicacion)}`;
 
-                        // Generar las píldoras de sets si existen parciales
                         let parcialesHTML = '';
                         if (p.parciales) {
-                            // Divide por '/' o por espacios si vienen separados por barras
                             const sets = p.parciales.split('/').map(s => s.trim()).filter(Boolean);
                             let setsPills = sets.map((set, index) => `<span class="set-pill">S${index + 1}: ${set}</span>`).join('');
                             
@@ -384,11 +605,9 @@
 
             } catch (error) {
                 console.error('Error al cargar partidos:', error);
-                contenedor.innerHTML = '<p style="text-align:center; color:#ef4444;">Error cargando los partidos. Inténtalo de nuevo más tarde.</p>';
+                contenedor.innerHTML = '<p style="text-align:center; color:#ef4444;">Error cargando los partidos. Asegúrate de haber generado los JSON ejecutando el bot.</p>';
             }
         }
-
-        cargarPartidos();
     </script>
 </body>
 </html>
