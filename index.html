@@ -179,17 +179,43 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* PARCIALES JUSTO DEBAJO DEL VERSUS */
+        /* DISEÑO NUEVO PARA LOS PARCIALES EN PÍLDORAS */
         .parciales-container {
-            text-align: center;
-            font-style: italic;
-            color: #cbd5e1;
-            font-size: 0.82rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
             background: rgba(0, 0, 0, 0.25);
-            padding: 6px;
-            border-radius: 8px;
+            padding: 8px;
+            border-radius: 10px;
             margin-bottom: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .parciales-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
+        .sets-grid {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .set-pill {
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #93c5fd;
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
         }
 
         /* DETALLES FINALES Y BOTÓN MAPS */
@@ -313,6 +339,21 @@
                         const iconoCondicion = esCasa ? '🏠 Casa' : '🚗 Fuera';
                         const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.ubicacion)}`;
 
+                        // Generar las píldoras de sets si existen parciales
+                        let parcialesHTML = '';
+                        if (p.parciales) {
+                            // Divide por '/' o por espacios si vienen separados por barras
+                            const sets = p.parciales.split('/').map(s => s.trim()).filter(Boolean);
+                            let setsPills = sets.map((set, index) => `<span class="set-pill">S${index + 1}: ${set}</span>`).join('');
+                            
+                            parcialesHTML = `
+                                <div class="parciales-container">
+                                    <span class="parciales-title">📊 Parciales por Set</span>
+                                    <div class="sets-grid">${setsPills}</div>
+                                </div>
+                            `;
+                        }
+
                         card.innerHTML = `
                             <div class="card-header">
                                 <span class="jornada-badge">${p.jornada}</span>
@@ -323,7 +364,7 @@
                                 <div class="score-board">${p.resultado || 'VS'}</div>
                                 <div class="team ${p.visitante.includes('BIARENSE') ? 'highlight' : ''}">${p.visitante}</div>
                             </div>
-                            ${p.parciales ? `<div class="parciales-container">📊 Parciales: ${p.parciales}</div>` : ''}
+                            ${parcialesHTML}
                             <div class="details">
                                 <div class="details-row">
                                     <div class="detail-item">📅 <span>${p.fecha}</span></div>
