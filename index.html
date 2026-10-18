@@ -187,6 +187,10 @@
             background: linear-gradient(90deg, #ec4899, #f472b6);
         }
 
+        .category-card.infantil::before {
+            background: linear-gradient(90deg, #8b5cf6, #a78bfa);
+        }
+
         .category-card:hover {
             transform: translateY(-5px);
             border-color: var(--accent-blue);
@@ -196,6 +200,11 @@
         .category-card.femenino:hover {
             border-color: #ec4899;
             box-shadow: 0 15px 35px 0 rgba(236, 72, 153, 0.25);
+        }
+
+        .category-card.infantil:hover {
+            border-color: #8b5cf6;
+            box-shadow: 0 15px 35px 0 rgba(139, 92, 246, 0.25);
         }
 
         .category-icon {
@@ -217,6 +226,12 @@
             background: rgba(236, 72, 153, 0.12);
             color: #f472b6;
             border-color: rgba(236, 72, 153, 0.3);
+        }
+
+        .category-card.infantil .category-icon {
+            background: rgba(139, 92, 246, 0.12);
+            color: #a78bfa;
+            border-color: rgba(139, 92, 246, 0.3);
         }
 
         .category-card:hover .category-icon {
@@ -257,6 +272,10 @@
             color: #fbcfe8;
         }
 
+        .category-card.infantil .category-badge-action {
+            color: #ddd6fe;
+        }
+
         .category-card:hover .category-badge-action {
             opacity: 1;
         }
@@ -266,7 +285,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Contenedor de Partidos Original */
+        /* Contenedor de Partidos */
         .container {
             width: 100%;
             max-width: 600px;
@@ -328,7 +347,6 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* NUEVO DISEÑO FLUIDO Y LIMPIO PARA LOS EQUIPOS Y MARCADOR */
         .match-info {
             display: flex;
             flex-direction: column;
@@ -496,12 +514,12 @@
         <button class="back-btn" onclick="volverAlSelector()"><i class="fa-solid fa-arrow-left"></i> Cambiar de categoría</button>
     </div>
 
-    <!-- PANTALLA 1: Menú de selección atractivo y deportivo -->
+    <!-- PANTALLA 1: Menú de selección con los 3 equipos -->
     <div class="selector-screen" id="selector-screen">
         <p class="selector-title">Selecciona un Equipo</p>
         <div class="categories-grid">
             
-            <!-- Botón Senior Masculino -->
+            <!-- Senior Masculino -->
             <div class="category-card" onclick="cargarCategoria('partidos.json', 'Voleibol Senior Masculino')">
                 <div class="category-icon">
                     <i class="fa-solid fa-volleyball"></i>
@@ -511,7 +529,7 @@
                 <span class="category-badge-action">Ver calendario <i class="fa-solid fa-chevron-right text-[10px]"></i></span>
             </div>
 
-            <!-- Botón Juvenil Femenino -->
+            <!-- Juvenil Femenino -->
             <div class="category-card femenino" onclick="cargarCategoria('partidos_femenino.json', 'Voleibol Juvenil Femenino')">
                 <div class="category-icon">
                     <i class="fa-solid fa-volleyball"></i>
@@ -521,10 +539,20 @@
                 <span class="category-badge-action">Ver calendario <i class="fa-solid fa-chevron-right text-[10px]"></i></span>
             </div>
 
+            <!-- Infantil Femenino -->
+            <div class="category-card infantil" onclick="cargarCategoria('partidos_infantil.json', 'Voleibol Infantil Femenino')">
+                <div class="category-icon">
+                    <i class="fa-solid fa-volleyball"></i>
+                </div>
+                <h2>Infantil Femenino</h2>
+                <p>Grupo 6 · Zonal</p>
+                <span class="category-badge-action">Ver calendario <i class="fa-solid fa-chevron-right text-[10px]"></i></span>
+            </div>
+
         </div>
     </div>
 
-    <!-- PANTALLA 2: Contenedor con las jornadas originales -->
+    <!-- PANTALLA 2: Contenedor de partidos -->
     <div class="container" id="partidos-container">
         <!-- Las tarjetas se cargarán dinámicamente aquí -->
     </div>
@@ -576,7 +604,6 @@
                         const iconoCondicion = esCasa ? '🏠 Casa' : '🚗 Fuera';
                         const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.ubicacion)}`;
 
-                        // Separar el resultado en dos números para los badges
                         let resLoc = '-';
                         let resVis = '-';
                         if (p.resultado && p.resultado.includes('-')) {

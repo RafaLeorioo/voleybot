@@ -6,7 +6,7 @@ import pdfplumber
 
 DIRECTORIO_ACTUAL = Path(__file__).resolve().parent
 
-# CONFIGURACIÓN DE LOS DOS EQUIPOS DE BIAR
+# CONFIGURACIÓN DE LOS TRES EQUIPOS DE BIAR
 CONFIGURACIONES = [
     {
         "nombre": "Senior Masculino",
@@ -19,6 +19,12 @@ CONFIGURACIONES = [
         "url_pdf": "https://fvbcv.com/exportar_competiciones.php?idens=1812",
         "equipo_objetivo": "BIARENSE",
         "archivo_salida": DIRECTORIO_ACTUAL / "partidos_femenino.json"
+    },
+    {
+        "nombre": "Infantil Femenino",
+        "url_pdf": "https://fvbcv.com/exportar_competiciones.php?idens=1850",
+        "equipo_objetivo": "BIARENSE",
+        "archivo_salida": DIRECTORIO_ACTUAL / "partidos_infantil.json"
     }
 ]
 
