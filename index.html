@@ -121,7 +121,7 @@
             border-color: var(--accent-blue);
         }
 
-        /* Menú de Selección Atractivo (Pantalla 1) */
+        /* Menú de Selección (Pantalla 1) */
         .selector-screen {
             display: flex;
             flex-direction: column;
@@ -484,11 +484,17 @@
             background: #2563eb;
         }
 
+        /* TARJETA DE DESCANSO EXACTA A LA CAPTURA */
         .descanso-card {
             text-align: center;
             padding: 24px;
             background: rgba(255, 255, 255, 0.02);
             border: 1px dashed rgba(255, 255, 255, 0.1);
+        }
+
+        .descanso-card .jornada-badge {
+            display: block;
+            margin-bottom: 8px;
         }
 
         .descanso-title {
@@ -498,6 +504,10 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             margin: 8px 0 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
     </style>
 </head>
@@ -514,7 +524,7 @@
         <button class="back-btn" onclick="volverAlSelector()"><i class="fa-solid fa-arrow-left"></i> Cambiar de categoría</button>
     </div>
 
-    <!-- PANTALLA 1: Menú de selección con los 3 equipos -->
+    <!-- PANTALLA 1: Menú de selección -->
     <div class="selector-screen" id="selector-screen">
         <p class="selector-title">Selecciona un Equipo</p>
         <div class="categories-grid">
@@ -581,12 +591,20 @@
                 contenedor.innerHTML = '';
 
                 const mapaPartidos = {};
+                let maxJornada = 0;
+
                 partidosGuardados.forEach(p => {
                     const numJ = parseInt(p.jornada.replace(/\D/g, ''));
-                    if (numJ) mapaPartidos[numJ] = p;
+                    if (numJ) {
+                        mapaPartidos[numJ] = p;
+                        if (numJ > maxJornada) maxJornada = numJ;
+                    }
                 });
 
-                for (let i = 1; i <= 26; i++) {
+                // Si no hay partidos cargados aún, usar 26 por defecto
+                const totalJornadas = maxJornada > 0 ? maxJornada : 26;
+
+                for (let i = 1; i <= totalJornadas; i++) {
                     const card = document.createElement('div');
                     card.className = 'card';
                     const p = mapaPartidos[i];
@@ -594,7 +612,7 @@
                     if (!p) {
                         card.className = 'card descanso-card';
                         card.innerHTML = `
-                            <span class="jornada-badge">Jornada ${i}</span>
+                            <span class="jornada-badge">JORNADA ${i}</span>
                             <div class="descanso-title">☕ JORNADA DE DESCANSO</div>
                             <p style="font-size: 0.85rem; color: var(--text-muted);">El equipo no disputa ningún encuentro en esta jornada.</p>
                         `;

@@ -74,7 +74,13 @@ def descargar_y_procesar():
                         if col_jornada.isdigit() and int(col_jornada) <= 26:
                             current_jornada = f"Jornada {col_jornada}"
 
+                        # Detectar si nuestro equipo está implicado
                         if config["equipo_objetivo"] in col_local.upper() or config["equipo_objetivo"] in col_visitante.upper():
+                            
+                            # IGNORAR SI EL RIVAL ES "DESCANSA" (Para que la PWA muestre la tarjeta de descanso bonita)
+                            if "DESCANSA" in col_local.upper() or "DESCANSA" in col_visitante.upper():
+                                continue
+
                             m_fecha = re.search(r'\b\d{2}/\d{2}/\d{4}\b', col_fecha_hora)
                             m_hora = re.search(r'\b\d{2}:\d{2}\b', col_fecha_hora)
                             fecha = m_fecha.group(0) if m_fecha else "Por definir"
