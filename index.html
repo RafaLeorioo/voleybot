@@ -103,7 +103,6 @@
             padding: 16px;
             backdrop-filter: blur(10px);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            transition: transform 0.2s ease, border-color 0.2s ease;
         }
 
         .card-header {
@@ -179,27 +178,91 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
+        /* PARCIALES JUSTO DEBAJO DEL VERSUS */
+        .parciales-container {
+            text-align: center;
+            font-style: italic;
+            color: #cbd5e1;
+            font-size: 0.82rem;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 6px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        /* DETALLES FINALES Y BOTÓN MAPS */
         .details {
             display: flex;
             flex-direction: column;
-            gap: 6px;
-            font-size: 0.82rem;
+            gap: 8px;
+            font-size: 0.85rem;
             color: var(--text-muted);
-            margin-top: 12px;
             padding-top: 10px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .details-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         .detail-item {
             display: flex;
             align-items: center;
             gap: 6px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 5px 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
         }
 
-        .parciales {
-            font-style: italic;
-            color: #cbd5e1;
-            font-size: 0.8rem;
+        .location-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(59, 130, 246, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            padding: 8px 12px;
+            border-radius: 8px;
+            color: #bfdbfe;
+            gap: 10px;
+        }
+
+        .maps-btn {
+            background: var(--accent-blue);
+            color: white;
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 5px 10px;
+            border-radius: 6px;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+
+        .maps-btn:hover {
+            background: #2563eb;
+        }
+
+        /* TARJETA DE DESCANSO */
+        .descanso-card {
+            text-align: center;
+            padding: 24px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+        }
+
+        .descanso-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 8px 0 4px;
         }
     </style>
 </head>
@@ -221,48 +284,68 @@
             
             try {
                 const respuesta = await fetch(`partidos.json?t=${new Date().getTime()}`);
-                const partidos = await respuesta.json();
+                const partidosGuardados = await respuesta.json();
 
                 contenedor.innerHTML = '';
 
-                partidos.forEach(p => {
+                const mapaPartidos = {};
+                partidosGuardados.forEach(p => {
+                    const numJ = parseInt(p.jornada.replace(/\D/g, ''));
+                    if (numJ) mapaPartidos[numJ] = p;
+                });
+
+                for (let i = 1; i <= 26; i++) {
                     const card = document.createElement('div');
                     card.className = 'card';
+                    const p = mapaPartidos[i];
 
-                    const estadoClass = `status-${p.estado.toLowerCase()}`;
-                    const esCasa = p.condicion === 'Casa';
-                    const iconoCondicion = esCasa ? '🏠' : '🚗';
+                    if (!p) {
+                        card.className = 'card descanso-card';
+                        card.innerHTML = `
+                            <span class="jornada-badge">Jornada ${i}</span>
+                            <div class="descanso-title">☕ JORNADA DE DESCANSO</div>
+                            <p style="font-size: 0.85rem; color: var(--text-muted);">El equipo no disputa ningún encuentro en esta jornada.</p>
+                        `;
+                    } else {
+                        const estadoClass = `status-${p.estado.toLowerCase()}`;
+                        const esCasa = p.condicion === 'Casa';
+                        const iconoCondicion = esCasa ? '🏠 Casa' : '🚗 Fuera';
+                        const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.ubicacion)}`;
 
-                    card.innerHTML = `
-                        <div class="card-header">
-                            <span class="jornada-badge">${p.jornada}</span>
-                            <span class="status-badge ${estadoClass}">${p.estado}</span>
-                        </div>
-                        <div class="match-info">
-                            <div class="team ${p.local.includes('BIARENSE') ? 'highlight' : ''}">${p.local}</div>
-                            <div class="score-board">${p.resultado || 'VS'}</div>
-                            <div class="team ${p.visitante.includes('BIARENSE') ? 'highlight' : ''}">${p.visitante}</div>
-                        </div>
-                        <div class="details">
-                            <div class="detail-item">
-                                <span>📅 ${p.fecha} - ⏰ ${p.hora || 'Por definir'}</span>
+                        card.innerHTML = `
+                            <div class="card-header">
+                                <span class="jornada-badge">${p.jornada}</span>
+                                <span class="status-badge ${estadoClass}">${p.estado}</span>
                             </div>
-                            <div class="detail-item">
-                                <span>${iconoCondicion} (${p.condicion}) - 📍 ${p.ubicacion}</span>
+                            <div class="match-info">
+                                <div class="team ${p.local.includes('BIARENSE') ? 'highlight' : ''}">${p.local}</div>
+                                <div class="score-board">${p.resultado || 'VS'}</div>
+                                <div class="team ${p.visitante.includes('BIARENSE') ? 'highlight' : ''}">${p.visitante}</div>
                             </div>
-                            ${p.parciales ? `<div class="detail-item parciales">📊 Parciales: ${p.parciales}</div>` : ''}
-                        </div>
-                    `;
+                            ${p.parciales ? `<div class="parciales-container">📊 Parciales: ${p.parciales}</div>` : ''}
+                            <div class="details">
+                                <div class="details-row">
+                                    <div class="detail-item">📅 <span>${p.fecha}</span></div>
+                                    <div class="detail-item">⏰ <span>${p.hora || 'Por definir'}</span></div>
+                                    <div class="detail-item">📍 <span>${iconoCondicion}</span></div>
+                                </div>
+                                <div class="location-box">
+                                    <span>🏟️ <strong>Ubicación:</strong> ${p.ubicacion}</span>
+                                    <a href="${mapsUrl}" target="_blank" class="maps-btn">📍 Ver en Maps</a>
+                                </div>
+                            </div>
+                        `;
+                    }
 
                     contenedor.appendChild(card);
-                });
+                }
+
             } catch (error) {
                 console.error('Error al cargar partidos:', error);
                 contenedor.innerHTML = '<p style="text-align:center; color:#ef4444;">Error cargando los partidos. Inténtalo de nuevo más tarde.</p>';
             }
         }
 
-        // Cargar los partidos automáticamente al abrir la página
         cargarPartidos();
     </script>
 </body>
