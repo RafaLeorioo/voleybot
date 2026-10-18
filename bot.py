@@ -6,7 +6,7 @@ import pdfplumber
 
 DIRECTORIO_ACTUAL = Path(__file__).resolve().parent
 
-# CONFIGURACIÓN DE LOS TRES EQUIPOS DE BIAR
+# CONFIGURACIÓN DE LOS CUATRO EQUIPOS DE BIAR
 CONFIGURACIONES = [
     {
         "nombre": "Senior Masculino",
@@ -25,6 +25,12 @@ CONFIGURACIONES = [
         "url_pdf": "https://fvbcv.com/exportar_competiciones.php?idens=1850",
         "equipo_objetivo": "BIARENSE",
         "archivo_salida": DIRECTORIO_ACTUAL / "partidos_infantil.json"
+    },
+    {
+        "nombre": "Cadete Femenino",
+        "url_pdf": "https://fvbcv.com/exportar_competiciones.php?idens=1801",
+        "equipo_objetivo": "BIARENSE",
+        "archivo_salida": DIRECTORIO_ACTUAL / "partidos_cadete.json"
     }
 ]
 
@@ -37,7 +43,6 @@ def descargar_y_procesar():
         print(f"\n📥 Procesando categoría: {config['nombre']}...")
         archivo_pdf = DIRECTORIO_ACTUAL / f"calendario_{config['nombre'].lower().replace(' ', '_')}.pdf"
         
-        # 1. Descargar PDF
         try:
             response = requests.get(config["url_pdf"], headers=headers)
             if response.status_code == 200:
@@ -51,7 +56,6 @@ def descargar_y_procesar():
             print(f"❌ Error de conexión: {e}")
             continue
 
-        # 2. Procesar Tablas del PDF
         partidos_lista = []
         current_jornada = "Jornada 1"
         
@@ -74,10 +78,7 @@ def descargar_y_procesar():
                         if col_jornada.isdigit() and int(col_jornada) <= 26:
                             current_jornada = f"Jornada {col_jornada}"
 
-                        # Detectar si nuestro equipo está implicado
                         if config["equipo_objetivo"] in col_local.upper() or config["equipo_objetivo"] in col_visitante.upper():
-                            
-                            # IGNORAR SI EL RIVAL ES "DESCANSA" (Para que la PWA muestre la tarjeta de descanso bonita)
                             if "DESCANSA" in col_local.upper() or "DESCANSA" in col_visitante.upper():
                                 continue
 
