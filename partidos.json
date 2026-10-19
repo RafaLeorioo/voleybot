@@ -67,7 +67,7 @@
     {
         "jornada": "Jornada 7",
         "fecha": "14/11/2026",
-        "hora": "00:00",
+        "hora": "18:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "VOLEIBOL VINALOPÓ AZUL",
@@ -93,7 +93,7 @@
     {
         "jornada": "Jornada 9",
         "fecha": "28/11/2026",
-        "hora": "00:00",
+        "hora": "18:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "GRUPO NEXUS GUARDAMAR",
@@ -119,7 +119,7 @@
     {
         "jornada": "Jornada 11",
         "fecha": "12/12/2026",
-        "hora": "00:00",
+        "hora": "18:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "POLANENS SANTA POLA",
@@ -145,7 +145,7 @@
     {
         "jornada": "Jornada 13",
         "fecha": "09/01/2027",
-        "hora": "00:00",
+        "hora": "18:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "C. SUNRISE TORREVIEJA",
@@ -158,7 +158,7 @@
     {
         "jornada": "Jornada 14",
         "fecha": "16/01/2027",
-        "hora": "00:00",
+        "hora": "18:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "ATLÉTICO SALESIANO ALCOY",
@@ -184,7 +184,7 @@
     {
         "jornada": "Jornada 16",
         "fecha": "30/01/2027",
-        "hora": "00:00",
+        "hora": "18:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "CV LUCENTUM",
@@ -210,7 +210,7 @@
     {
         "jornada": "Jornada 18",
         "fecha": "20/02/2027",
-        "hora": "00:00",
+        "hora": "18:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "CV SAN VICENTE ESPARTANOS",
@@ -236,7 +236,7 @@
     {
         "jornada": "Jornada 21",
         "fecha": "13/03/2027",
-        "hora": "00:00",
+        "hora": "18:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "CV CREVILLENT",
@@ -262,7 +262,7 @@
     {
         "jornada": "Jornada 23",
         "fecha": "10/04/2027",
-        "hora": "00:00",
+        "hora": "18:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "FABRAQUER VB CAMPELLO",
@@ -288,7 +288,7 @@
     {
         "jornada": "Jornada 25",
         "fecha": "24/04/2027",
-        "hora": "00:00",
+        "hora": "18:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "CV ELCHE",

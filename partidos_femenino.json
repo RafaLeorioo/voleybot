@@ -132,7 +132,7 @@
     {
         "jornada": "Jornada 11",
         "fecha": "28/11/2026",
-        "hora": "00:00",
+        "hora": "16:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "CV ALMORADI",
@@ -145,7 +145,7 @@
     {
         "jornada": "Jornada 12",
         "fecha": "05/12/2026",
-        "hora": "00:00",
+        "hora": "16:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "CV SANT JOAN",
@@ -171,7 +171,7 @@
     {
         "jornada": "Jornada 14",
         "fecha": "19/12/2026",
-        "hora": "00:00",
+        "hora": "16:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "STO DOMINGO V PETRER",
@@ -223,7 +223,7 @@
     {
         "jornada": "Jornada 18",
         "fecha": "30/01/2027",
-        "hora": "00:00",
+        "hora": "16:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "CV ALICANTE 2000 - B",
@@ -249,7 +249,7 @@
     {
         "jornada": "Jornada 20",
         "fecha": "20/02/2027",
-        "hora": "00:00",
+        "hora": "16:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "LA NUCÍA DEPORTE",
@@ -262,7 +262,7 @@
     {
         "jornada": "Jornada 21",
         "fecha": "27/02/2027",
-        "hora": "00:00",
+        "hora": "16:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "AVRAMAR FABRAQUER",
