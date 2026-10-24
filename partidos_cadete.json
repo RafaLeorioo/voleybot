@@ -67,7 +67,7 @@
     {
         "jornada": "Jornada 6",
         "fecha": "31/10/2026",
-        "hora": "00:00",
+        "hora": "10:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "CVP OLÍMPICO SANT JOAN",
@@ -93,7 +93,7 @@
     {
         "jornada": "Jornada 8",
         "fecha": "21/11/2026",
-        "hora": "00:00",
+        "hora": "10:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "CV SANT JOAN",
@@ -119,7 +119,7 @@
     {
         "jornada": "Jornada 10",
         "fecha": "05/12/2026",
-        "hora": "00:00",
+        "hora": "10:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "CARMELITAS VOLEY ELCHE",
@@ -145,7 +145,7 @@
     {
         "jornada": "Jornada 12",
         "fecha": "19/12/2026",
-        "hora": "00:00",
+        "hora": "10:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "CV OLIVA",
@@ -171,7 +171,7 @@
     {
         "jornada": "Jornada 14",
         "fecha": "16/01/2027",
-        "hora": "00:00",
+        "hora": "10:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "CV ALTEA SOGAI",
@@ -223,7 +223,7 @@
     {
         "jornada": "Jornada 18",
         "fecha": "20/02/2027",
-        "hora": "00:00",
+        "hora": "10:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "RACING P.S. JUAN",
@@ -249,7 +249,7 @@
     {
         "jornada": "Jornada 20",
         "fecha": "06/03/2027",
-        "hora": "00:00",
+        "hora": "10:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "ILICITANO CARRÚS",
@@ -275,7 +275,7 @@
     {
         "jornada": "Jornada 22",
         "fecha": "20/03/2027",
-        "hora": "00:00",
+        "hora": "10:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "CV ELCHE - B",

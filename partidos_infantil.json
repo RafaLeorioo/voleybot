@@ -15,7 +15,7 @@
     {
         "jornada": "Jornada 4",
         "fecha": "07/11/2026",
-        "hora": "00:00",
+        "hora": "09:30",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "CV JESUITAS SERRA GROSSA AZUL",
@@ -28,7 +28,7 @@
     {
         "jornada": "Jornada 6",
         "fecha": "21/11/2026",
-        "hora": "00:00",
+        "hora": "12:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "CV SAN VICENTE",
@@ -53,8 +53,8 @@
     },
     {
         "jornada": "Jornada 8",
-        "fecha": "05/12/2026",
-        "hora": "00:00",
+        "fecha": "06/12/2026",
+        "hora": "12:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "CV ALICANTE 2000 BLANCO",
@@ -93,7 +93,7 @@
     {
         "jornada": "Jornada 11",
         "fecha": "09/01/2027",
-        "hora": "00:00",
+        "hora": "12:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "CV VILLENA SUPER JUMP",
@@ -106,7 +106,7 @@
     {
         "jornada": "Jornada 14",
         "fecha": "30/01/2027",
-        "hora": "00:00",
+        "hora": "12:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "CV ALICANTE 2000 FUCSIA",
@@ -145,7 +145,7 @@
     {
         "jornada": "Jornada 18",
         "fecha": "06/03/2027",
-        "hora": "00:00",
+        "hora": "12:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "CD JESUITAS SERRA GROSSA BLANCO",
@@ -171,7 +171,7 @@
     {
         "jornada": "Jornada 20",
         "fecha": "20/03/2027",
-        "hora": "00:00",
+        "hora": "12:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "CD SALESIANOS ALICANTE",
@@ -184,7 +184,7 @@
     {
         "jornada": "Jornada 21",
         "fecha": "10/04/2027",
-        "hora": "00:00",
+        "hora": "12:00",
         "condicion": "Casa",
         "local": "CD BIARENSE",
         "visitante": "CV VILLENA LILLO ARTESANO",
