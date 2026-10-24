@@ -52,7 +52,7 @@
             background-color: var(--bg-dark);
             color: var(--text-main);
             min-height: 100vh;
-            padding: 15px 12px 30px;
+            padding: 15px 12px 40px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -90,36 +90,38 @@
             margin-top: 2px;
         }
 
-        /* Botón de Volver Atrás */
+        /* Botón de Volver Flotante y Persistente */
         .back-btn-container {
             display: none;
-            margin-bottom: 12px;
-            text-align: left;
-            width: 100%;
-            max-width: 600px;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
         }
 
         .back-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(23, 31, 48, 0.95);
+            border: 1px solid var(--accent-blue);
             color: var(--text-main);
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 0.78rem;
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-size: 0.82rem;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.2s;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            transition: transform 0.2s, background 0.2s;
         }
 
         .back-btn:hover {
-            background: rgba(255, 255, 255, 0.12);
-            border-color: var(--accent-blue);
+            background: var(--accent-blue);
+            transform: scale(1.05);
         }
 
-        /* Menú de Selección Compacto (2x2 para ver sin scroll) */
+        /* Menú de Selección Compacto (2x2) */
         .selector-screen {
             display: flex;
             flex-direction: column;
@@ -256,7 +258,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Contenedor de Partidos Original */
+        /* Contenedor de Partidos */
         .container {
             width: 100%;
             max-width: 600px;
@@ -273,6 +275,12 @@
             padding: 16px;
             backdrop-filter: blur(10px);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Resaltado especial para el próximo partido más cercano */
+        .card.next-match {
+            border: 2px solid var(--accent-blue);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
         }
 
         .card-header {
@@ -381,22 +389,11 @@
             font-weight: 700;
         }
 
-        .sets-grid {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .set-pill {
-            background: rgba(59, 130, 246, 0.12);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            color: #93c5fd;
-            font-size: 0.78rem;
+        .sets-text {
+            font-size: 0.85rem;
             font-weight: 700;
-            padding: 3px 8px;
-            border-radius: 6px;
-            letter-spacing: 0.5px;
+            color: #93c5fd;
+            letter-spacing: 1px;
         }
 
         .details {
@@ -489,17 +486,16 @@
         <p id="main-subtitle">Selecciona una categoría</p>
     </div>
 
-    <!-- Botón para volver al selector -->
+    <!-- Botón de Volver Flotante y Persistente -->
     <div class="back-btn-container" id="back-btn-container">
         <button class="back-btn" onclick="volverAlSelector()"><i class="fa-solid fa-arrow-left"></i> Cambiar categoría</button>
     </div>
 
-    <!-- PANTALLA 1: Menú en cuadrícula 2x2 para ver todo de un vistazo -->
+    <!-- PANTALLA 1: Menú en cuadrícula 2x2 para las 4 categorías -->
     <div class="selector-screen" id="selector-screen">
         <p class="selector-title">Selecciona un Equipo</p>
         <div class="categories-grid">
             
-            <!-- Senior Masculino -->
             <div class="category-card" onclick="cargarCategoria('partidos.json', 'Voleibol Senior Masculino')">
                 <div class="category-icon"><i class="fa-solid fa-volleyball"></i></div>
                 <h2>Senior Masc.</h2>
@@ -507,7 +503,6 @@
                 <span class="category-badge-action">Ver <i class="fa-solid fa-chevron-right text-[9px]"></i></span>
             </div>
 
-            <!-- Juvenil Femenino -->
             <div class="category-card femenino" onclick="cargarCategoria('partidos_femenino.json', 'Voleibol Juvenil Femenino')">
                 <div class="category-icon"><i class="fa-solid fa-volleyball"></i></div>
                 <h2>Juvenil Fem.</h2>
@@ -515,7 +510,6 @@
                 <span class="category-badge-action">Ver <i class="fa-solid fa-chevron-right text-[9px]"></i></span>
             </div>
 
-            <!-- Infantil Femenino -->
             <div class="category-card infantil" onclick="cargarCategoria('partidos_infantil.json', 'Voleibol Infantil Femenino')">
                 <div class="category-icon"><i class="fa-solid fa-volleyball"></i></div>
                 <h2>Infantil Fem.</h2>
@@ -523,7 +517,6 @@
                 <span class="category-badge-action">Ver <i class="fa-solid fa-chevron-right text-[9px]"></i></span>
             </div>
 
-            <!-- Cadete Femenino -->
             <div class="category-card cadete" onclick="cargarCategoria('partidos_cadete.json', 'Voleibol Cadete Femenino')">
                 <div class="category-icon"><i class="fa-solid fa-volleyball"></i></div>
                 <h2>Cadete Fem.</h2>
@@ -543,6 +536,7 @@
             document.getElementById('selector-screen').style.display = 'flex';
             document.getElementById('back-btn-container').style.display = 'none';
             document.getElementById('main-subtitle').innerText = 'Selecciona una categoría';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         async function cargarCategoria(archivoJson, subtituloTexto) {
@@ -572,6 +566,17 @@
                 });
 
                 const totalJornadas = maxJornada > 0 ? maxJornada : 26;
+                
+                let mejorCardParaScroll = null;
+                let menorDiferenciaTiempo = Infinity;
+                const ahora = new Date().getTime();
+
+                function parsearFecha(strFecha) {
+                    if (!strFecha || !strFecha.includes('/')) return null;
+                    const partes = strFecha.split('/');
+                    if (partes.length !== 3) return null;
+                    return new Date(`${partes[2]}-${partes[1]}-${partes[0]}`);
+                }
 
                 for (let i = 1; i <= totalJornadas; i++) {
                     const card = document.createElement('div');
@@ -588,6 +593,7 @@
                     } else {
                         const estadoClass = `status-${p.estado.toLowerCase()}`;
                         const esCasa = p.condicion === 'Casa';
+                        // Icono limpio sin pin rojo repetido
                         const iconoCondicion = esCasa ? '🏠 Casa' : '🚗 Fuera';
                         const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.ubicacion)}`;
 
@@ -602,12 +608,12 @@
                         let parcialesHTML = '';
                         if (p.parciales) {
                             const sets = p.parciales.split('/').map(s => s.trim()).filter(Boolean);
-                            let setsPills = sets.map((set, index) => `<span class="set-pill">S${index + 1}: ${set}</span>`).join('');
+                            const setsFormateados = sets.join('  •  ');
                             
                             parcialesHTML = `
                                 <div class="parciales-container">
                                     <span class="parciales-title">📊 Parciales por Set</span>
-                                    <div class="sets-grid">${setsPills}</div>
+                                    <span class="sets-text">${setsFormateados}</span>
                                 </div>
                             `;
                         }
@@ -619,7 +625,7 @@
                             </div>
                             <div class="match-info">
                                 <div class="team-row">
-                                    <span class="team ${p.local.includes('BIARENSE') || p.local.includes('BIARENSE') ? 'highlight' : ''}">${p.local}</span>
+                                    <span class="team ${p.local.includes('BIARENSE') ? 'highlight' : ''}">${p.local}</span>
                                     <span class="score-pill">${resLoc}</span>
                                 </div>
                                 <div class="team-row">
@@ -632,7 +638,7 @@
                                 <div class="details-row">
                                     <div class="detail-item">📅 <span>${p.fecha}</span></div>
                                     <div class="detail-item">⏰ <span>${p.hora || 'Por definir'}</span></div>
-                                    <div class="detail-item">📍 <span>${iconoCondicion}</span></div>
+                                    <div class="detail-item"><span>${iconoCondicion}</span></div>
                                 </div>
                                 <div class="location-box">
                                     <span>🏟️ <strong>Ubicación:</strong> ${p.ubicacion}</span>
@@ -640,10 +646,38 @@
                                 </div>
                             </div>
                         `;
+
+                        if (p.estado.toLowerCase() === 'pendiente') {
+                            const fechaPartido = parsearFecha(p.fecha);
+                            if (fechaPartido) {
+                                const tiempoPartido = fechaPartido.getTime();
+                                const diferencia = Math.abs(tiempoPartido - ahora);
+
+                                if (diferencia < menorDiferenciaTiempo) {
+                                    menorDiferenciaTiempo = diferencia;
+                                    if (mejorCardParaScroll) {
+                                        mejorCardParaScroll.classList.remove('next-match');
+                                    }
+                                    mejorCardParaScroll = card;
+                                    card.classList.add('next-match');
+                                }
+                            } else if (!mejorCardParaScroll) {
+                                mejorCardParaScroll = card;
+                                card.classList.add('next-match');
+                            }
+                        }
                     }
 
                     contenedor.appendChild(card);
                 }
+
+                setTimeout(() => {
+                    if (mejorCardParaScroll) {
+                        mejorCardParaScroll.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } else {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                }, 100);
 
             } catch (error) {
                 console.error('Error al cargar partidos:', error);
