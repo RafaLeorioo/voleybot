@@ -138,6 +138,7 @@
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 1px;
+            margin-top: 5px;
         }
 
         .categories-grid {
@@ -253,6 +254,60 @@
         .category-card.infantil .category-badge-action { color: #ddd6fe; }
         .category-card.cadete .category-badge-action { color: #fde68a; }
 
+        /* Estilos para las mini tarjetas de próximos partidos globales */
+        .global-preview-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            padding: 10px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            backdrop-filter: blur(10px);
+        }
+
+        .global-preview-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+            background: rgba(30, 41, 59, 0.9);
+        }
+
+        .gp-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .gp-team-name {
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--accent-blue);
+            letter-spacing: 0.5px;
+        }
+
+        .gp-matchup {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .gp-meta {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .gp-date {
+            font-weight: 700;
+            color: #93c5fd;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(6px); }
             to { opacity: 1; transform: translateY(0); }
@@ -277,7 +332,6 @@
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
-        /* Resaltado especial para el próximo partido más cercano */
         .card.next-match {
             border: 2px solid var(--accent-blue);
             box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
@@ -491,7 +545,7 @@
         <button class="back-btn" onclick="volverAlSelector()"><i class="fa-solid fa-arrow-left"></i> Cambiar categoría</button>
     </div>
 
-    <!-- PANTALLA 1: Menú en cuadrícula 2x2 para las 4 categorías -->
+    <!-- PANTALLA 1: Menú en cuadrícula 2x2 y Previsualización de Próximos Partidos -->
     <div class="selector-screen" id="selector-screen">
         <p class="selector-title">Selecciona un Equipo</p>
         <div class="categories-grid">
@@ -525,12 +579,99 @@
             </div>
 
         </div>
+
+        <!-- SECCIÓN NUEVA: Próximos partidos de los 4 equipos de un vistazo -->
+        <div style="margin-top: 5px;">
+            <p class="selector-title">Próximos Encuentros</p>
+            <div id="global-previews-container" style="display: flex; flex-direction: column; gap: 8px; margin-top: 8px;">
+                <p style="text-align:center; color:var(--text-muted); font-size: 0.8rem; padding: 10px;">Cargando próximos partidos...</p>
+            </div>
+        </div>
     </div>
 
     <!-- PANTALLA 2: Contenedor de partidos -->
     <div class="container" id="partidos-container"></div>
 
     <script>
+        // Cargar las previsualizaciones globales al iniciar la página
+        window.addEventListener('DOMContentLoaded', () => {
+            cargarProximosPartidosGlobales();
+        });
+
+        function parsearFecha(strFecha) {
+            if (!strFecha || !strFecha.includes('/')) return null;
+            const partes = strFecha.split('/');
+            if (partes.length !== 3) return null;
+            return new Date(`${partes[2]}-${partes[1]}-${partes[0]}`);
+        }
+
+        async function cargarProximosPartidosGlobales() {
+            const equipos = [
+                { nombre: 'Senior Masculino', archivo: 'partidos.json', subtitulo: 'Voleibol Senior Masculino' },
+                { nombre: 'Juvenil Femenino', archivo: 'partidos_femenino.json', subtitulo: 'Voleibol Juvenil Femenino' },
+                { nombre: 'Infantil Femenino', archivo: 'partidos_infantil.json', subtitulo: 'Voleibol Infantil Femenino' },
+                { nombre: 'Cadete Femenino', archivo: 'partidos_cadete.json', subtitulo: 'Voleibol Cadete Femenino' }
+            ];
+
+            const contenedorPreviews = document.getElementById('global-previews-container');
+            contenedorPreviews.innerHTML = '';
+            const ahora = new Date().getTime();
+
+            for (const eq of equipos) {
+                try {
+                    const res = await fetch(`${eq.archivo}?t=${new Date().getTime()}`);
+                    if (!res.ok) continue;
+                    const partidos = await res.json();
+
+                    // Encontrar el partido pendiente más cercano
+                    let proximoPartido = null;
+                    let menorDif = Infinity;
+
+                    partidos.forEach(p => {
+                        if (p.estado.toLowerCase() === 'pendiente') {
+                            const f = parsearFecha(p.fecha);
+                            if (f) {
+                                const dif = Math.abs(f.getTime() - ahora);
+                                if (dif < menorDif) {
+                                    menorDif = dif;
+                                    proximoPartido = p;
+                                }
+                            } else if (!proximoPartido) {
+                                proximoPartido = p;
+                            }
+                        }
+                    });
+
+                    if (proximoPartido) {
+                        const esCasa = proximoPartido.condicion === 'Casa';
+                        const rival = esCasa ? proximoPartido.visitante : proximoPartido.local;
+                        const iconoCond = esCasa ? '🏠' : '🚗';
+
+                        const cardMini = document.createElement('div');
+                        cardMini.className = 'global-preview-card';
+                        cardMini.onclick = () => cargarCategoria(eq.archivo, eq.subtitulo);
+                        cardMini.innerHTML = `
+                            <div class="gp-info">
+                                <span class="gp-team-name">${eq.nombre}</span>
+                                <span class="gp-matchup">${iconoCond} vs ${rival}</span>
+                            </div>
+                            <div class="gp-meta">
+                                <span class="gp-date">📅 ${proximoPartido.fecha}</span>
+                                <span>⏰ ${proximoPartido.hora || 'Por definir'}</span>
+                            </div>
+                        `;
+                        contenedorPreviews.appendChild(cardMini);
+                    }
+                } catch (e) {
+                    console.error(`Error cargando resumen para ${eq.nombre}:`, e);
+                }
+            }
+
+            if (contenedorPreviews.children.length === 0) {
+                contenedorPreviews.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size: 0.8rem;">No hay partidos pendientes próximamente.</p>';
+            }
+        }
+
         function volverAlSelector() {
             document.getElementById('partidos-container').style.display = 'none';
             document.getElementById('selector-screen').style.display = 'flex';
@@ -571,13 +712,6 @@
                 let menorDiferenciaTiempo = Infinity;
                 const ahora = new Date().getTime();
 
-                function parsearFecha(strFecha) {
-                    if (!strFecha || !strFecha.includes('/')) return null;
-                    const partes = strFecha.split('/');
-                    if (partes.length !== 3) return null;
-                    return new Date(`${partes[2]}-${partes[1]}-${partes[0]}`);
-                }
-
                 for (let i = 1; i <= totalJornadas; i++) {
                     const card = document.createElement('div');
                     card.className = 'card';
@@ -593,7 +727,6 @@
                     } else {
                         const estadoClass = `status-${p.estado.toLowerCase()}`;
                         const esCasa = p.condicion === 'Casa';
-                        // Icono limpio sin pin rojo repetido
                         const iconoCondicion = esCasa ? '🏠 Casa' : '🚗 Fuera';
                         const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.ubicacion)}`;
 

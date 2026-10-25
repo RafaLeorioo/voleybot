@@ -6,7 +6,6 @@ import pdfplumber
 
 DIRECTORIO_ACTUAL = Path(__file__).resolve().parent
 
-# CONFIGURACIÓN DE LOS CUATRO EQUIPOS DE BIAR
 CONFIGURACIONES = [
     {
         "nombre": "Senior Masculino",
@@ -138,11 +137,12 @@ def descargar_y_procesar():
                             if not any(p["jornada"] == current_jornada and p["local"] == local and p["visitante"] == visitante for p in partidos_lista):
                                 partidos_lista.append(partido_dict)
 
+        # Guardar partidos limpios y ordenados
         if partidos_lista:
             partidos_lista.sort(key=lambda x: int(re.search(r'\d+', x["jornada"]).group()))
             with open(config["archivo_salida"], "w", encoding="utf-8") as f:
                 json.dump(partidos_lista, f, ensure_ascii=False, indent=4)
-            print(f"✅ Guardados {len(partidos_lista)} partidos para {config['nombre']}.")
+            print(f"✅ Guardados {len(partidos_lista)} partidos correctamente para {config['nombre']}.")
 
 if __name__ == "__main__":
     descargar_y_procesar()
