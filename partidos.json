@@ -46,10 +46,10 @@
         "local": "CD BIARENSE",
         "visitante": "CV LUCENTUM - B",
         "ubicacion": "PAB.MUN. BIAR",
-        "resultado": "VS",
-        "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "resultado": "3 - 0",
+        "parciales": "25-7/25-4/25-23",
+        "jugado": true,
+        "estado": "Victoria"
     },
     {
         "jornada": "Jornada 5",
