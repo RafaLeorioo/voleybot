@@ -2,32 +2,42 @@ name: Actualizar Voleibol Bot
 
 on:
   schedule:
-    # Se ejecuta los domingos, lunes y martes a las 08:00 y a las 16:00 (Hora UTC)
-    - cron: '0 8,16 * * 0,1,2'
-  workflow_dispatch: # Permite ejecutarlo manualmente desde la web de GitHub cuando quieras
+    # 1. Cada hora durante todo el sábado (6) y domingo (0)
+    - cron: '0 * * * 0,6'
+    
+    # 2. Cada hora solo el lunes (1) por la mañana (de 00:00 a 13:00)
+    - cron: '0 0-13 * * 1'
+    
+    # 3. Dos veces al día (a las 12:00 y a las 20:00) de martes a viernes (2-5)
+    - cron: '0 12,20 * * 2-5'
+  
+  # Permite lanzarlo manualmente cuando quieras desde la web de GitHub
+  workflow_dispatch:
 
 jobs:
-  run-bot:
+  actualizar-datos:
     runs-on: ubuntu-latest
-    steps:
-      - name: Clonar repositorio
-        uses: actions/checkout@v4
 
-      - name: Configurar Python
-        uses: actions/setup-python@v5
+    steps:
+      - name: 📥 Clonar repositorio
+        uses: actions/checkout@v3
+
+      - name: 🐍 Configurar Python
+        uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
-      - name: Instalar dependencias
+      - name: 📦 Instalar dependencias
         run: |
           python -m pip install --upgrade pip
-          pip install requests pdfplumber
+          pip install pdfplumber requests
 
-      - name: Ejecutar Bot
+      - name: 🤖 Ejecutar script del bot
         run: python bot.py
 
-      - name: Subir cambios a GitHub automáticamente
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "🤖 Actualización automática de partidos y resultados"
-          branch: main
+      - name: 🚀 Subir cambios si hay novedades
+        run: |
+          git config --global user.name "VoleyBot Actions"
+          git config --global user.email "bot@actions.github.com"
+          git add partidos.json partidos_femenino.json partidos_infantil.json partidos_cadete.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 Actualización automática de resultados [skip ci]" && git push)
