@@ -46,19 +46,19 @@
         "local": "CD BIARENSE",
         "visitante": "CV LUCENTUM - B",
         "ubicacion": "PAB.MUN. BIAR",
-        "resultado": "VS",
-        "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "resultado": "3 - 0",
+        "parciales": "25-7/25-4/25-23",
+        "jugado": true,
+        "estado": "Victoria"
     },
     {
         "jornada": "Jornada 5",
         "fecha": "31/10/2026",
-        "hora": "00:00",
+        "hora": "17:30",
         "condicion": "Fuera",
         "local": "CV SAN VICENTE ESPARTANOS",
-        "visitante": "CD BIARENSE P",
-        "ubicacion": ".M. GINÉS ALENDA (S. VICENTE DEL R.",
+        "visitante": "CD BIARENSE",
+        "ubicacion": "PAB. IES NOU DERRAMADOR (IBI)",
         "resultado": "VS",
         "parciales": "",
         "jugado": false,
@@ -171,7 +171,7 @@
     {
         "jornada": "Jornada 15",
         "fecha": "23/01/2027",
-        "hora": "00:00",
+        "hora": "18:00",
         "condicion": "Fuera",
         "local": "CV SAN VICENTE GLADIADORES",
         "visitante": "CD BIARENSE P",
@@ -197,7 +197,7 @@
     {
         "jornada": "Jornada 17",
         "fecha": "13/02/2027",
-        "hora": "00:00",
+        "hora": "18:00",
         "condicion": "Fuera",
         "local": "CV LUCENTUM - B",
         "visitante": "CD BIARENSE",
@@ -301,7 +301,7 @@
     {
         "jornada": "Jornada 26",
         "fecha": "01/05/2027",
-        "hora": "00:00",
+        "hora": "18:00",
         "condicion": "Fuera",
         "local": "C. SUNRISE TORREVIEJA",
         "visitante": "CD BIARENSE",

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CD BIARENSE - Voleibol</title>
 
-    <!-- FAVICONS Y MANIFIESTO CON RUTA ABSOLUTA Y ANTI-CACHÉ -->
+    <!-- FAVICONS Y MANIFIESTO -->
     <link rel="apple-touch-icon" sizes="180x180" href="https://rafaleorioo.github.io/voleybot/apple-touch-icon.png?v=2">
     <link rel="icon" type="image/png" sizes="32x32" href="https://rafaleorioo.github.io/voleybot/favicon-32x32.png?v=2">
     <link rel="icon" type="image/png" sizes="16x16" href="https://rafaleorioo.github.io/voleybot/favicon-16x16.png?v=2">
@@ -20,526 +20,14 @@
     <meta name="application-name" content="CD BIARENSE">
     <meta name="theme-color" content="#0a0e17">
 
-    <!-- Fuentes deportivas -->
+    <!-- Fuentes y Iconos -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <style>
-        :root {
-            --bg-dark: #0a0e17;
-            --card-bg: rgba(23, 31, 48, 0.85);
-            --border-glow: rgba(59, 130, 246, 0.25);
-            --accent-blue: #3b82f6;
-            --text-main: #ffffff;
-            --text-muted: #94a3b8;
-            
-            --win-glow: #10b981;
-            --win-bg: rgba(16, 185, 129, 0.15);
-            --loss-glow: #ef4444;
-            --pending-bg: rgba(148, 163, 184, 0.1);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            min-height: 100vh;
-            padding: 15px 12px 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 15px;
-            width: 100%;
-            max-width: 600px;
-        }
-
-        .header img {
-            width: 60px;
-            height: 60px;
-            object-fit: contain;
-            margin-bottom: 6px;
-            filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
-        }
-
-        .header h1 {
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            background: linear-gradient(135deg, #fff 0%, #93c5fd 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .header p {
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            margin-top: 2px;
-        }
-
-        /* Botones Flotantes Inferiores (Izquierda y Derecha) */
-        .back-btn-container {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            z-index: 1000;
-        }
-
-        .fvbcv-btn-container {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-
-        .floating-btn {
-            background: rgba(23, 31, 48, 0.95);
-            border: 1px solid var(--accent-blue);
-            color: var(--text-main);
-            padding: 10px 16px;
-            border-radius: 30px;
-            font-size: 0.78rem;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(10px);
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            text-decoration: none;
-            transition: transform 0.2s, background 0.2s;
-        }
-
-        .floating-btn:hover {
-            background: var(--accent-blue);
-            transform: scale(1.05);
-        }
-
-        /* Menú de Selección Compacto (2x2) */
-        .selector-screen {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            width: 100%;
-            max-width: 600px;
-            animation: fadeIn 0.3s ease-in-out;
-        }
-
-        .selector-title {
-            text-align: center;
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 5px;
-        }
-
-        .categories-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .category-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-glow);
-            border-radius: 14px;
-            padding: 14px 10px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.4);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .category-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, #3b82f6, #60a5fa);
-        }
-
-        .category-card.femenino::before {
-            background: linear-gradient(90deg, #ec4899, #f472b6);
-        }
-
-        .category-card.infantil::before {
-            background: linear-gradient(90deg, #8b5cf6, #a78bfa);
-        }
-
-        .category-card.cadete::before {
-            background: linear-gradient(90deg, #f59e0b, #fbbf24);
-        }
-
-        .category-card:hover {
-            transform: translateY(-3px);
-            border-color: var(--accent-blue);
-            box-shadow: 0 10px 25px 0 rgba(59, 130, 246, 0.2);
-        }
-
-        .category-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(59, 130, 246, 0.12);
-            color: #60a5fa;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            border: 1px solid rgba(59, 130, 246, 0.3);
-        }
-
-        .category-card.femenino .category-icon {
-            background: rgba(236, 72, 153, 0.12);
-            color: #f472b6;
-            border-color: rgba(236, 72, 153, 0.3);
-        }
-
-        .category-card.infantil .category-icon {
-            background: rgba(139, 92, 246, 0.12);
-            color: #a78bfa;
-            border-color: rgba(139, 92, 246, 0.3);
-        }
-
-        .category-card.cadete .category-icon {
-            background: rgba(245, 158, 11, 0.12);
-            color: #fbbf24;
-            border-color: rgba(245, 158, 11, 0.3);
-        }
-
-        .category-card h2 {
-            font-size: 0.9rem;
-            font-weight: 800;
-            color: #fff;
-            text-transform: uppercase;
-            line-height: 1.1;
-        }
-
-        .category-card p {
-            color: var(--text-muted);
-            font-size: 0.7rem;
-            font-weight: 600;
-            background: rgba(255, 255, 255, 0.04);
-            padding: 2px 6px;
-            border-radius: 6px;
-        }
-
-        .category-badge-action {
-            font-size: 0.68rem;
-            font-weight: 700;
-            color: #93c5fd;
-            display: flex;
-            align-items: center;
-            gap: 3px;
-        }
-
-        .category-card.femenino .category-badge-action { color: #fbcfe8; }
-        .category-card.infantil .category-badge-action { color: #ddd6fe; }
-        .category-card.cadete .category-badge-action { color: #fde68a; }
-
-        /* Estilos para las mini tarjetas de próximos partidos globales */
-        .global-preview-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 12px;
-            padding: 10px 14px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            backdrop-filter: blur(10px);
-        }
-
-        .global-preview-card:hover {
-            border-color: var(--accent-blue);
-            transform: translateY(-2px);
-            background: rgba(30, 41, 59, 0.9);
-        }
-
-        .gp-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .gp-team-name {
-            font-size: 0.75rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            color: var(--accent-blue);
-            letter-spacing: 0.5px;
-        }
-
-        .gp-matchup {
-            font-size: 0.82rem;
-            font-weight: 700;
-            color: #fff;
-        }
-
-        .gp-meta {
-            text-align: right;
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-
-        .gp-date {
-            font-weight: 700;
-            color: #93c5fd;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Contenedor de Partidos */
-        .container {
-            width: 100%;
-            max-width: 600px;
-            display: none;
-            flex-direction: column;
-            gap: 16px;
-            animation: fadeIn 0.3s ease-in-out;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-glow);
-            border-radius: 16px;
-            padding: 16px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-        }
-
-        .card.next-match {
-            border: 2px solid var(--accent-blue);
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .jornada-badge {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--accent-blue);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .status-badge {
-            font-size: 0.75rem;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 20px;
-            text-transform: uppercase;
-        }
-
-        .status-victoria {
-            background: var(--win-bg);
-            color: var(--win-glow);
-            border: 1px solid var(--win-glow);
-        }
-
-        .status-derrota {
-            background: rgba(239, 68, 68, 0.15);
-            color: var(--loss-glow);
-            border: 1px solid var(--loss-glow);
-        }
-
-        .status-pendiente {
-            background: var(--pending-bg);
-            color: var(--text-muted);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .match-info {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin: 12px 0;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 10px 12px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-        }
-
-        .team-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .team {
-            font-size: 0.95rem;
-            font-weight: 700;
-            line-height: 1.3;
-            color: var(--text-main);
-            flex: 1;
-            text-align: left;
-        }
-
-        .team.highlight {
-            color: #60a5fa;
-        }
-
-        .score-pill {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 4px 12px;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            min-width: 40px;
-            text-align: center;
-        }
-
-        .parciales-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-            background: rgba(0, 0, 0, 0.25);
-            padding: 8px;
-            border-radius: 10px;
-            margin-bottom: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-        }
-
-        .parciales-title {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            font-weight: 700;
-        }
-
-        .sets-text {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: #93c5fd;
-            letter-spacing: 1px;
-        }
-
-        .details {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            padding-top: 10px;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .details-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .detail-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(255, 255, 255, 0.03);
-            padding: 5px 10px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-        }
-
-        .location-box {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(59, 130, 246, 0.05);
-            border: 1px solid rgba(59, 130, 246, 0.15);
-            padding: 8px 12px;
-            border-radius: 8px;
-            color: #bfdbfe;
-            gap: 10px;
-        }
-
-        .maps-btn {
-            background: var(--accent-blue);
-            color: white;
-            text-decoration: none;
-            font-size: 0.75rem;
-            font-weight: 700;
-            padding: 5px 10px;
-            border-radius: 6px;
-            transition: background 0.2s;
-            white-space: nowrap;
-        }
-
-        .maps-btn:hover {
-            background: #2563eb;
-        }
-
-        .descanso-card {
-            text-align: center;
-            padding: 24px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px dashed rgba(255, 255, 255, 0.1);
-        }
-
-        .descanso-card .jornada-badge {
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .descanso-title {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: var(--text-muted);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin: 8px 0 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-    </style>
+    <!-- Estilos externos -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -550,13 +38,18 @@
     </div>
 
     <!-- Botón de Volver Flotante (Izquierda) -->
-    <div class="back-btn-container" id="back-btn-container">
-        <button class="floating-btn" onclick="volverAlSelector()"><i class="fa-solid fa-arrow-left"></i> Cambiar categoría</button>
+    <div class="back-btn-container" id="back-btn-container" style="display: none;">
+        <button class="floating-btn" onclick="volverAlSelector()"><i class="fa-solid fa-arrow-left"></i> Categorías</button>
+    </div>
+
+    <!-- Botón Central Flotante para Alternar Vista (Partidos / Clasificación) -->
+    <div class="view-toggle-btn-container" id="view-toggle-btn-container" style="display: none;">
+        <button class="floating-btn accent-btn" onclick="alternarVista()"><i class="fa-solid fa-table-list" id="toggle-icon"></i> <span id="toggle-text">Clasificación</span></button>
     </div>
 
     <!-- Botón Oficial FVBCV Flotante (Derecha) -->
-    <div class="fvbcv-btn-container" id="fvbcv-btn-container">
-        <a id="fvbcv-link" href="#" target="_blank" class="floating-btn"><i class="fa-solid fa-globe"></i> Ver en FVBCV</a>
+    <div class="fvbcv-btn-container" id="fvbcv-btn-container" style="display: none;">
+        <a id="fvbcv-link" href="#" target="_blank" class="floating-btn"><i class="fa-solid fa-globe"></i> FVBCV</a>
     </div>
 
     <!-- PANTALLA 1: Menú en cuadrícula 2x2 y Previsualización Global -->
@@ -564,28 +57,28 @@
         <p class="selector-title">Selecciona un Equipo</p>
         <div class="categories-grid">
             
-            <div class="category-card" onclick="cargarCategoria('partidos.json', 'Voleibol Senior Masculino', 'https://fvbcv.com/exportar_competiciones.php?idens=1825')">
+            <div class="category-card" onclick="cargarCategoria('partidos.json', 'clasificacion.json', 'Voleibol Senior Masculino', 'https://fvbcv.com/exportar_competiciones.php?idens=1825')">
                 <div class="category-icon"><i class="fa-solid fa-volleyball"></i></div>
                 <h2>Senior Masc.</h2>
                 <p>Grupo 3 · 2ª Div.</p>
                 <span class="category-badge-action">Ver <i class="fa-solid fa-chevron-right text-[9px]"></i></span>
             </div>
 
-            <div class="category-card femenino" onclick="cargarCategoria('partidos_femenino.json', 'Voleibol Juvenil Femenino', 'https://fvbcv.com/exportar_competiciones.php?idens=1812')">
+            <div class="category-card femenino" onclick="cargarCategoria('partidos_femenino.json', 'clasificacion_femenino.json', 'Voleibol Juvenil Femenino', 'https://fvbcv.com/exportar_competiciones.php?idens=1812')">
                 <div class="category-icon"><i class="fa-solid fa-volleyball"></i></div>
                 <h2>Juvenil Fem.</h2>
                 <p>Grupo 2 · 2ª Div.</p>
                 <span class="category-badge-action">Ver <i class="fa-solid fa-chevron-right text-[9px]"></i></span>
             </div>
 
-            <div class="category-card infantil" onclick="cargarCategoria('partidos_infantil.json', 'Voleibol Infantil Femenino', 'https://fvbcv.com/exportar_competiciones.php?idens=1850')">
+            <div class="category-card infantil" onclick="cargarCategoria('partidos_infantil.json', 'clasificacion_infantil.json', 'Voleibol Infantil Femenino', 'https://fvbcv.com/exportar_competiciones.php?idens=1850')">
                 <div class="category-icon"><i class="fa-solid fa-volleyball"></i></div>
                 <h2>Infantil Fem.</h2>
                 <p>Grupo 6 · Zonal</p>
                 <span class="category-badge-action">Ver <i class="fa-solid fa-chevron-right text-[9px]"></i></span>
             </div>
 
-            <div class="category-card cadete" onclick="cargarCategoria('partidos_cadete.json', 'Voleibol Cadete Femenino', 'https://fvbcv.com/exportar_competiciones.php?idens=1801')">
+            <div class="category-card cadete" onclick="cargarCategoria('partidos_cadete.json', 'clasificacion_cadete.json', 'Voleibol Cadete Femenino', 'https://fvbcv.com/exportar_competiciones.php?idens=1801')">
                 <div class="category-icon"><i class="fa-solid fa-volleyball"></i></div>
                 <h2>Cadete Fem.</h2>
                 <p>Grupo 2 · 2ª Div.</p>
@@ -602,235 +95,13 @@
         </div>
     </div>
 
-    <!-- PANTALLA 2: Contenedor de partidos -->
+    <!-- PANTALLA 2: Contenedor de Partidos -->
     <div class="container" id="partidos-container"></div>
 
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            cargarProximosPartidosGlobales();
-        });
+    <!-- PANTALLA 3: Contenedor de Clasificación -->
+    <div class="container" id="clasificacion-container" style="display: none;"></div>
 
-        function parsearFecha(strFecha) {
-            if (!strFecha || !strFecha.includes('/')) return null;
-            const partes = strFecha.split('/');
-            if (partes.length !== 3) return null;
-            return new Date(`${partes[2]}-${partes[1]}-${partes[0]}`);
-        }
-
-        async function cargarProximosPartidosGlobales() {
-            const equipos = [
-                { nombre: 'Senior Masculino', archivo: 'partidos.json', subtitulo: 'Voleibol Senior Masculino', urlFvbcv: 'https://fvbcv.com/exportar_competiciones.php?idens=1825' },
-                { nombre: 'Juvenil Femenino', archivo: 'partidos_femenino.json', subtitulo: 'Voleibol Juvenil Femenino', urlFvbcv: 'https://fvbcv.com/exportar_competiciones.php?idens=1812' },
-                { nombre: 'Infantil Femenino', archivo: 'partidos_infantil.json', subtitulo: 'Voleibol Infantil Femenino', urlFvbcv: 'https://fvbcv.com/exportar_competiciones.php?idens=1850' },
-                { nombre: 'Cadete Femenino', archivo: 'partidos_cadete.json', subtitulo: 'Voleibol Cadete Femenino', urlFvbcv: 'https://fvbcv.com/exportar_competiciones.php?idens=1801' }
-            ];
-
-            const contenedorPreviews = document.getElementById('global-previews-container');
-            contenedorPreviews.innerHTML = '';
-            const ahora = new Date().getTime();
-
-            for (const eq of equipos) {
-                try {
-                    const res = await fetch(`${eq.archivo}?t=${new Date().getTime()}`);
-                    if (!res.ok) continue;
-                    const partidos = await res.json();
-
-                    let proximoPartido = null;
-                    let menorDif = Infinity;
-
-                    partidos.forEach(p => {
-                        if (p.estado.toLowerCase() === 'pendiente') {
-                            const f = parsearFecha(p.fecha);
-                            if (f) {
-                                const dif = Math.abs(f.getTime() - ahora);
-                                if (dif < menorDif) {
-                                    menorDif = dif;
-                                    proximoPartido = p;
-                                }
-                            } else if (!proximoPartido) {
-                                proximoPartido = p;
-                            }
-                        }
-                    });
-
-                    if (proximoPartido) {
-                        const esCasa = proximoPartido.condicion === 'Casa';
-                        const rival = esCasa ? proximoPartido.visitante : proximoPartido.local;
-                        const iconoCond = esCasa ? '🏠' : '🚗';
-
-                        const cardMini = document.createElement('div');
-                        cardMini.className = 'global-preview-card';
-                        cardMini.onclick = () => cargarCategoria(eq.archivo, eq.subtitulo, eq.urlFvbcv);
-                        cardMini.innerHTML = `
-                            <div class="gp-info">
-                                <span class="gp-team-name">${eq.nombre}</span>
-                                <span class="gp-matchup">${iconoCond} vs ${rival}</span>
-                            </div>
-                            <div class="gp-meta">
-                                <span class="gp-date">📅 ${proximoPartido.fecha}</span>
-                                <span>⏰ ${proximoPartido.hora || 'Por definir'}</span>
-                            </div>
-                        `;
-                        contenedorPreviews.appendChild(cardMini);
-                    }
-                } catch (e) {
-                    console.error(`Error cargando resumen para ${eq.nombre}:`, e);
-                }
-            }
-
-            if (contenedorPreviews.children.length === 0) {
-                contenedorPreviews.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size: 0.8rem;">No hay partidos pendientes próximamente.</p>';
-            }
-        }
-
-        function volverAlSelector() {
-            document.getElementById('partidos-container').style.display = 'none';
-            document.getElementById('selector-screen').style.display = 'flex';
-            document.getElementById('back-btn-container').style.display = 'none';
-            document.getElementById('fvbcv-btn-container').style.display = 'none';
-            document.getElementById('main-subtitle').innerText = 'Selecciona una categoría';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        async function cargarCategoria(archivoJson, subtituloTexto, urlFvbcv) {
-            document.getElementById('selector-screen').style.display = 'none';
-            document.getElementById('partidos-container').style.display = 'flex';
-            document.getElementById('back-btn-container').style.display = 'block';
-            document.getElementById('fvbcv-btn-container').style.display = 'block';
-            document.getElementById('fvbcv-link').href = urlFvbcv;
-            document.getElementById('main-subtitle').innerText = subtituloTexto;
-
-            const contenedor = document.getElementById('partidos-container');
-            contenedor.innerHTML = '<p style="text-align:center; color:var(--text-muted); padding: 20px;">Cargando partidos...</p>';
-            
-            try {
-                const respuesta = await fetch(`${archivoJson}?t=${new Date().getTime()}`);
-                const partidosGuardados = await respuesta.json();
-
-                contenedor.innerHTML = '';
-
-                const mapaPartidos = {};
-                let maxJornada = 0;
-
-                partidosGuardados.forEach(p => {
-                    const numJ = parseInt(p.jornada.replace(/\D/g, ''));
-                    if (numJ) {
-                        mapaPartidos[numJ] = p;
-                        if (numJ > maxJornada) maxJornada = numJ;
-                    }
-                });
-
-                const totalJornadas = maxJornada > 0 ? maxJornada : 26;
-                
-                let mejorCardParaScroll = null;
-                let menorDiferenciaTiempo = Infinity;
-                const ahora = new Date().getTime();
-
-                for (let i = 1; i <= totalJornadas; i++) {
-                    const card = document.createElement('div');
-                    card.className = 'card';
-                    const p = mapaPartidos[i];
-
-                    if (!p) {
-                        card.className = 'card descanso-card';
-                        card.innerHTML = `
-                            <span class="jornada-badge">JORNADA ${i}</span>
-                            <div class="descanso-title">☕ JORNADA DE DESCANSO</div>
-                            <p style="font-size: 0.85rem; color: var(--text-muted);">El equipo no disputa ningún encuentro en esta jornada.</p>
-                        `;
-                    } else {
-                        const estadoClass = `status-${p.estado.toLowerCase()}`;
-                        const esCasa = p.condicion === 'Casa';
-                        const iconoCondicion = esCasa ? '🏠 Casa' : '🚗 Fuera';
-                        const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.ubicacion)}`;
-
-                        let resLoc = '-';
-                        let resVis = '-';
-                        if (p.resultado && p.resultado.includes('-')) {
-                            const partes = p.resultado.split('-');
-                            resLoc = partes[0].trim();
-                            resVis = partes[1].trim();
-                        }
-
-                        let parcialesHTML = '';
-                        if (p.parciales) {
-                            const sets = p.parciales.split('/').map(s => s.trim()).filter(Boolean);
-                            const setsFormateados = sets.join('  •  ');
-                            
-                            parcialesHTML = `
-                                <div class="parciales-container">
-                                    <span class="parciales-title">📊 Parciales por Set</span>
-                                    <span class="sets-text">${setsFormateados}</span>
-                                </div>
-                            `;
-                        }
-
-                        card.innerHTML = `
-                            <div class="card-header">
-                                <span class="jornada-badge">${p.jornada}</span>
-                                <span class="status-badge ${estadoClass}">${p.estado}</span>
-                            </div>
-                            <div class="match-info">
-                                <div class="team-row">
-                                    <span class="team ${p.local.includes('BIARENSE') ? 'highlight' : ''}">${p.local}</span>
-                                    <span class="score-pill">${resLoc}</span>
-                                </div>
-                                <div class="team-row">
-                                    <span class="team ${p.visitante.includes('BIARENSE') ? 'highlight' : ''}">${p.visitante}</span>
-                                    <span class="score-pill">${resVis}</span>
-                                </div>
-                            </div>
-                            ${parcialesHTML}
-                            <div class="details">
-                                <div class="details-row">
-                                    <div class="detail-item">📅 <span>${p.fecha}</span></div>
-                                    <div class="detail-item">⏰ <span>${p.hora || 'Por definir'}</span></div>
-                                    <div class="detail-item"><span>${iconoCondicion}</span></div>
-                                </div>
-                                <div class="location-box">
-                                    <span>🏟️ <strong>Ubicación:</strong> ${p.ubicacion}</span>
-                                    <a href="${mapsUrl}" target="_blank" class="maps-btn">📍 Ver en Maps</a>
-                                </div>
-                            </div>
-                        `;
-
-                        if (p.estado.toLowerCase() === 'pendiente') {
-                            const fechaPartido = parsearFecha(p.fecha);
-                            if (fechaPartido) {
-                                const tiempoPartido = fechaPartido.getTime();
-                                const diferencia = Math.abs(tiempoPartido - ahora);
-
-                                if (diferencia < menorDiferenciaTiempo) {
-                                    menorDiferenciaTiempo = diferencia;
-                                    if (mejorCardParaScroll) {
-                                        mejorCardParaScroll.classList.remove('next-match');
-                                    }
-                                    mejorCardParaScroll = card;
-                                    card.classList.add('next-match');
-                                }
-                            } else if (!mejorCardParaScroll) {
-                                mejorCardParaScroll = card;
-                                card.classList.add('next-match');
-                            }
-                        }
-                    }
-
-                    contenedor.appendChild(card);
-                }
-
-                setTimeout(() => {
-                    if (mejorCardParaScroll) {
-                        mejorCardParaScroll.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    } else {
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }
-                }, 100);
-
-            } catch (error) {
-                console.error('Error al cargar partidos:', error);
-                contenedor.innerHTML = '<p style="text-align:center; color:#ef4444;">Error cargando los partidos. Asegúrate de haber generado los JSON ejecutando el bot.</p>';
-            }
-        }
-    </script>
+    <!-- Lógica externa -->
+    <script src="app.js"></script>
 </body>
 </html>
