@@ -90,7 +90,7 @@
             margin-top: 2px;
         }
 
-        /* Botón de Volver Flotante y Persistente */
+        /* Botones Flotantes Inferiores (Izquierda y Derecha) */
         .back-btn-container {
             display: none;
             position: fixed;
@@ -99,24 +99,33 @@
             z-index: 1000;
         }
 
-        .back-btn {
+        .fvbcv-btn-container {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .floating-btn {
             background: rgba(23, 31, 48, 0.95);
             border: 1px solid var(--accent-blue);
             color: var(--text-main);
-            padding: 10px 18px;
+            padding: 10px 16px;
             border-radius: 30px;
-            font-size: 0.82rem;
+            font-size: 0.78rem;
             font-weight: 700;
             cursor: pointer;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(10px);
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
+            text-decoration: none;
             transition: transform 0.2s, background 0.2s;
         }
 
-        .back-btn:hover {
+        .floating-btn:hover {
             background: var(--accent-blue);
             transform: scale(1.05);
         }
@@ -540,38 +549,43 @@
         <p id="main-subtitle">Selecciona una categoría</p>
     </div>
 
-    <!-- Botón de Volver Flotante y Persistente -->
+    <!-- Botón de Volver Flotante (Izquierda) -->
     <div class="back-btn-container" id="back-btn-container">
-        <button class="back-btn" onclick="volverAlSelector()"><i class="fa-solid fa-arrow-left"></i> Cambiar categoría</button>
+        <button class="floating-btn" onclick="volverAlSelector()"><i class="fa-solid fa-arrow-left"></i> Cambiar categoría</button>
     </div>
 
-    <!-- PANTALLA 1: Menú en cuadrícula 2x2 y Previsualización de Próximos Partidos -->
+    <!-- Botón Oficial FVBCV Flotante (Derecha) -->
+    <div class="fvbcv-btn-container" id="fvbcv-btn-container">
+        <a id="fvbcv-link" href="#" target="_blank" class="floating-btn"><i class="fa-solid fa-globe"></i> Ver en FVBCV</a>
+    </div>
+
+    <!-- PANTALLA 1: Menú en cuadrícula 2x2 y Previsualización Global -->
     <div class="selector-screen" id="selector-screen">
         <p class="selector-title">Selecciona un Equipo</p>
         <div class="categories-grid">
             
-            <div class="category-card" onclick="cargarCategoria('partidos.json', 'Voleibol Senior Masculino')">
+            <div class="category-card" onclick="cargarCategoria('partidos.json', 'Voleibol Senior Masculino', 'https://fvbcv.com/exportar_competiciones.php?idens=1825')">
                 <div class="category-icon"><i class="fa-solid fa-volleyball"></i></div>
                 <h2>Senior Masc.</h2>
                 <p>Grupo 3 · 2ª Div.</p>
                 <span class="category-badge-action">Ver <i class="fa-solid fa-chevron-right text-[9px]"></i></span>
             </div>
 
-            <div class="category-card femenino" onclick="cargarCategoria('partidos_femenino.json', 'Voleibol Juvenil Femenino')">
+            <div class="category-card femenino" onclick="cargarCategoria('partidos_femenino.json', 'Voleibol Juvenil Femenino', 'https://fvbcv.com/exportar_competiciones.php?idens=1812')">
                 <div class="category-icon"><i class="fa-solid fa-volleyball"></i></div>
                 <h2>Juvenil Fem.</h2>
                 <p>Grupo 2 · 2ª Div.</p>
                 <span class="category-badge-action">Ver <i class="fa-solid fa-chevron-right text-[9px]"></i></span>
             </div>
 
-            <div class="category-card infantil" onclick="cargarCategoria('partidos_infantil.json', 'Voleibol Infantil Femenino')">
+            <div class="category-card infantil" onclick="cargarCategoria('partidos_infantil.json', 'Voleibol Infantil Femenino', 'https://fvbcv.com/exportar_competiciones.php?idens=1850')">
                 <div class="category-icon"><i class="fa-solid fa-volleyball"></i></div>
                 <h2>Infantil Fem.</h2>
                 <p>Grupo 6 · Zonal</p>
                 <span class="category-badge-action">Ver <i class="fa-solid fa-chevron-right text-[9px]"></i></span>
             </div>
 
-            <div class="category-card cadete" onclick="cargarCategoria('partidos_cadete.json', 'Voleibol Cadete Femenino')">
+            <div class="category-card cadete" onclick="cargarCategoria('partidos_cadete.json', 'Voleibol Cadete Femenino', 'https://fvbcv.com/exportar_competiciones.php?idens=1801')">
                 <div class="category-icon"><i class="fa-solid fa-volleyball"></i></div>
                 <h2>Cadete Fem.</h2>
                 <p>Grupo 2 · 2ª Div.</p>
@@ -580,7 +594,6 @@
 
         </div>
 
-        <!-- SECCIÓN NUEVA: Próximos partidos de los 4 equipos de un vistazo -->
         <div style="margin-top: 5px;">
             <p class="selector-title">Próximos Encuentros</p>
             <div id="global-previews-container" style="display: flex; flex-direction: column; gap: 8px; margin-top: 8px;">
@@ -593,7 +606,6 @@
     <div class="container" id="partidos-container"></div>
 
     <script>
-        // Cargar las previsualizaciones globales al iniciar la página
         window.addEventListener('DOMContentLoaded', () => {
             cargarProximosPartidosGlobales();
         });
@@ -607,10 +619,10 @@
 
         async function cargarProximosPartidosGlobales() {
             const equipos = [
-                { nombre: 'Senior Masculino', archivo: 'partidos.json', subtitulo: 'Voleibol Senior Masculino' },
-                { nombre: 'Juvenil Femenino', archivo: 'partidos_femenino.json', subtitulo: 'Voleibol Juvenil Femenino' },
-                { nombre: 'Infantil Femenino', archivo: 'partidos_infantil.json', subtitulo: 'Voleibol Infantil Femenino' },
-                { nombre: 'Cadete Femenino', archivo: 'partidos_cadete.json', subtitulo: 'Voleibol Cadete Femenino' }
+                { nombre: 'Senior Masculino', archivo: 'partidos.json', subtitulo: 'Voleibol Senior Masculino', urlFvbcv: 'https://fvbcv.com/exportar_competiciones.php?idens=1825' },
+                { nombre: 'Juvenil Femenino', archivo: 'partidos_femenino.json', subtitulo: 'Voleibol Juvenil Femenino', urlFvbcv: 'https://fvbcv.com/exportar_competiciones.php?idens=1812' },
+                { nombre: 'Infantil Femenino', archivo: 'partidos_infantil.json', subtitulo: 'Voleibol Infantil Femenino', urlFvbcv: 'https://fvbcv.com/exportar_competiciones.php?idens=1850' },
+                { nombre: 'Cadete Femenino', archivo: 'partidos_cadete.json', subtitulo: 'Voleibol Cadete Femenino', urlFvbcv: 'https://fvbcv.com/exportar_competiciones.php?idens=1801' }
             ];
 
             const contenedorPreviews = document.getElementById('global-previews-container');
@@ -623,7 +635,6 @@
                     if (!res.ok) continue;
                     const partidos = await res.json();
 
-                    // Encontrar el partido pendiente más cercano
                     let proximoPartido = null;
                     let menorDif = Infinity;
 
@@ -649,7 +660,7 @@
 
                         const cardMini = document.createElement('div');
                         cardMini.className = 'global-preview-card';
-                        cardMini.onclick = () => cargarCategoria(eq.archivo, eq.subtitulo);
+                        cardMini.onclick = () => cargarCategoria(eq.archivo, eq.subtitulo, eq.urlFvbcv);
                         cardMini.innerHTML = `
                             <div class="gp-info">
                                 <span class="gp-team-name">${eq.nombre}</span>
@@ -676,14 +687,17 @@
             document.getElementById('partidos-container').style.display = 'none';
             document.getElementById('selector-screen').style.display = 'flex';
             document.getElementById('back-btn-container').style.display = 'none';
+            document.getElementById('fvbcv-btn-container').style.display = 'none';
             document.getElementById('main-subtitle').innerText = 'Selecciona una categoría';
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        async function cargarCategoria(archivoJson, subtituloTexto) {
+        async function cargarCategoria(archivoJson, subtituloTexto, urlFvbcv) {
             document.getElementById('selector-screen').style.display = 'none';
             document.getElementById('partidos-container').style.display = 'flex';
             document.getElementById('back-btn-container').style.display = 'block';
+            document.getElementById('fvbcv-btn-container').style.display = 'block';
+            document.getElementById('fvbcv-link').href = urlFvbcv;
             document.getElementById('main-subtitle').innerText = subtituloTexto;
 
             const contenedor = document.getElementById('partidos-container');
