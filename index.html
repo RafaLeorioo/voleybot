@@ -3,105 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CD BIARENSE - Voleibol</title>
-
-    <!-- FAVICONS Y MANIFIESTO -->
-    <link rel="apple-touch-icon" sizes="180x180" href="https://rafaleorioo.github.io/voleybot/apple-touch-icon.png?v=2">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://rafaleorioo.github.io/voleybot/favicon-32x32.png?v=2">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://rafaleorioo.github.io/voleybot/favicon-16x16.png?v=2">
-    <link rel="manifest" href="https://rafaleorioo.github.io/voleybot/site.webmanifest?v=2">
-    <link rel="shortcut icon" href="https://rafaleorioo.github.io/voleybot/favicon.ico?v=2">
-
-    <!-- Configuración Web App Mobile -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="CD BIARENSE">
-    <meta name="application-name" content="CD BIARENSE">
-    <meta name="theme-color" content="#0a0e17">
-
-    <!-- Fuentes y Iconos -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Estilos externos -->
+    <title>CD Biarense - Voleibol</title>
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
+    <!-- Cabecera -->
     <div class="header">
-        <img src="https://rafaleorioo.github.io/voleybot/apple-touch-icon.png" alt="CD Biarense Logo">
-        <h1 id="main-title">CD BIARENSE</h1>
-        <p id="main-subtitle">Selecciona una categoría</p>
+        <img src="favicon.ico" alt="CD Biarense Logo">
+        <h1>CD BIARENSE</h1>
+        <p id="main-subtitle"></p>
     </div>
 
-    <!-- Botón de Volver Flotante (Izquierda) -->
-    <div class="back-btn-container" id="back-btn-container" style="display: none;">
-        <button class="floating-btn" onclick="volverAlSelector()"><i class="fa-solid fa-arrow-left"></i> Categorías</button>
-    </div>
-
-    <!-- Botón Central Flotante para Alternar Vista (Partidos / Clasificación) -->
-    <div class="view-toggle-btn-container" id="view-toggle-btn-container" style="display: none;">
-        <button class="floating-btn accent-btn" onclick="alternarVista()"><i class="fa-solid fa-table-list" id="toggle-icon"></i> <span id="toggle-text">Clasificación</span></button>
-    </div>
-
-    <!-- Botón Oficial FVBCV Flotante (Derecha) -->
-    <div class="fvbcv-btn-container" id="fvbcv-btn-container" style="display: none;">
-        <a id="fvbcv-link" href="#" target="_blank" class="floating-btn"><i class="fa-solid fa-globe"></i> FVBCV</a>
-    </div>
-
-    <!-- PANTALLA 1: Menú en cuadrícula 2x2 y Previsualización Global -->
-    <div class="selector-screen" id="selector-screen">
-        <p class="selector-title">Selecciona un Equipo</p>
+    <!-- Pantalla de Selección de Categorías y Próximos Partidos Globales -->
+    <div id="selector-screen" class="selector-screen">
         <div class="categories-grid">
-            
             <div class="category-card" onclick="cargarCategoria('partidos.json', 'clasificacion.json', 'Voleibol Senior Masculino', 'https://fvbcv.com/exportar_competiciones.php?idens=1825')">
                 <div class="category-icon"><i class="fa-solid fa-volleyball"></i></div>
                 <h2>Senior Masc.</h2>
                 <p>Grupo 3 · 2ª Div.</p>
-                <span class="category-badge-action">Ver <i class="fa-solid fa-chevron-right text-[9px]"></i></span>
+                <span class="category-badge-action">Ver ></span>
             </div>
-
             <div class="category-card femenino" onclick="cargarCategoria('partidos_femenino.json', 'clasificacion_femenino.json', 'Voleibol Juvenil Femenino', 'https://fvbcv.com/exportar_competiciones.php?idens=1812')">
                 <div class="category-icon"><i class="fa-solid fa-volleyball"></i></div>
                 <h2>Juvenil Fem.</h2>
                 <p>Grupo 2 · 2ª Div.</p>
-                <span class="category-badge-action">Ver <i class="fa-solid fa-chevron-right text-[9px]"></i></span>
+                <span class="category-badge-action">Ver ></span>
             </div>
-
             <div class="category-card infantil" onclick="cargarCategoria('partidos_infantil.json', 'clasificacion_infantil.json', 'Voleibol Infantil Femenino', 'https://fvbcv.com/exportar_competiciones.php?idens=1850')">
                 <div class="category-icon"><i class="fa-solid fa-volleyball"></i></div>
                 <h2>Infantil Fem.</h2>
                 <p>Grupo 6 · Zonal</p>
-                <span class="category-badge-action">Ver <i class="fa-solid fa-chevron-right text-[9px]"></i></span>
+                <span class="category-badge-action">Ver ></span>
             </div>
-
             <div class="category-card cadete" onclick="cargarCategoria('partidos_cadete.json', 'clasificacion_cadete.json', 'Voleibol Cadete Femenino', 'https://fvbcv.com/exportar_competiciones.php?idens=1801')">
                 <div class="category-icon"><i class="fa-solid fa-volleyball"></i></div>
                 <h2>Cadete Fem.</h2>
                 <p>Grupo 2 · 2ª Div.</p>
-                <span class="category-badge-action">Ver <i class="fa-solid fa-chevron-right text-[9px]"></i></span>
+                <span class="category-badge-action">Ver ></span>
             </div>
-
         </div>
 
-        <div style="margin-top: 5px;">
+        <div style="margin-top: 15px;">
             <p class="selector-title">Próximos Encuentros</p>
-            <div id="global-previews-container" style="display: flex; flex-direction: column; gap: 8px; margin-top: 8px;">
-                <p style="text-align:center; color:var(--text-muted); font-size: 0.8rem; padding: 10px;">Cargando próximos partidos...</p>
+            <div id="global-previews-container" style="display: flex; flex-direction: column; gap: 10px; margin-top: 8px;">
+                <!-- Se rellena dinámicamente -->
             </div>
         </div>
     </div>
 
-    <!-- PANTALLA 2: Contenedor de Partidos -->
-    <div class="container" id="partidos-container"></div>
+    <!-- Contenedores de vistas de partidos y clasificación -->
+    <div id="partidos-container" class="container" style="display: none;"></div>
+    <div id="clasificacion-container" class="container" style="display: none;"></div>
 
-    <!-- PANTALLA 3: Contenedor de Clasificación -->
-    <div class="container" id="clasificacion-container" style="display: none;"></div>
+    <!-- Barra de Botones Flotantes Inferiores Unificada (Móvil y PC) -->
+    <div id="bottom-nav-bar" class="bottom-nav-bar" style="display: none;">
+        <div id="back-btn-container">
+            <button onclick="volverAlSelector()" class="floating-btn">
+                <i class="fa-solid fa-arrow-left"></i> Categorías
+            </button>
+        </div>
 
-    <!-- Lógica externa -->
+        <div id="view-toggle-btn-container">
+            <button onclick="alternarVista()" class="floating-btn accent-btn">
+                <i id="toggle-icon" class="fa-solid fa-table-list"></i> <span id="toggle-text">Clasificación</span>
+            </button>
+        </div>
+
+        <div id="fvbcv-btn-container">
+            <a id="fvbcv-link" href="#" target="_blank" class="floating-btn">
+                <i class="fa-solid fa-globe"></i> FVBCV
+            </a>
+        </div>
+    </div>
+
     <script src="app.js"></script>
 </body>
 </html>

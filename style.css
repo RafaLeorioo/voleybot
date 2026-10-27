@@ -23,7 +23,7 @@ body {
     background-color: var(--bg-dark);
     color: var(--text-main);
     min-height: 100vh;
-    padding: 15px 12px 80px;
+    padding: 15px 12px 90px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -62,44 +62,42 @@ body {
 }
 
 /* ==========================================
-   BOTONES FLOTANTES INFERIORES (DISTRIBUCIÓN EQUILIBRADA)
+   BARRA Y BOTONES FLOTANTES INFERIORES (MÓVIL Y PC)
    ========================================== */
-.back-btn-container {
+.bottom-nav-bar {
     position: fixed;
-    bottom: 16px;
-    left: 12px;
-    z-index: 1000;
-}
-
-.view-toggle-btn-container {
-    position: fixed;
-    bottom: 16px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 1000;
-}
-
-.fvbcv-btn-container {
-    position: fixed;
-    bottom: 16px;
-    right: 12px;
-    z-index: 1000;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 90%;
+    max-width: 480px;
+    padding: 8px 12px;
+    background: rgba(10, 14, 23, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 50px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
 }
 
 .floating-btn {
     background: rgba(23, 31, 48, 0.95);
     border: 1px solid var(--accent-blue);
     color: var(--text-main);
-    padding: 9px 12px;
+    padding: 8px 14px;
     border-radius: 30px;
-    font-size: 0.72rem;
+    font-size: 0.78rem;
     font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
     text-decoration: none;
     transition: transform 0.2s, background 0.2s;
     white-space: nowrap;
@@ -216,22 +214,44 @@ body {
     color: #93c5fd;
 }
 
-/* Mini Previews */
+/* Mini Previews (Próximos Encuentros) */
 .global-preview-card {
     background: var(--card-bg);
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 12px;
-    padding: 10px 14px;
+    padding: 12px 14px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
     transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
 }
+
+.global-preview-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #3b82f6, #60a5fa);
+}
+
+.global-preview-card.femenino::before { background: linear-gradient(90deg, #ec4899, #f472b6); }
+.global-preview-card.infantil::before { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+.global-preview-card.cadete::before { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
 
 .global-preview-card:hover {
     border-color: var(--accent-blue);
     transform: translateY(-2px);
+}
+
+.gp-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .gp-team-name {
@@ -240,6 +260,10 @@ body {
     text-transform: uppercase;
     color: var(--accent-blue);
 }
+
+.global-preview-card.femenino .gp-team-name { color: #f472b6; }
+.global-preview-card.infantil .gp-team-name { color: #a78bfa; }
+.global-preview-card.cadete .gp-team-name { color: #fbbf24; }
 
 .gp-matchup {
     font-size: 0.82rem;
@@ -257,7 +281,7 @@ body {
     animation: fadeIn 0.3s ease-in-out;
 }
 
-/* Tarjetas de partidos */
+/* Tarjetas de partidos (Jornadas) */
 .card {
     background: var(--card-bg);
     border: 1px solid var(--border-glow);

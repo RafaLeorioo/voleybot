@@ -58,8 +58,13 @@ async function cargarProximosPartidosGlobales() {
                 const rival = esCasa ? proximoPartido.visitante : proximoPartido.local;
                 const iconoCond = esCasa ? '🏠' : '🚗';
 
+                let claseColorCard = '';
+                if (eq.nombre.includes('Juvenil')) claseColorCard = 'femenino';
+                else if (eq.nombre.includes('Infantil')) claseColorCard = 'infantil';
+                else if (eq.nombre.includes('Cadete')) claseColorCard = 'cadete';
+
                 const cardMini = document.createElement('div');
-                cardMini.className = 'global-preview-card';
+                cardMini.className = `global-preview-card ${claseColorCard}`;
                 cardMini.onclick = () => cargarCategoria(eq.archivo, eq.archivoClasif, eq.subtitulo, eq.urlFvbcv);
                 cardMini.innerHTML = `
                     <div class="gp-info">
@@ -67,7 +72,7 @@ async function cargarProximosPartidosGlobales() {
                         <span class="gp-matchup">${iconoCond} vs ${rival}</span>
                     </div>
                     <div class="gp-meta" style="text-align:right;">
-                        <span style="font-weight:700; color:#93c5fd;">📅 ${proximoPartido.fecha}</span>
+                        <span style="font-weight:700; color:#93c5fd; display:block;">${proximoPartido.fecha}</span>
                         <span style="font-size:0.75rem; color:var(--text-muted);">⏰ ${proximoPartido.hora || 'Por definir'}</span>
                     </div>
                 `;
@@ -87,10 +92,8 @@ function volverAlSelector() {
     document.getElementById('partidos-container').style.display = 'none';
     document.getElementById('clasificacion-container').style.display = 'none';
     document.getElementById('selector-screen').style.display = 'flex';
-    document.getElementById('back-btn-container').style.display = 'none';
-    document.getElementById('view-toggle-btn-container').style.display = 'none';
-    document.getElementById('fvbcv-btn-container').style.display = 'none';
-    document.getElementById('main-subtitle').innerText = 'Selecciona una categoría';
+    document.getElementById('bottom-nav-bar').style.display = 'none';
+    document.getElementById('main-subtitle').innerText = '';
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -104,9 +107,7 @@ function cargarCategoria(archivoJson, archivoClasif, subtituloTexto, urlFvbcv) {
     vistaActual = 'partidos';
 
     document.getElementById('selector-screen').style.display = 'none';
-    document.getElementById('back-btn-container').style.display = 'block';
-    document.getElementById('view-toggle-btn-container').style.display = 'block';
-    document.getElementById('fvbcv-btn-container').style.display = 'block';
+    document.getElementById('bottom-nav-bar').style.display = 'flex';
     document.getElementById('fvbcv-link').href = urlFvbcv;
     document.getElementById('main-subtitle').innerText = subtituloTexto;
 
