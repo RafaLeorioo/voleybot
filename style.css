@@ -290,10 +290,25 @@ body {
     backdrop-filter: blur(10px);
 }
 
-.card.next-match {
-    border: 2px solid var(--accent-blue);
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
-}
+/* Colores Dinámicos para las Tarjetas de Jornadas y Tablas de Competición */
+.card.categoria-senior { border-left: 4px solid #3b82f6; }
+.card.categoria-senior .jornada-badge { color: #3b82f6 !important; }
+.standings-table.categoria-senior th { background: rgba(59, 130, 246, 0.2) !important; color: #3b82f6 !important; }
+
+.card.categoria-femenino { border-left: 4px solid #ec4899; }
+.card.categoria-femenino .jornada-badge { color: #f472b6 !important; }
+.card.categoria-femenino.next-match { border-color: #ec4899 !important; box-shadow: 0 0 20px rgba(236, 72, 153, 0.4) !important; }
+.standings-table.categoria-femenino th { background: rgba(236, 72, 153, 0.2) !important; color: #f472b6 !important; }
+
+.card.categoria-infantil { border-left: 4px solid #8b5cf6; }
+.card.categoria-infantil .jornada-badge { color: #a78bfa !important; }
+.card.categoria-infantil.next-match { border-color: #8b5cf6 !important; box-shadow: 0 0 20px rgba(139, 92, 246, 0.4) !important; }
+.standings-table.categoria-infantil th { background: rgba(139, 92, 246, 0.2) !important; color: #a78bfa !important; }
+
+.card.categoria-cadete { border-left: 4px solid #f59e0b; }
+.card.categoria-cadete .jornada-badge { color: #fbbf24 !important; }
+.card.categoria-cadete.next-match { border-color: #f59e0b !important; box-shadow: 0 0 20px rgba(245, 158, 11, 0.4) !important; }
+.standings-table.categoria-cadete th { background: rgba(245, 158, 11, 0.2) !important; color: #fbbf24 !important; }
 
 .card-header {
     display: flex;
@@ -307,7 +322,6 @@ body {
 .jornada-badge {
     font-size: 0.8rem;
     font-weight: 700;
-    color: var(--accent-blue);
     text-transform: uppercase;
 }
 
@@ -443,8 +457,6 @@ body {
 }
 
 .standings-table th {
-    background: rgba(59, 130, 246, 0.2);
-    color: #93c5fd;
     padding: 10px 6px;
     font-weight: 800;
     text-transform: uppercase;

@@ -17,6 +17,13 @@ function parsearFecha(strFecha) {
     return new Date(`${partes[2]}-${partes[1]}-${partes[0]}`);
 }
 
+function obtenerClaseCategoria(archivo) {
+    if (archivo.includes('femenino')) return 'categoria-femenino';
+    if (archivo.includes('infantil')) return 'categoria-infantil';
+    if (archivo.includes('cadete')) return 'categoria-cadete';
+    return 'categoria-senior';
+}
+
 async function cargarProximosPartidosGlobales() {
     const equipos = [
         { nombre: 'Senior Masculino', archivo: 'partidos.json', archivoClasif: 'clasificacion.json', subtitulo: 'Voleibol Senior Masculino', urlFvbcv: 'https://fvbcv.com/exportar_competiciones.php?idens=1825' },
@@ -154,6 +161,8 @@ async function cargarPartidos(archivoJson) {
     const contenedor = document.getElementById('partidos-container');
     contenedor.innerHTML = '<p style="text-align:center; color:var(--text-muted); padding: 20px;">Cargando partidos...</p>';
     
+    const claseCat = obtenerClaseCategoria(archivoJson);
+
     try {
         const respuesta = await fetch(`${archivoJson}?t=${new Date().getTime()}`);
         const partidosGuardados = await respuesta.json();
@@ -177,11 +186,11 @@ async function cargarPartidos(archivoJson) {
 
         for (let i = 1; i <= totalJornadas; i++) {
             const card = document.createElement('div');
-            card.className = 'card';
+            card.className = `card ${claseCat}`;
             const p = mapaPartidos[i];
 
             if (!p) {
-                card.className = 'card descanso-card';
+                card.className = `card descanso-card ${claseCat}`;
                 card.innerHTML = `
                     <span class="jornada-badge">JORNADA ${i}</span>
                     <div class="descanso-title">☕ DESCANSO</div>
@@ -273,6 +282,8 @@ async function cargarPartidos(archivoJson) {
 async function cargarClasificacion(archivoJson) {
     const contenedor = document.getElementById('clasificacion-container');
     contenedor.innerHTML = '<p style="text-align:center; color:var(--text-muted); padding: 20px;">Cargando clasificación...</p>';
+    
+    const claseCat = obtenerClaseCategoria(archivoJson);
 
     try {
         const respuesta = await fetch(`${archivoJson}?t=${new Date().getTime()}`);
@@ -281,7 +292,7 @@ async function cargarClasificacion(archivoJson) {
 
         let html = `
             <div class="table-responsive">
-                <table class="standings-table">
+                <table class="standings-table ${claseCat}">
                     <thead>
                         <tr>
                             <th>POS</th>
