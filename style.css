@@ -290,9 +290,10 @@ body {
     backdrop-filter: blur(10px);
 }
 
-/* Colores Dinámicos para las Tarjetas de Jornadas y Tablas de Competición */
+/* Colores Dinámicos y Brillos para las Tarjetas de Jornadas y Tablas de Competición */
 .card.categoria-senior { border-left: 4px solid #3b82f6; }
 .card.categoria-senior .jornada-badge { color: #3b82f6 !important; }
+.card.categoria-senior.next-match { border-color: #3b82f6 !important; box-shadow: 0 0 20px rgba(59, 130, 246, 0.4) !important; }
 .standings-table.categoria-senior th { background: rgba(59, 130, 246, 0.2) !important; color: #3b82f6 !important; }
 
 .card.categoria-femenino { border-left: 4px solid #ec4899; }

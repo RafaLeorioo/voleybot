@@ -46,7 +46,8 @@ async function cargarProximosPartidosGlobales() {
             let menorDif = Infinity;
 
             partidos.forEach(p => {
-                if (p.estado.toLowerCase() === 'pendiente') {
+                const estadoLimpio = p.estado ? p.estado.toLowerCase().trim() : '';
+                if (estadoLimpio === 'pendiente' || estadoLimpio === 'programado') {
                     const f = parsearFecha(p.fecha);
                     if (f) {
                         const dif = Math.abs(f.getTime() - ahora);
@@ -59,6 +60,10 @@ async function cargarProximosPartidosGlobales() {
                     }
                 }
             });
+
+            if (!proximoPartido) {
+                proximoPartido = partidos.find(p => p.estado && p.estado.toLowerCase().trim() === 'pendiente');
+            }
 
             if (proximoPartido) {
                 const esCasa = proximoPartido.condicion === 'Casa';
@@ -197,7 +202,7 @@ async function cargarPartidos(archivoJson) {
                     <p style="font-size: 0.82rem; color: var(--text-muted);">Sin encuentro programado.</p>
                 `;
             } else {
-                const estadoClass = `status-${p.estado.toLowerCase()}`;
+                const estadoClass = `status-${p.estado.toLowerCase().trim()}`;
                 const esCasa = p.condicion === 'Casa';
                 const iconoCondicion = esCasa ? '🏠 Casa' : '🚗 Fuera';
                 const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.ubicacion)}`;
@@ -228,11 +233,11 @@ async function cargarPartidos(archivoJson) {
                     </div>
                     <div class="match-info">
                         <div class="team-row">
-                            <span class="team ${p.local.includes('BIARENSE') ? 'highlight' : ''}">${p.local}</span>
+                            <span class="team ${p.local.toUpperCase().includes('BIARENSE') ? 'highlight' : ''}">${p.local}</span>
                             <span class="score-pill">${resLoc}</span>
                         </div>
                         <div class="team-row">
-                            <span class="team ${p.visitante.includes('BIARENSE') ? 'highlight' : ''}">${p.visitante}</span>
+                            <span class="team ${p.visitante.toUpperCase().includes('BIARENSE') ? 'highlight' : ''}">${p.visitante}</span>
                             <span class="score-pill">${resVis}</span>
                         </div>
                     </div>
@@ -250,7 +255,8 @@ async function cargarPartidos(archivoJson) {
                     </div>
                 `;
 
-                if (p.estado.toLowerCase() === 'pendiente') {
+                const estadoLimpio = p.estado ? p.estado.toLowerCase().trim() : '';
+                if (estadoLimpio === 'pendiente' || estadoLimpio === 'programado') {
                     const fechaPartido = parsearFecha(p.fecha);
                     if (fechaPartido) {
                         const diferencia = Math.abs(fechaPartido.getTime() - ahora);
@@ -267,6 +273,15 @@ async function cargarPartidos(archivoJson) {
                 }
             }
             contenedor.appendChild(card);
+        }
+
+        // Si por fechas no se marcó ninguna, cogemos la primera pendiente
+        if (!mejorCardParaScroll) {
+            const cardPendiente = contenedor.querySelector('.status-pendiente');
+            if (cardPendiente) {
+                mejorCardParaScroll = cardPendiente.closest('.card');
+                if (mejorCardParaScroll) mejorCardParaScroll.classList.add('next-match');
+            }
         }
 
         setTimeout(() => {
