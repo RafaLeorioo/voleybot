@@ -2,7 +2,8 @@ let categoriaActual = {
     archivoPartidos: '',
     archivoClasificacion: '',
     subtitulo: '',
-    urlFvbcv: ''
+    urlFvbcv: '',
+    tipo: 'senior'
 };
 let vistaActual = 'partidos'; // 'partidos' o 'clasificacion'
 
@@ -24,12 +25,21 @@ function obtenerClaseCategoria(archivo) {
     return 'categoria-senior';
 }
 
+function obtenerColorHex(tipo) {
+    switch (tipo) {
+        case 'femenino': return '#ec4899'; // Rosa Juvenil
+        case 'infantil': return '#8b5cf6'; // Morado Infantil
+        case 'cadete': return '#f59e0b';   // Amarillo Cadete
+        case 'senior': default: return '#10b981'; // Verde Senior
+    }
+}
+
 async function cargarProximosPartidosGlobales() {
     const equipos = [
-        { nombre: 'Senior Masculino', archivo: 'partidos.json', archivoClasif: 'clasificacion.json', subtitulo: 'Voleibol Senior Masculino', urlFvbcv: 'https://fvbcv.com/exportar_competiciones.php?idens=1825' },
-        { nombre: 'Juvenil Femenino', archivo: 'partidos_femenino.json', archivoClasif: 'clasificacion_femenino.json', subtitulo: 'Voleibol Juvenil Femenino', urlFvbcv: 'https://fvbcv.com/exportar_competiciones.php?idens=1812' },
-        { nombre: 'Infantil Femenino', archivo: 'partidos_infantil.json', archivoClasif: 'clasificacion_infantil.json', subtitulo: 'Voleibol Infantil Femenino', urlFvbcv: 'https://fvbcv.com/exportar_competiciones.php?idens=1850' },
-        { nombre: 'Cadete Femenino', archivo: 'partidos_cadete.json', archivoClasif: 'clasificacion_cadete.json', subtitulo: 'Voleibol Cadete Femenino', urlFvbcv: 'https://fvbcv.com/exportar_competiciones.php?idens=1801' }
+        { nombre: 'Senior Masculino', archivo: 'partidos.json', archivoClasif: 'clasificacion.json', subtitulo: 'Voleibol Senior Masculino', urlFvbcv: 'https://fvbcv.com/exportar_competiciones.php?idens=1825', tipo: 'senior' },
+        { nombre: 'Juvenil Femenino', archivo: 'partidos_femenino.json', archivoClasif: 'clasificacion_femenino.json', subtitulo: 'Voleibol Juvenil Femenino', urlFvbcv: 'https://fvbcv.com/exportar_competiciones.php?idens=1812', tipo: 'femenino' },
+        { nombre: 'Infantil Femenino', archivo: 'partidos_infantil.json', archivoClasif: 'clasificacion_infantil.json', subtitulo: 'Voleibol Infantil Femenino', urlFvbcv: 'https://fvbcv.com/exportar_competiciones.php?idens=1850', tipo: 'infantil' },
+        { nombre: 'Cadete Femenino', archivo: 'partidos_cadete.json', archivoClasif: 'clasificacion_cadete.json', subtitulo: 'Voleibol Cadete Femenino', urlFvbcv: 'https://fvbcv.com/exportar_competiciones.php?idens=1801', tipo: 'cadete' }
     ];
 
     const contenedorPreviews = document.getElementById('global-previews-container');
@@ -71,13 +81,13 @@ async function cargarProximosPartidosGlobales() {
                 const iconoCond = esCasa ? '🏠' : '🚗';
 
                 let claseColorCard = '';
-                if (eq.nombre.includes('Juvenil')) claseColorCard = 'femenino';
-                else if (eq.nombre.includes('Infantil')) claseColorCard = 'infantil';
-                else if (eq.nombre.includes('Cadete')) claseColorCard = 'cadete';
+                if (eq.tipo === 'femenino') claseColorCard = 'femenino';
+                else if (eq.tipo === 'infantil') claseColorCard = 'infantil';
+                else if (eq.tipo === 'cadete') claseColorCard = 'cadete';
 
                 const cardMini = document.createElement('div');
                 cardMini.className = `global-preview-card ${claseColorCard}`;
-                cardMini.onclick = () => cargarCategoria(eq.archivo, eq.archivoClasif, eq.subtitulo, eq.urlFvbcv);
+                cardMini.onclick = () => cargarCategoria(eq.archivo, eq.archivoClasif, eq.subtitulo, eq.urlFvbcv, eq.tipo);
                 cardMini.innerHTML = `
                     <div class="gp-info">
                         <span class="gp-team-name">${eq.nombre}</span>
@@ -109,17 +119,34 @@ function volverAlSelector() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function cargarCategoria(archivoJson, archivoClasif, subtituloTexto, urlFvbcv) {
+function cargarCategoria(archivoJson, archivoClasif, subtituloTexto, urlFvbcv, tipoCategoria = 'senior') {
     categoriaActual = {
         archivoPartidos: archivoJson,
         archivoClasificacion: archivoClasif,
         subtitulo: subtituloTexto,
-        urlFvbcv: urlFvbcv
+        urlFvbcv: urlFvbcv,
+        tipo: tipoCategoria
     };
     vistaActual = 'partidos';
 
     document.getElementById('selector-screen').style.display = 'none';
-    document.getElementById('bottom-nav-bar').style.display = 'flex';
+    
+    // Asignar color dinámico a la barra inferior de botones
+    const navBar = document.getElementById('bottom-nav-bar');
+    navBar.className = `bottom-nav-bar categoria-${tipoCategoria}`;
+    navBar.style.display = 'flex';
+
+    // Aplicar color en línea a los botones flotantes según la categoría
+    const colorHex = obtenerColorHex(tipoCategoria);
+    document.querySelectorAll('.floating-btn').forEach(btn => {
+        btn.style.borderColor = colorHex;
+    });
+    const accentBtn = document.querySelector('.floating-btn.accent-btn');
+    if (accentBtn) {
+        accentBtn.style.backgroundColor = colorHex;
+        accentBtn.style.borderColor = colorHex;
+    }
+
     document.getElementById('fvbcv-link').href = urlFvbcv;
     document.getElementById('main-subtitle').innerText = subtituloTexto;
 
@@ -167,6 +194,7 @@ async function cargarPartidos(archivoJson) {
     contenedor.innerHTML = '<p style="text-align:center; color:var(--text-muted); padding: 20px;">Cargando partidos...</p>';
     
     const claseCat = obtenerClaseCategoria(archivoJson);
+    const colorHex = obtenerColorHex(categoriaActual.tipo);
 
     try {
         const respuesta = await fetch(`${archivoJson}?t=${new Date().getTime()}`);
@@ -221,23 +249,26 @@ async function cargarPartidos(archivoJson) {
                     parcialesHTML = `
                         <div class="parciales-container">
                             <span style="font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">📊 Parciales por Set</span>
-                            <span class="sets-text">${sets}</span>
+                            <span class="sets-text" style="color: ${colorHex}">${sets}</span>
                         </div>
                     `;
                 }
 
+                const esLocalBiarense = p.local.toUpperCase().includes('BIARENSE');
+                const esVisBiarense = p.visitante.toUpperCase().includes('BIARENSE');
+
                 card.innerHTML = `
                     <div class="card-header">
-                        <span class="jornada-badge">${p.jornada}</span>
+                        <span class="jornada-badge" style="color: ${colorHex}">${p.jornada}</span>
                         <span class="status-badge ${estadoClass}">${p.estado}</span>
                     </div>
                     <div class="match-info">
                         <div class="team-row">
-                            <span class="team ${p.local.toUpperCase().includes('BIARENSE') ? 'highlight' : ''}">${p.local}</span>
+                            <span class="team ${esLocalBiarense ? 'highlight' : ''}" style="${esLocalBiarense ? `color: ${colorHex};` : ''}">${p.local}</span>
                             <span class="score-pill">${resLoc}</span>
                         </div>
                         <div class="team-row">
-                            <span class="team ${p.visitante.toUpperCase().includes('BIARENSE') ? 'highlight' : ''}">${p.visitante}</span>
+                            <span class="team ${esVisBiarense ? 'highlight' : ''}" style="${esVisBiarense ? `color: ${colorHex};` : ''}">${p.visitante}</span>
                             <span class="score-pill">${resVis}</span>
                         </div>
                     </div>
@@ -248,9 +279,9 @@ async function cargarPartidos(archivoJson) {
                             <div class="detail-item">⏰ <span>${p.hora || 'Por definir'}</span></div>
                             <div class="detail-item"><span>${iconoCondicion}</span></div>
                         </div>
-                        <div class="location-box">
-                            <span style="font-size:0.8rem;">🏟️ <strong>Ubicación:</strong> ${p.ubicacion}</span>
-                            <a href="${mapsUrl}" target="_blank" class="maps-btn">📍 Maps</a>
+                        <div class="location-box" style="background: ${colorHex}10; border: 1px solid ${colorHex}30; color: ${colorHex};">
+                            <span style="font-size:0.8rem; color: #fff;">🏟️ <strong style="color: ${colorHex}">Ubicación:</strong> ${p.ubicacion}</span>
+                            <a href="${mapsUrl}" target="_blank" class="maps-btn" style="background: ${colorHex}; color: #fff;">📍 Maps</a>
                         </div>
                     </div>
                 `;
@@ -275,7 +306,6 @@ async function cargarPartidos(archivoJson) {
             contenedor.appendChild(card);
         }
 
-        // Si por fechas no se marcó ninguna, cogemos la primera pendiente
         if (!mejorCardParaScroll) {
             const cardPendiente = contenedor.querySelector('.status-pendiente');
             if (cardPendiente) {
@@ -299,6 +329,7 @@ async function cargarClasificacion(archivoJson) {
     contenedor.innerHTML = '<p style="text-align:center; color:var(--text-muted); padding: 20px;">Cargando clasificación...</p>';
     
     const claseCat = obtenerClaseCategoria(archivoJson);
+    const colorCat = obtenerColorHex(categoriaActual.tipo);
 
     try {
         const respuesta = await fetch(`${archivoJson}?t=${new Date().getTime()}`);
@@ -310,10 +341,10 @@ async function cargarClasificacion(archivoJson) {
                 <table class="standings-table ${claseCat}">
                     <thead>
                         <tr>
-                            <th>POS</th>
-                            <th style="text-align: left;">EQUIPO</th>
-                            <th>PJ</th>
-                            <th>PTOS</th>
+                            <th style="color: ${colorCat}; background: ${colorCat}20;">POS</th>
+                            <th style="text-align: left; color: ${colorCat}; background: ${colorCat}20;">EQUIPO</th>
+                            <th style="color: ${colorCat}; background: ${colorCat}20;">PJ</th>
+                            <th style="color: ${colorCat}; background: ${colorCat}20;">PTOS</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -322,8 +353,9 @@ async function cargarClasificacion(archivoJson) {
         filas.forEach(f => {
             const esBiarense = f.equipo.toUpperCase().includes('BIARENSE');
             const rowClass = esBiarense ? 'biarense-row' : '';
+            const estiloFila = esBiarense ? `style="background: ${colorCat}25; font-weight: 700; color: #fff;"` : '';
             html += `
-                <tr class="${rowClass}">
+                <tr class="${rowClass}" ${estiloFila}>
                     <td><strong>${f.posicion}</strong></td>
                     <td style="text-align: left;">${f.equipo}</td>
                     <td>${f.pj}</td>

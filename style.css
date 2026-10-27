@@ -1,8 +1,8 @@
 :root {
     --bg-dark: #0a0e17;
     --card-bg: rgba(23, 31, 48, 0.85);
-    --border-glow: rgba(59, 130, 246, 0.25);
-    --accent-blue: #3b82f6;
+    --border-glow: rgba(16, 185, 129, 0.25);
+    --accent-color: #10b981;
     --text-main: #ffffff;
     --text-muted: #94a3b8;
     
@@ -41,7 +41,7 @@ body {
     height: 60px;
     object-fit: contain;
     margin-bottom: 6px;
-    filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
+    filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.5));
 }
 
 .header h1 {
@@ -49,7 +49,7 @@ body {
     font-weight: 800;
     letter-spacing: 1px;
     text-transform: uppercase;
-    background: linear-gradient(135deg, #fff 0%, #93c5fd 100%);
+    background: linear-gradient(135deg, #fff 0%, #a7f3d0 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -62,7 +62,7 @@ body {
 }
 
 /* ==========================================
-   BARRA Y BOTONES FLOTANTES INFERIORES (MÓVIL Y PC)
+   BARRA Y BOTONES FLOTANTES INFERIORES DINÁMICOS
    ========================================== */
 .bottom-nav-bar {
     position: fixed;
@@ -80,14 +80,15 @@ body {
     background: rgba(10, 14, 23, 0.85);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(59, 130, 246, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 50px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    transition: border-color 0.3s ease;
 }
 
 .floating-btn {
     background: rgba(23, 31, 48, 0.95);
-    border: 1px solid var(--accent-blue);
+    border: 1px solid var(--accent-color);
     color: var(--text-main);
     padding: 8px 14px;
     border-radius: 30px;
@@ -99,18 +100,25 @@ body {
     align-items: center;
     gap: 6px;
     text-decoration: none;
-    transition: transform 0.2s, background 0.2s;
+    transition: transform 0.2s, background 0.2s, border-color 0.3s;
     white-space: nowrap;
 }
 
 .floating-btn.accent-btn {
-    background: var(--accent-blue);
-    border-color: #60a5fa;
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #fff;
 }
 
 .floating-btn:hover {
     transform: scale(1.05);
 }
+
+/* Colores de la barra inferior según la categoría activa */
+.bottom-nav-bar.categoria-senior { border-color: rgba(16, 185, 129, 0.4); }
+.bottom-nav-bar.categoria-femenino { border-color: rgba(236, 72, 153, 0.4); }
+.bottom-nav-bar.categoria-infantil { border-color: rgba(139, 92, 246, 0.4); }
+.bottom-nav-bar.categoria-cadete { border-color: rgba(245, 158, 11, 0.4); }
 
 /* Menú 2x2 */
 .selector-screen {
@@ -163,7 +171,7 @@ body {
     left: 0;
     width: 100%;
     height: 3px;
-    background: linear-gradient(90deg, #3b82f6, #60a5fa);
+    background: linear-gradient(90deg, #10b981, #34d399);
 }
 
 .category-card.femenino::before { background: linear-gradient(90deg, #ec4899, #f472b6); }
@@ -172,20 +180,20 @@ body {
 
 .category-card:hover {
     transform: translateY(-3px);
-    border-color: var(--accent-blue);
+    border-color: #10b981;
 }
 
 .category-icon {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: rgba(59, 130, 246, 0.12);
-    color: #60a5fa;
+    background: rgba(16, 185, 129, 0.12);
+    color: #34d399;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.1rem;
-    border: 1px solid rgba(59, 130, 246, 0.3);
+    border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
 .category-card.femenino .category-icon { background: rgba(236, 72, 153, 0.12); color: #f472b6; border-color: rgba(236, 72, 153, 0.3); }
@@ -211,7 +219,7 @@ body {
 .category-badge-action {
     font-size: 0.68rem;
     font-weight: 700;
-    color: #93c5fd;
+    color: #a7f3d0;
 }
 
 /* Mini Previews (Próximos Encuentros) */
@@ -236,7 +244,7 @@ body {
     left: 0;
     width: 100%;
     height: 3px;
-    background: linear-gradient(90deg, #3b82f6, #60a5fa);
+    background: linear-gradient(90deg, #10b981, #34d399);
 }
 
 .global-preview-card.femenino::before { background: linear-gradient(90deg, #ec4899, #f472b6); }
@@ -244,7 +252,7 @@ body {
 .global-preview-card.cadete::before { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
 
 .global-preview-card:hover {
-    border-color: var(--accent-blue);
+    border-color: #10b981;
     transform: translateY(-2px);
 }
 
@@ -258,7 +266,7 @@ body {
     font-size: 0.75rem;
     font-weight: 800;
     text-transform: uppercase;
-    color: var(--accent-blue);
+    color: #34d399;
 }
 
 .global-preview-card.femenino .gp-team-name { color: #f472b6; }
@@ -290,26 +298,34 @@ body {
     backdrop-filter: blur(10px);
 }
 
-/* Colores Dinámicos y Brillos para las Tarjetas de Jornadas y Tablas de Competición */
-.card.categoria-senior { border-left: 4px solid #3b82f6; }
-.card.categoria-senior .jornada-badge { color: #3b82f6 !important; }
-.card.categoria-senior.next-match { border-color: #3b82f6 !important; box-shadow: 0 0 20px rgba(59, 130, 246, 0.4) !important; }
-.standings-table.categoria-senior th { background: rgba(59, 130, 246, 0.2) !important; color: #3b82f6 !important; }
+/* Colores Dinámicos y Brillos por Categoría */
+.card.categoria-senior { border-left: 4px solid #10b981; }
+.card.categoria-senior .jornada-badge { color: #34d399 !important; }
+.card.categoria-senior.next-match { border-color: #10b981 !important; box-shadow: 0 0 20px rgba(16, 185, 129, 0.4) !important; }
+.standings-table.categoria-senior th { background: rgba(16, 185, 129, 0.2) !important; color: #34d399 !important; }
+.team.highlight.categoria-senior { color: #34d399 !important; }
+.standings-table.categoria-senior tr.biarense-row { background: rgba(16, 185, 129, 0.2) !important; }
 
 .card.categoria-femenino { border-left: 4px solid #ec4899; }
 .card.categoria-femenino .jornada-badge { color: #f472b6 !important; }
 .card.categoria-femenino.next-match { border-color: #ec4899 !important; box-shadow: 0 0 20px rgba(236, 72, 153, 0.4) !important; }
 .standings-table.categoria-femenino th { background: rgba(236, 72, 153, 0.2) !important; color: #f472b6 !important; }
+.team.highlight.categoria-femenino { color: #f472b6 !important; }
+.standings-table.categoria-femenino tr.biarense-row { background: rgba(236, 72, 153, 0.2) !important; }
 
 .card.categoria-infantil { border-left: 4px solid #8b5cf6; }
 .card.categoria-infantil .jornada-badge { color: #a78bfa !important; }
 .card.categoria-infantil.next-match { border-color: #8b5cf6 !important; box-shadow: 0 0 20px rgba(139, 92, 246, 0.4) !important; }
 .standings-table.categoria-infantil th { background: rgba(139, 92, 246, 0.2) !important; color: #a78bfa !important; }
+.team.highlight.categoria-infantil { color: #a78bfa !important; }
+.standings-table.categoria-infantil tr.biarense-row { background: rgba(139, 92, 246, 0.2) !important; }
 
 .card.categoria-cadete { border-left: 4px solid #f59e0b; }
 .card.categoria-cadete .jornada-badge { color: #fbbf24 !important; }
 .card.categoria-cadete.next-match { border-color: #f59e0b !important; box-shadow: 0 0 20px rgba(245, 158, 11, 0.4) !important; }
 .standings-table.categoria-cadete th { background: rgba(245, 158, 11, 0.2) !important; color: #fbbf24 !important; }
+.team.highlight.categoria-cadete { color: #fbbf24 !important; }
+.standings-table.categoria-cadete tr.biarense-row { background: rgba(245, 158, 11, 0.2) !important; }
 
 .card-header {
     display: flex;
@@ -362,8 +378,6 @@ body {
     flex: 1;
 }
 
-.team.highlight { color: #60a5fa; }
-
 .score-pill {
     background: rgba(0, 0, 0, 0.5);
     padding: 4px 12px;
@@ -389,7 +403,7 @@ body {
 .sets-text {
     font-size: 0.85rem;
     font-weight: 700;
-    color: #93c5fd;
+    color: #a7f3d0;
 }
 
 .details {
@@ -421,15 +435,15 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(59, 130, 246, 0.05);
-    border: 1px solid rgba(59, 130, 246, 0.15);
+    background: rgba(16, 185, 129, 0.05);
+    border: 1px solid rgba(16, 185, 129, 0.15);
     padding: 8px 12px;
     border-radius: 8px;
-    color: #bfdbfe;
+    color: #a7f3d0;
 }
 
 .maps-btn {
-    background: var(--accent-blue);
+    background: #10b981;
     color: white;
     text-decoration: none;
     font-size: 0.75rem;
@@ -472,17 +486,6 @@ body {
     padding: 9px 6px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     color: var(--text-muted);
-}
-
-.standings-table tr.biarense-row {
-    background: rgba(59, 130, 246, 0.15);
-    font-weight: 700;
-    color: #fff;
-}
-
-.standings-table tr.biarense-row td {
-    color: #fff;
-    border-bottom: 1px solid rgba(59, 130, 246, 0.3);
 }
 
 .descanso-card {
