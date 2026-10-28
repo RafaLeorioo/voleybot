@@ -215,15 +215,14 @@ body {
     border-radius: 6px;
 }
 
-/* Colores específicos para el texto "Ver >" de cada tarjeta */
 .category-card .category-badge-action {
     font-size: 0.68rem;
     font-weight: 700;
-    color: #34d399; /* Senior: Verde */
+    color: #34d399;
 }
-.category-card.femenino .category-badge-action { color: #f472b6; /* Juvenil: Rosa */ }
-.category-card.infantil .category-badge-action { color: #a78bfa; /* Infantil: Morado */ }
-.category-card.cadete .category-badge-action { color: #fbbf24; /* Cadete: Amarillo */ }
+.category-card.femenino .category-badge-action { color: #f472b6; }
+.category-card.infantil .category-badge-action { color: #a78bfa; }
+.category-card.cadete .category-badge-action { color: #fbbf24; }
 
 /* Mini Previews (Próximos Encuentros) */
 .global-preview-card {
@@ -422,7 +421,9 @@ body {
 .details-row {
     display: flex;
     justify-content: space-between;
-    gap: 8px;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
 }
 
 .detail-item {
@@ -432,6 +433,27 @@ body {
     background: rgba(255, 255, 255, 0.03);
     padding: 5px 10px;
     border-radius: 8px;
+}
+
+.calendar-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.calendar-btn:hover {
+    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .location-box {

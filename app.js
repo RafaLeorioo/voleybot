@@ -34,6 +34,42 @@ function obtenerColorHex(tipo) {
     }
 }
 
+// Función para abrir Google Calendar directamente en una pestaña nueva con los datos listos para guardar
+function abrirGoogleCalendar(p, categoriaTexto) {
+    if (!p.fecha) return;
+    const partesFecha = p.fecha.split('/');
+    if (partesFecha.length !== 3) return;
+
+    const anio = partesFecha[2];
+    const mes = partesFecha[1];
+    const dia = partesFecha[0];
+
+    let horaStr = "10:00";
+    if (p.hora && p.hora.includes(':')) {
+        horaStr = p.hora.trim();
+    }
+    const [h, m] = horaStr.split(':');
+    
+    // Formato de fechas para Google Calendar: AAAAMMDDThhmmssZ
+    const fechaInicio = new Date(anio, parseInt(mes) - 1, dia, parseInt(h), parseInt(m));
+    const fechaFin = new Date(fechaInicio.getTime() + (2 * 60 * 60 * 1000)); // 2 horas de duración por defecto
+
+    const formatearGCalDate = (date) => {
+        return date.toISOString().replace(/-|:|\.\d\d\d/g, "");
+    };
+
+    const dStart = formatearGCalDate(fechaInicio);
+    const dEnd = formatearGCalDate(fechaFin);
+
+    const titulo = encodeURIComponent(`Voleibol: ${p.local} vs ${p.visitante} (${categoriaTexto})`);
+    const descripcion = encodeURIComponent(`Partido de Liga - ${p.jornada}\nCondición: ${p.condicion}\nCategoría: ${categoriaTexto}`);
+    const ubicacion = encodeURIComponent(p.ubicacion || 'Pab. Mun. Biar');
+
+    const urlGCal = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${titulo}&dates=${dStart}/${dEnd}&details=${descripcion}&location=${ubicacion}`;
+    
+    window.open(urlGCal, '_blank');
+}
+
 async function cargarProximosPartidosGlobales() {
     const equipos = [
         { nombre: 'Senior Masculino', archivo: 'partidos.json', archivoClasif: 'clasificacion.json', subtitulo: 'Voleibol Senior Masculino', urlFvbcv: 'https://fvbcv.com/exportar_competiciones.php?idens=1825', tipo: 'senior' },
@@ -284,6 +320,9 @@ async function cargarPartidos(archivoJson) {
                             <div class="detail-item">📅 <span>${p.fecha}</span></div>
                             <div class="detail-item">⏰ <span>${p.hora || 'Por definir'}</span></div>
                             <div class="detail-item"><span>${iconoCondicion}</span></div>
+                            <button class="calendar-btn" title="Añadir al calendario de Google" style="color: ${colorHex}; border-color: ${colorHex}40;">
+                                📅 <span style="font-size: 0.75rem;">Añadir</span>
+                            </button>
                         </div>
                         <div class="location-box" style="background: ${colorHex}10; border: 1px solid ${colorHex}30; color: ${colorHex};">
                             <span style="font-size:0.8rem; color: #fff;">🏟️ <strong style="color: ${colorHex}">Ubicación:</strong> ${p.ubicacion}</span>
@@ -291,6 +330,12 @@ async function cargarPartidos(archivoJson) {
                         </div>
                     </div>
                 `;
+
+                // Enlazar el botón directamente con la apertura de Google Calendar
+                const btnCalendar = card.querySelector('.calendar-btn');
+                if (btnCalendar) {
+                    btnCalendar.onclick = () => abrirGoogleCalendar(p, categoriaActual.subtitulo);
+                }
 
                 const estadoLimpio = p.estado ? p.estado.toLowerCase().trim() : '';
                 if (estadoLimpio === 'pendiente' || estadoLimpio === 'programado') {
