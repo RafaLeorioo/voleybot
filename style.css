@@ -114,7 +114,6 @@ body {
     transform: scale(1.05);
 }
 
-/* Colores de la barra inferior según la categoría activa */
 .bottom-nav-bar.categoria-senior { border-color: rgba(16, 185, 129, 0.4); }
 .bottom-nav-bar.categoria-femenino { border-color: rgba(236, 72, 153, 0.4); }
 .bottom-nav-bar.categoria-infantil { border-color: rgba(139, 92, 246, 0.4); }
@@ -216,11 +215,15 @@ body {
     border-radius: 6px;
 }
 
-.category-badge-action {
+/* Colores específicos para el texto "Ver >" de cada tarjeta */
+.category-card .category-badge-action {
     font-size: 0.68rem;
     font-weight: 700;
-    color: #a7f3d0;
+    color: #34d399; /* Senior: Verde */
 }
+.category-card.femenino .category-badge-action { color: #f472b6; /* Juvenil: Rosa */ }
+.category-card.infantil .category-badge-action { color: #a78bfa; /* Infantil: Morado */ }
+.category-card.cadete .category-badge-action { color: #fbbf24; /* Cadete: Amarillo */ }
 
 /* Mini Previews (Próximos Encuentros) */
 .global-preview-card {
