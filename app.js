@@ -320,13 +320,17 @@ async function cargarPartidos(archivoJson) {
                             <div class="detail-item">📅 <span>${p.fecha}</span></div>
                             <div class="detail-item">⏰ <span>${p.hora || 'Por definir'}</span></div>
                             <div class="detail-item"><span>${iconoCondicion}</span></div>
-                            <button class="calendar-btn" title="Añadir al calendario de Google" style="color: ${colorHex}; border-color: ${colorHex}40;">
-                                📅 <span style="font-size: 0.75rem;">Añadir</span>
-                            </button>
                         </div>
-                        <div class="location-box" style="background: ${colorHex}10; border: 1px solid ${colorHex}30; color: ${colorHex};">
-                            <span style="font-size:0.8rem; color: #fff;">🏟️ <strong style="color: ${colorHex}">Ubicación:</strong> ${p.ubicacion}</span>
-                            <a href="${mapsUrl}" target="_blank" class="maps-btn" style="background: ${colorHex}; color: #fff;">📍 Maps</a>
+                        <div class="location-box" style="background: ${colorHex}10; border: 1px solid ${colorHex}30; color: ${colorHex}; margin-bottom: 4px;">
+                            <span style="font-size:0.78rem; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">🏟️ <strong style="color: ${colorHex}">Ubicación:</strong> ${p.ubicacion}</span>
+                        </div>
+                        <div class="actions-row">
+                            <button class="calendar-btn" title="Añadir a Google Calendar" style="color: ${colorHex}; border-color: ${colorHex}40;">
+                                📅 <span style="font-size: 0.8rem;">Añadir al Calendario</span>
+                            </button>
+                            <a href="${mapsUrl}" target="_blank" class="calendar-btn maps-btn" style="background: ${colorHex}; color: #fff; border-color: ${colorHex}; justify-content: center; text-decoration: none;">
+                                📍 <span style="font-size: 0.8rem;">Maps</span>
+                            </a>
                         </div>
                     </div>
                 `;
