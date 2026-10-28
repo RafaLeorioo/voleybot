@@ -44,7 +44,9 @@ async function cargarProximosPartidosGlobales() {
 
     const contenedorPreviews = document.getElementById('global-previews-container');
     contenedorPreviews.innerHTML = '';
-    const ahora = new Date().getTime();
+    const hoy = new Date();
+    hoy.setHours(0, 0, 0, 0);
+    const tiempoHoy = hoy.getTime();
 
     for (const eq of equipos) {
         try {
@@ -60,10 +62,13 @@ async function cargarProximosPartidosGlobales() {
                 if (estadoLimpio === 'pendiente' || estadoLimpio === 'programado') {
                     const f = parsearFecha(p.fecha);
                     if (f) {
-                        const dif = Math.abs(f.getTime() - ahora);
-                        if (dif < menorDif) {
-                            menorDif = dif;
-                            proximoPartido = p;
+                        const tiempoPartido = f.getTime();
+                        if (tiempoPartido >= tiempoHoy) {
+                            const dif = tiempoPartido - tiempoHoy;
+                            if (dif < menorDif) {
+                                menorDif = dif;
+                                proximoPartido = p;
+                            }
                         }
                     } else if (!proximoPartido) {
                         proximoPartido = p;
@@ -131,12 +136,10 @@ function cargarCategoria(archivoJson, archivoClasif, subtituloTexto, urlFvbcv, t
 
     document.getElementById('selector-screen').style.display = 'none';
     
-    // Asignar color dinámico a la barra inferior de botones
     const navBar = document.getElementById('bottom-nav-bar');
     navBar.className = `bottom-nav-bar categoria-${tipoCategoria}`;
     navBar.style.display = 'flex';
 
-    // Aplicar color en línea a los botones flotantes según la categoría
     const colorHex = obtenerColorHex(tipoCategoria);
     document.querySelectorAll('.floating-btn').forEach(btn => {
         btn.style.borderColor = colorHex;
@@ -215,7 +218,10 @@ async function cargarPartidos(archivoJson) {
         const totalJornadas = maxJornada > 0 ? maxJornada : 26;
         let mejorCardParaScroll = null;
         let menorDiferenciaTiempo = Infinity;
-        const ahora = new Date().getTime();
+        
+        const hoy = new Date();
+        hoy.setHours(0, 0, 0, 0);
+        const tiempoHoy = hoy.getTime();
 
         for (let i = 1; i <= totalJornadas; i++) {
             const card = document.createElement('div');
@@ -290,12 +296,15 @@ async function cargarPartidos(archivoJson) {
                 if (estadoLimpio === 'pendiente' || estadoLimpio === 'programado') {
                     const fechaPartido = parsearFecha(p.fecha);
                     if (fechaPartido) {
-                        const diferencia = Math.abs(fechaPartido.getTime() - ahora);
-                        if (diferencia < menorDiferenciaTiempo) {
-                            menorDiferenciaTiempo = diferencia;
-                            if (mejorCardParaScroll) mejorCardParaScroll.classList.remove('next-match');
-                            mejorCardParaScroll = card;
-                            card.classList.add('next-match');
+                        const tiempoPartido = fechaPartido.getTime();
+                        if (tiempoPartido >= tiempoHoy) {
+                            const diferencia = tiempoPartido - tiempoHoy;
+                            if (diferencia < menorDiferenciaTiempo) {
+                                menorDiferenciaTiempo = diferencia;
+                                if (mejorCardParaScroll) mejorCardParaScroll.classList.remove('next-match');
+                                mejorCardParaScroll = card;
+                                card.classList.add('next-match');
+                            }
                         }
                     } else if (!mejorCardParaScroll) {
                         mejorCardParaScroll = card;
