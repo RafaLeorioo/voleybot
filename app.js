@@ -5,7 +5,7 @@ let categoriaActual = {
     urlFvbcv: '',
     tipo: 'senior'
 };
-let vistaActual = 'partidos'; // 'partidos' o 'clasificacion'
+let vistaActual = 'partidos'; // 'partidos', 'clasificacion' o 'metricas'
 
 window.addEventListener('DOMContentLoaded', () => {
     cargarProximosPartidosGlobales();
@@ -34,7 +34,7 @@ function obtenerColorHex(tipo) {
     }
 }
 
-// Función para abrir Google Calendar directamente en una pestaña nueva con los datos listos para guardar
+// Función para abrir Google Calendar directamente en una pestaña nueva con los datos del partido
 function abrirGoogleCalendar(p, categoriaTexto) {
     if (!p.fecha) return;
     const partesFecha = p.fecha.split('/');
@@ -50,7 +50,6 @@ function abrirGoogleCalendar(p, categoriaTexto) {
     }
     const [h, m] = horaStr.split(':');
     
-    // Formato de fechas para Google Calendar: AAAAMMDDThhmmssZ
     const fechaInicio = new Date(anio, parseInt(mes) - 1, dia, parseInt(h), parseInt(m));
     const fechaFin = new Date(fechaInicio.getTime() + (2 * 60 * 60 * 1000)); // 2 horas de duración por defecto
 
@@ -154,6 +153,7 @@ async function cargarProximosPartidosGlobales() {
 function volverAlSelector() {
     document.getElementById('partidos-container').style.display = 'none';
     document.getElementById('clasificacion-container').style.display = 'none';
+    document.getElementById('metrics-container').style.display = 'none';
     document.getElementById('selector-screen').style.display = 'flex';
     document.getElementById('bottom-nav-bar').style.display = 'none';
     document.getElementById('main-subtitle').innerText = '';
@@ -194,32 +194,48 @@ function cargarCategoria(archivoJson, archivoClasif, subtituloTexto, urlFvbcv, t
 }
 
 function alternarVista() {
-    vistaActual = (vistaActual === 'partidos') ? 'clasificacion' : 'partidos';
+    // Si estábamos en métricas o partidos, alternamos hacia clasificación; si estábamos en clasificación, volvemos a partidos
+    if (vistaActual === 'clasificacion') {
+        vistaActual = 'partidos';
+    } else {
+        vistaActual = 'clasificacion';
+    }
     actualizarBotonToggle();
     renderizarVistaActual();
+}
+
+function cambiarAVistaMetricas() {
+    vistaActual = 'metricas';
+    document.getElementById('partidos-container').style.display = 'none';
+    document.getElementById('clasificacion-container').style.display = 'none';
+    cargarVistaMetricas();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function actualizarBotonToggle() {
     const icono = document.getElementById('toggle-icon');
     const texto = document.getElementById('toggle-text');
-    if (vistaActual === 'partidos') {
-        icono.className = 'fa-solid fa-table-list';
-        texto.innerText = 'Clasificación';
-    } else {
+    if (vistaActual === 'clasificacion') {
         icono.className = 'fa-solid fa-calendar-days';
         texto.innerText = 'Partidos';
+    } else {
+        icono.className = 'fa-solid fa-table-list';
+        texto.innerText = 'Clasificación';
     }
 }
 
 function renderizarVistaActual() {
     const contenedorPartidos = document.getElementById('partidos-container');
     const contenedorClasif = document.getElementById('clasificacion-container');
+    const contenedorMetricas = document.getElementById('metrics-container');
+
+    contenedorMetricas.style.display = 'none';
 
     if (vistaActual === 'partidos') {
         contenedorClasif.style.display = 'none';
         contenedorPartidos.style.display = 'flex';
         cargarPartidos(categoriaActual.archivoPartidos);
-    } else {
+    } else if (vistaActual === 'clasificacion') {
         contenedorPartidos.style.display = 'none';
         contenedorClasif.style.display = 'flex';
         contenedorClasif.innerHTML = '';
@@ -335,7 +351,6 @@ async function cargarPartidos(archivoJson) {
                     </div>
                 `;
 
-                // Enlazar el botón directamente con la apertura de Google Calendar
                 const btnCalendar = card.querySelector('.calendar-btn');
                 if (btnCalendar) {
                     btnCalendar.onclick = () => abrirGoogleCalendar(p, categoriaActual.subtitulo);

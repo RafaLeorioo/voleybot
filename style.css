@@ -37,10 +37,13 @@ body {
 }
 
 .header img {
-    width: 60px;
-    height: 60px;
+    width: 65px;
+    height: 65px;
     object-fit: contain;
     margin-bottom: 6px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
     filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.5));
 }
 
@@ -540,4 +543,67 @@ body {
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(6px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+/* Forzar que el borde y brillo al pasar el cursor o hacer clic coincidan exactamente con el color de su categoría */
+.category-card.senior:hover, .category-card.senior:focus {
+    border-color: #10b981 !important;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.4) !important;
+}
+
+.category-card.femenino:hover, .category-card.femenino:focus {
+    border-color: #ec4899 !important;
+    box-shadow: 0 0 15px rgba(236, 72, 153, 0.4) !important;
+}
+
+.category-card.infantil:hover, .category-card.infantil:focus {
+    border-color: #8b5cf6 !important;
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.4) !important;
+}
+
+.category-card.cadete:hover, .category-card.cadete:focus {
+    border-color: #f59e0b !important;
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.4) !important;
+}
+
+/* Color de fondo personalizado al hacer hover o foco según la categoría */
+.category-card.senior:hover, .category-card.senior:focus {
+    background: rgba(16, 185, 129, 0.15) !important;
+    border-color: #10b981 !important;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.4) !important;
+}
+
+.category-card.femenino:hover, .category-card.femenino:focus {
+    background: rgba(236, 72, 153, 0.15) !important;
+    border-color: #ec4899 !important;
+    box-shadow: 0 0 15px rgba(236, 72, 153, 0.4) !important;
+}
+
+.category-card.infantil:hover, .category-card.infantil:focus {
+    background: rgba(139, 92, 246, 0.15) !important;
+    border-color: #8b5cf6 !important;
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.4) !important;
+}
+
+.category-card.cadete:hover, .category-card.cadete:focus {
+    background: rgba(245, 158, 11, 0.15) !important;
+    border-color: #f59e0b !important;
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.4) !important;
+}
+
+/* Configuración del borde completo en estado reposo para cada categoría */
+.category-card.senior {
+    border: 1px solid rgba(16, 185, 129, 0.4) !important;
+}
+
+.category-card.femenino {
+    border: 1px solid rgba(236, 72, 153, 0.4) !important;
+}
+
+.category-card.infantil {
+    border: 1px solid rgba(139, 92, 246, 0.4) !important;
+}
+
+.category-card.cadete {
+    border: 1px solid rgba(245, 158, 11, 0.4) !important;
 }
