@@ -69,41 +69,37 @@ body {
    ========================================== */
 .bottom-nav-bar {
     position: fixed;
-    bottom: 20px;
+    bottom: 24px; /* Separación extra respecto a la barra del navegador móvil */
     left: 50%;
     transform: translateX(-50%);
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 90%;
-    max-width: 480px;
-    padding: 8px 12px;
-    background: rgba(10, 14, 23, 0.85);
+    background: rgba(15, 23, 42, 0.90);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid var(--border-color);
+    padding: 6px 10px;
     border-radius: 50px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-    transition: border-color 0.3s ease;
+    display: none;
+    gap: 6px;
+    z-index: 1000;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    max-width: 95vw; /* Evita que desborde la pantalla en móviles muy pequeños */
+    box-sizing: border-box;
 }
 
 .floating-btn {
-    background: rgba(23, 31, 48, 0.95);
-    border: 1px solid var(--accent-color);
-    color: var(--text-main);
-    padding: 8px 14px;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: #fff;
+    padding: 8px 12px;
     border-radius: 30px;
-    font-size: 0.78rem;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-    display: inline-flex;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.78rem; /* Ligeramente más compacto para que quepan los 4 sin apretarse */
+    font-weight: 600;
+    display: flex;
     align-items: center;
-    gap: 6px;
-    text-decoration: none;
-    transition: transform 0.2s, background 0.2s, border-color 0.3s;
+    gap: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
     white-space: nowrap;
 }
 
