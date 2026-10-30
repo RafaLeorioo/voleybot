@@ -69,38 +69,42 @@ body {
    ========================================== */
 .bottom-nav-bar {
     position: fixed;
-    bottom: 24px; /* Separación extra respecto a la barra del navegador móvil */
+    bottom: 24px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(15, 23, 42, 0.90);
+    background: rgba(15, 23, 42, 0.95);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--border-color);
-    padding: 6px 10px;
+    padding: 6px 8px; /* Reducido ligeramente para ganar espacio */
     border-radius: 50px;
     display: none;
-    gap: 6px;
+    gap: 4px; /* Menos espacio entre botones para que no sobresalgan */
     z-index: 1000;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    max-width: 95vw; /* Evita que desborde la pantalla en móviles muy pequeños */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    width: 94vw; /* Ocupa un ancho seguro en la pantalla */
+    max-width: 420px; /* Evita que crezca demasiado en pantallas grandes */
     box-sizing: border-box;
+    justify-content: space-between; /* Distribuye el espacio equitativamente */
 }
 
 .floating-btn {
     background: transparent;
     border: 1px solid var(--border-color);
     color: #fff;
-    padding: 8px 12px;
+    padding: 8px 8px; /* Padding lateral más ajustado */
     border-radius: 30px;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 0.78rem; /* Ligeramente más compacto para que quepan los 4 sin apretarse */
+    font-size: 0.72rem; /* Letra un punto más compacta para que quepan holgados */
     font-weight: 600;
     display: flex;
     align-items: center;
-    gap: 5px;
+    justify-content: center;
+    gap: 4px;
     cursor: pointer;
     transition: all 0.2s ease;
     white-space: nowrap;
+    flex: 1; /* Hace que los 4 botones se repartan el espacio del contenedor por igual */
 }
 
 .floating-btn.accent-btn {
