@@ -7,10 +7,10 @@
         "local": "ATLÉTICO SALESIANO ALCOY",
         "visitante": "CD BIARENSE PO",
         "ubicacion": "LID. MUN. FRANCISCO LAPORTA (ALCO",
-        "resultado": "0 - 3",
+        "resultado": "0 - 3 (15-25/17-25/10-25)",
         "parciales": "15-25/17-25/10-25",
         "jugado": true,
-        "estado": "Victoria"
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 2",
@@ -20,10 +20,10 @@
         "local": "CD BIARENSE",
         "visitante": "CV SAN VICENTE GLADIADORES",
         "ubicacion": "PAB.MUN. BIAR",
-        "resultado": "3 - 0",
+        "resultado": "23/01/2027 18:00",
         "parciales": "25-14/25-12/25-15",
         "jugado": true,
-        "estado": "Victoria"
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 3",
@@ -33,10 +33,10 @@
         "local": "CV LUCENTUM",
         "visitante": "CD BIARENSE",
         "ubicacion": "CENTRO TECNIFICACIÓN ANEXA A",
-        "resultado": "VS",
+        "resultado": "13/02/2027 18:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 4",
@@ -46,10 +46,10 @@
         "local": "CD BIARENSE",
         "visitante": "CV LUCENTUM - B",
         "ubicacion": "PAB.MUN. BIAR",
-        "resultado": "3 - 0",
+        "resultado": "13/02/2027 18:00",
         "parciales": "25-7/25-4/25-23",
         "jugado": true,
-        "estado": "Victoria"
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 5",
@@ -59,10 +59,10 @@
         "local": "CV SAN VICENTE ESPARTANOS",
         "visitante": "CD BIARENSE",
         "ubicacion": "PAB. IES NOU DERRAMADOR (IBI)",
-        "resultado": "VS",
+        "resultado": "20/02/2027 18:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 7",
@@ -72,10 +72,10 @@
         "local": "CD BIARENSE",
         "visitante": "VOLEIBOL VINALOPÓ AZUL",
         "ubicacion": "PAB.MUN. BIAR",
-        "resultado": "VS",
+        "resultado": "06/03/2027 16:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 8",
@@ -85,10 +85,10 @@
         "local": "CV CREVILLENT",
         "visitante": "CD BIARENSE P",
         "ubicacion": "AB.DEP. FÉLIX CANDELA (CREVILLENT",
-        "resultado": "VS",
+        "resultado": "21/11/2026 18:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 9",
@@ -98,10 +98,10 @@
         "local": "CD BIARENSE",
         "visitante": "GRUPO NEXUS GUARDAMAR",
         "ubicacion": "PAB.MUN. BIAR",
-        "resultado": "VS",
+        "resultado": "20/03/2027 19:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 10",
@@ -111,10 +111,10 @@
         "local": "JMAS FABRAQUER",
         "visitante": "CD BIARENSE",
         "ubicacion": "PAB. LA ERMITA (EL CAMPELLO)",
-        "resultado": "VS",
+        "resultado": "10/04/2027 18:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 11",
@@ -124,10 +124,10 @@
         "local": "CD BIARENSE",
         "visitante": "POLANENS SANTA POLA",
         "ubicacion": "PAB.MUN. BIAR",
-        "resultado": "VS",
+        "resultado": "17/04/2027 17:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 12",
@@ -137,10 +137,10 @@
         "local": "CV ELCHE",
         "visitante": "CD BIARENSE",
         "ubicacion": "PAB. UMH (ELCHE)",
-        "resultado": "VS",
+        "resultado": "24/04/2027 18:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 13",
@@ -150,10 +150,10 @@
         "local": "CD BIARENSE",
         "visitante": "C. SUNRISE TORREVIEJA",
         "ubicacion": "PAB.MUN. BIAR",
-        "resultado": "VS",
+        "resultado": "01/05/2027 18:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 14",
@@ -163,10 +163,10 @@
         "local": "CD BIARENSE",
         "visitante": "ATLÉTICO SALESIANO ALCOY",
         "ubicacion": "PAB.MUN. BIAR",
-        "resultado": "VS",
+        "resultado": "16/01/2027 18:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 15",
@@ -176,10 +176,10 @@
         "local": "CV SAN VICENTE GLADIADORES",
         "visitante": "CD BIARENSE P",
         "ubicacion": ".M. GINÉS ALENDA (S. VICENTE DEL R.",
-        "resultado": "VS",
+        "resultado": "23/01/2027 18:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 16",
@@ -189,10 +189,10 @@
         "local": "CD BIARENSE",
         "visitante": "CV LUCENTUM",
         "ubicacion": "PAB.MUN. BIAR",
-        "resultado": "VS",
+        "resultado": "13/02/2027 18:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 17",
@@ -202,10 +202,10 @@
         "local": "CV LUCENTUM - B",
         "visitante": "CD BIARENSE",
         "ubicacion": "PAB.MUN. CDAD. JARDÍN (ALICANTE)",
-        "resultado": "VS",
+        "resultado": "13/02/2027 18:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 18",
@@ -215,10 +215,10 @@
         "local": "CD BIARENSE",
         "visitante": "CV SAN VICENTE ESPARTANOS",
         "ubicacion": "PAB.MUN. BIAR",
-        "resultado": "VS",
+        "resultado": "20/02/2027 18:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 20",
@@ -228,10 +228,10 @@
         "local": "VOLEIBOL VINALOPÓ AZUL",
         "visitante": "CD BIARENSE",
         "ubicacion": "PAB.MUN. MONFORTE DEL CID",
-        "resultado": "VS",
+        "resultado": "06/03/2027 16:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 21",
@@ -241,10 +241,10 @@
         "local": "CD BIARENSE",
         "visitante": "CV CREVILLENT",
         "ubicacion": "PAB.MUN. BIAR",
-        "resultado": "VS",
+        "resultado": "13/03/2027 18:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 22",
@@ -254,10 +254,10 @@
         "local": "GRUPO NEXUS GUARDAMAR",
         "visitante": "CD BIARENSE P",
         "ubicacion": "AB. PALAU SANT JAUME (GUARDAMAR",
-        "resultado": "VS",
+        "resultado": "20/03/2027 19:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 23",
@@ -267,10 +267,10 @@
         "local": "CD BIARENSE",
         "visitante": "JMAS FABRAQUER",
         "ubicacion": "PAB.MUN. BIAR",
-        "resultado": "VS",
+        "resultado": "10/04/2027 18:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 24",
@@ -280,10 +280,10 @@
         "local": "POLANENS SANTA POLA",
         "visitante": "CD BIARENSE",
         "ubicacion": "GIMN. SILVIA MARTÍNEZ (STA. POLA)",
-        "resultado": "VS",
+        "resultado": "17/04/2027 17:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 25",
@@ -293,10 +293,10 @@
         "local": "CD BIARENSE",
         "visitante": "CV ELCHE",
         "ubicacion": "PAB.MUN. BIAR",
-        "resultado": "VS",
+        "resultado": "24/04/2027 18:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 26",
@@ -306,9 +306,9 @@
         "local": "C. SUNRISE TORREVIEJA",
         "visitante": "CD BIARENSE",
         "ubicacion": "PAB. POLID. LA MATA (TORREVIEJA)",
-        "resultado": "VS",
+        "resultado": "01/05/2027 18:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     }
 ]

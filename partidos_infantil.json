@@ -7,10 +7,10 @@
         "local": "CV ALICANTE 2000 FUCSIA",
         "visitante": "CD BIARENSE P",
         "ubicacion": "AB CIUDAD JARDÍN (ALICANTE) - PISTA",
-        "resultado": "VS",
+        "resultado": "3 - 0 (25-14/25-22/25-17)",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 4",
@@ -20,10 +20,10 @@
         "local": "CD BIARENSE",
         "visitante": "CV JESUITAS SERRA GROSSA AZUL",
         "ubicacion": "PAB.MUN. BIAR",
-        "resultado": "VS",
+        "resultado": "13/02/2027 09:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 6",
@@ -33,10 +33,10 @@
         "local": "CD BIARENSE",
         "visitante": "CV SAN VICENTE",
         "ubicacion": "PAB.MUN. BIAR",
-        "resultado": "VS",
+        "resultado": "27/02/2027 10:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 7",
@@ -46,10 +46,10 @@
         "local": "CD JESUITAS SERRA GROSSA BLANCO",
         "visitante": "CD BIARENSE",
         "ubicacion": "PAB. P. ARRUPE (ALICANTE) PISTA 1",
-        "resultado": "VS",
+        "resultado": "06/03/2027 12:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 8",
@@ -59,10 +59,10 @@
         "local": "CD BIARENSE",
         "visitante": "CV ALICANTE 2000 BLANCO",
         "ubicacion": "PAB.MUN. BIAR",
-        "resultado": "VS",
+        "resultado": "13/03/2027 09:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 9",
@@ -72,10 +72,10 @@
         "local": "CD SALESIANOS ALICANTE",
         "visitante": "CD BIARENSE CO",
         "ubicacion": "L. SALESIANOS DON BOSCO (ALICANT",
-        "resultado": "VS",
+        "resultado": "13/12/2026 13:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 10",
@@ -85,10 +85,10 @@
         "local": "CV VILLENA LILLO ARTESANO",
         "visitante": "CD BIARENSE",
         "ubicacion": "PAB.MUN. VILLENA",
-        "resultado": "VS",
+        "resultado": "10/04/2027 12:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 11",
@@ -98,10 +98,10 @@
         "local": "CD BIARENSE",
         "visitante": "CV VILLENA SUPER JUMP",
         "ubicacion": "PAB.MUN. BIAR",
-        "resultado": "VS",
+        "resultado": "17/04/2027 10:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 14",
@@ -111,10 +111,10 @@
         "local": "CD BIARENSE",
         "visitante": "CV ALICANTE 2000 FUCSIA",
         "ubicacion": "PAB.MUN. BIAR",
-        "resultado": "VS",
+        "resultado": "30/01/2027 12:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 15",
@@ -124,10 +124,10 @@
         "local": "CV JESUITAS SERRA GROSSA AZUL",
         "visitante": "CD BIARENSE",
         "ubicacion": "PAB. P. ARRUPE (ALICANTE) PISTA 1",
-        "resultado": "VS",
+        "resultado": "13/02/2027 09:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 17",
@@ -137,10 +137,10 @@
         "local": "CV SAN VICENTE",
         "visitante": "CD BIARENSE P",
         "ubicacion": ".M. GINÉS ALENDA (S. VICENTE DEL R.",
-        "resultado": "VS",
+        "resultado": "27/02/2027 10:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 18",
@@ -150,10 +150,10 @@
         "local": "CD BIARENSE",
         "visitante": "CD JESUITAS SERRA GROSSA BLANCO",
         "ubicacion": "PAB.MUN. BIAR",
-        "resultado": "VS",
+        "resultado": "06/03/2027 12:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 19",
@@ -163,10 +163,10 @@
         "local": "CV ALICANTE 2000 BLANCO",
         "visitante": "CD BIARENSE P",
         "ubicacion": "AB CIUDAD JARDÍN (ALICANTE) - PISTA",
-        "resultado": "VS",
+        "resultado": "13/03/2027 09:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 20",
@@ -176,10 +176,10 @@
         "local": "CD BIARENSE",
         "visitante": "CD SALESIANOS ALICANTE",
         "ubicacion": "PAB.MUN. BIAR",
-        "resultado": "VS",
+        "resultado": "20/03/2027 12:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 21",
@@ -189,10 +189,10 @@
         "local": "CD BIARENSE",
         "visitante": "CV VILLENA LILLO ARTESANO",
         "ubicacion": "PAB.MUN. BIAR",
-        "resultado": "VS",
+        "resultado": "10/04/2027 12:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 22",
@@ -202,9 +202,9 @@
         "local": "CV VILLENA SUPER JUMP",
         "visitante": "CD BIARENSE",
         "ubicacion": "PAB.MUN. VILLENA",
-        "resultado": "VS",
+        "resultado": "17/04/2027 10:00",
         "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "jugado": true,
+        "estado": "Finalizado"
     }
 ]
