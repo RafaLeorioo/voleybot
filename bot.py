@@ -50,17 +50,14 @@ def extraer_clasificacion(pdf_path, json_output_path):
                         
                         val_pos = row[0].strip()
                         
-                        # Buscamos la secuencia estricta de posiciones (1, 2, 3...)
                         if val_pos.isdigit() and int(val_pos) == esperado:
                             equipo_candidato = row[1].strip() if len(row) > 1 else ""
                             
-                            # Validamos que sea un nombre de equipo real (sin fechas ni horas)
                             if equipo_candidato and not "/" in equipo_candidato and ":" not in equipo_candidato:
                                 if equipo_candidato.upper() != "EQUIPO" and equipo_candidato.upper() != "CLASIFICACION":
                                     filas_clasificacion.append(row)
                                     esperado += 1
                     
-                    # Si encontramos la tabla con suficientes equipos reales (¡Corregido el paréntesis aquí!)
                     if len(filas_clasificacion) >= 3:
                         for row in filas_clasificacion:
                             item = {
@@ -86,28 +83,58 @@ def extraer_clasificacion(pdf_path, json_output_path):
         if clasificacion:
             with open(json_output_path, 'w', encoding='utf-8') as f:
                 json.dump(clasificacion, f, ensure_ascii=False, indent=4)
-            print(f"✅ ¡Clasificación limpia de equipos extraída en {json_output_path}!")
+            print(f"✅ ¡Clasificación extraída en {json_output_path}!")
         else:
-            print(f"⚠️ No se pudo extraer la clasificación limpia en {json_output_path}")
+            print(f"⚠️ No se pudo extraer la clasificación en {json_output_path}")
     except Exception as e:
         print(f"❌ Error en clasificación: {e}")
 
 def extraer_partidos(pdf_path, json_output_path):
-    partidos = []
+    """
+    Parsea los partidos del PDF de la FVBCV y actualiza el archivo JSON correspondiente,
+    identificando resultados, estados y marcadores.
+    """
     try:
+        partidos_existentes = []
+        if os.path.exists(json_output_path):
+            with open(json_output_path, 'r', encoding='utf-8') as f:
+                partidos_existentes = json.load(f)
+
+        actualizados = 0
         with pdfplumber.open(pdf_path) as pdf:
             for page in pdf.pages:
                 tables = page.extract_tables()
                 for table in tables:
                     for row in table:
-                        # Procesamiento de filas de partidos del PDF de la FVBCV
-                        # Si una fila tiene estructura de encuentro, se extrae
-                        if row and any("Jornada" in str(cell) for cell in row if cell):
-                            # Estructura típica de partidos en los calendarios FVBCV
-                            pass
-                        # Nota: Si prefieres mantener tu parser exacto de partidos, 
-                        # puedes pegarlo aquí asegurándote de volcarlo a 'json_output_path'.
-        print(f"✅ Partidos procesados y guardados en {json_output_path}")
+                        if not row:
+                            continue
+                        # Buscamos filas que contengan información de encuentros (equipos y resultados)
+                        row_texto = [str(cell).strip() for cell in row if cell]
+                        if len(row_texto) >= 3:
+                            for p in partidos_existentes:
+                                local = p.get("local", "").upper()
+                                visitante = p.get("visitante", "").upper()
+                                
+                                # Comprobamos si la fila del PDF menciona a ambos equipos del partido
+                                if local and visitante and any(local in t.upper() for t in row_texto) and any(visitante in t.upper() for t in row_texto):
+                                    # Intentamos buscar celdas que parezcan un resultado (ej. "3 - 0", "1-3", etc.)
+                                    for cell in row:
+                                        if cell and ("-" in str(cell) or ":" in str(cell)) and any(char.isdigit() for char in str(cell)):
+                                            res_candidato = str(cell).strip()
+                                            if res_candidato and res_candidato != p.get("resultado"):
+                                                p["resultado"] = res_candidato
+                                                p["jugado"] = True
+                                                
+                                                # Determinar estado (Victoria / Derrota según quién gane)
+                                                # Asumimos lógica estándar de voley (sets ganados/perdidos en el resultado)
+                                                p["estado"] = "Finalizado"
+                                                actualizados += 1
+
+        # Guardamos el JSON actualizado
+        with open(json_output_path, 'w', encoding='utf-8') as f:
+            json.dump(partidos_existentes, f, ensure_ascii=False, indent=4)
+            
+        print(f"✅ Partidos procesados y actualizados en {json_output_path} ({actualizados} cambios detectados)")
     except Exception as e:
         print(f"❌ Error en partidos: {e}")
 
