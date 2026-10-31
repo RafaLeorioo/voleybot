@@ -1,14 +1,15 @@
 name: Actualizar Voleibol Bot
 
 on:
-  # 1. Cada hora durante todo el sábado (6) y domingo (0)
-  - cron: '0 * * * 0,6'
+  schedule:
+    # 1. Cada hora durante todo el sábado (6) y domingo (0)
+    - cron: '0 * * * 0,6'
     
-  # 2. Cada hora solo el lunes (1) por la mañana (de 00:00 a 13:00)
-  - cron: '0 0-13 * * 1'
+    # 2. Cada hora solo el lunes (1) por la mañana (de 00:00 a 13:00)
+    - cron: '0 0-13 * * 1'
     
-  # 3. Dos veces al día (a las 12:00 y a las 20:00) de martes a viernes (2-5)
-  - cron: '0 12,20 * * 2-5'
+    # 3. Dos veces al día (a las 12:00 y a las 20:00) de martes a viernes (2-5)
+    - cron: '0 12,20 * * 2-5'
   
   # Permite lanzarlo manualmente cuando quieras desde la web de GitHub
   workflow_dispatch:
