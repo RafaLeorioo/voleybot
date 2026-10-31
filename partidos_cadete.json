@@ -7,10 +7,10 @@
         "local": "CV OLIVA",
         "visitante": "CD BIARENSE",
         "ubicacion": "PAV. MUN. D,ESPORTS (OLIVA)",
-        "resultado": "3 - 0",
+        "resultado": "3-0",
         "parciales": "25-18/25-21/25-17",
         "jugado": true,
-        "estado": "Derrota"
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 2",
@@ -20,10 +20,10 @@
         "local": "CD BIARENSE",
         "visitante": "CV ALICANTE 2000 BLANCO",
         "ubicacion": "PAB.MUN. BIAR",
-        "resultado": "0 - 3",
+        "resultado": "0-3",
         "parciales": "17-25/23-25/21-25",
         "jugado": true,
-        "estado": "Derrota"
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 3",
@@ -33,10 +33,10 @@
         "local": "CV ALTEA SOGAI",
         "visitante": "CD BIARENSE",
         "ubicacion": "PALAU ESPORTS VILA D,ALTEA",
-        "resultado": "3 - 1",
+        "resultado": "3-1",
         "parciales": "16-25/25-11/25-7/25-20",
         "jugado": true,
-        "estado": "Derrota"
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 4",
@@ -46,10 +46,10 @@
         "local": "CD BIARENSE",
         "visitante": "BOLLO NATURAL FRUIT CVRDG",
         "ubicacion": "PAB.MUN. BIAR",
-        "resultado": "0 - 3",
+        "resultado": "0-3",
         "parciales": "23-25/16-25/19-25",
         "jugado": true,
-        "estado": "Derrota"
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 5",
@@ -59,10 +59,10 @@
         "local": "CATRAL IND. CARNÍCAS HALA SL",
         "visitante": "CD BIARENSE",
         "ubicacion": "PAB.MUN. BIAR",
-        "resultado": "VS",
-        "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "resultado": "3-0",
+        "parciales": "25-12/25-22/25-10",
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 6",

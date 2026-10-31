@@ -7,10 +7,10 @@
         "local": "CV ALICANTE 2000 FUCSIA",
         "visitante": "CD BIARENSE P",
         "ubicacion": "AB CIUDAD JARDÍN (ALICANTE) - PISTA",
-        "resultado": "VS",
-        "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "resultado": "3-0",
+        "parciales": "25-14/25-22/25-17",
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 4",

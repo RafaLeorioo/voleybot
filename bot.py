@@ -2,8 +2,8 @@ import os
 import json
 import requests
 import pdfplumber
+import re
 
-# Lista de equipos con sus URLs oficiales de la FVBCV y los nombres de sus archivos de salida
 CATEGORIAS = [
     {
         "nombre": "Senior Masculino",
@@ -50,17 +50,14 @@ def extraer_clasificacion(pdf_path, json_output_path):
                         
                         val_pos = row[0].strip()
                         
-                        # Buscamos la secuencia estricta de posiciones (1, 2, 3...)
                         if val_pos.isdigit() and int(val_pos) == esperado:
                             equipo_candidato = row[1].strip() if len(row) > 1 else ""
                             
-                            # Validamos que sea un nombre de equipo real (sin fechas ni horas)
                             if equipo_candidato and not "/" in equipo_candidato and ":" not in equipo_candidato:
                                 if equipo_candidato.upper() != "EQUIPO" and equipo_candidato.upper() != "CLASIFICACION":
                                     filas_clasificacion.append(row)
                                     esperado += 1
                     
-                    # Si encontramos la tabla con suficientes equipos reales (¡Corregido el paréntesis aquí!)
                     if len(filas_clasificacion) >= 3:
                         for row in filas_clasificacion:
                             item = {
@@ -86,28 +83,63 @@ def extraer_clasificacion(pdf_path, json_output_path):
         if clasificacion:
             with open(json_output_path, 'w', encoding='utf-8') as f:
                 json.dump(clasificacion, f, ensure_ascii=False, indent=4)
-            print(f"✅ ¡Clasificación limpia de equipos extraída en {json_output_path}!")
+            print(f"✅ ¡Clasificación extraída en {json_output_path}!")
         else:
-            print(f"⚠️ No se pudo extraer la clasificación limpia en {json_output_path}")
+            print(f"⚠️ No se pudo extraer la clasificación en {json_output_path}")
     except Exception as e:
         print(f"❌ Error en clasificación: {e}")
 
 def extraer_partidos(pdf_path, json_output_path):
-    partidos = []
     try:
+        partidos_existentes = []
+        if os.path.exists(json_output_path):
+            with open(json_output_path, 'r', encoding='utf-8') as f:
+                partidos_existentes = json.load(f)
+
+        actualizados = 0
         with pdfplumber.open(pdf_path) as pdf:
             for page in pdf.pages:
                 tables = page.extract_tables()
                 for table in tables:
                     for row in table:
-                        # Procesamiento de filas de partidos del PDF de la FVBCV
-                        # Si una fila tiene estructura de encuentro, se extrae
-                        if row and any("Jornada" in str(cell) for cell in row if cell):
-                            # Estructura típica de partidos en los calendarios FVBCV
-                            pass
-                        # Nota: Si prefieres mantener tu parser exacto de partidos, 
-                        # puedes pegarlo aquí asegurándote de volcarlo a 'json_output_path'.
-        print(f"✅ Partidos procesados y guardados en {json_output_path}")
+                        if not row or len(row) < 6:
+                            continue
+                        
+                        local_pdf = str(row[2]).strip().upper() if row[2] else ""
+                        visitante_pdf = str(row[4]).strip().upper() if row[4] else ""
+                        celda_res = str(row[3]).strip() if row[3] else ""
+
+                        if not local_pdf or not visitante_pdf:
+                            continue
+
+                        for p in partidos_existentes:
+                            if p.get("local", "").strip().upper() == local_pdf and p.get("visitante", "").strip().upper() == visitante_pdf:
+                                match_res = re.search(r'([0-3]\s*-\s*[0-3])', celda_res)
+                                
+                                if match_res:
+                                    resultado_limpio = match_res.group(1).replace(" ", "")
+                                    match_parciales = re.search(r'\((.*?)\)', celda_res)
+                                    parciales_limpios = match_parciales.group(1) if match_parciales else ""
+
+                                    if p.get("resultado") != resultado_limpio or not p.get("jugado"):
+                                        p["resultado"] = resultado_limpio
+                                        p["parciales"] = parciales_limpios
+                                        p["jugado"] = True
+                                        p["estado"] = "Finalizado"
+                                        actualizados += 1
+                                else:
+                                    # Si no hay resultado en el PDF, aseguramos que quede como Pendiente
+                                    if p.get("jugado") or p.get("estado") != "Pendiente" or p.get("resultado") != "VS":
+                                        p["resultado"] = "VS"
+                                        p["parciales"] = ""
+                                        p["jugado"] = False
+                                        p["estado"] = "Pendiente"
+                                        actualizados += 1
+
+        with open(json_output_path, 'w', encoding='utf-8') as f:
+            json.dump(partidos_existentes, f, ensure_ascii=False, indent=4)
+            
+        print(f"✅ Partidos actualizados en {json_output_path} ({actualizados} cambios)")
     except Exception as e:
         print(f"❌ Error en partidos: {e}")
 
@@ -121,7 +153,6 @@ def procesar_todo():
                 with open(pdf_temp, "wb") as f:
                     f.write(response.content)
                 
-                # Ejecutamos ambas tareas: Partidos y Clasificación
                 extraer_partidos(pdf_temp, cat['json_partidos'])
                 extraer_clasificacion(pdf_temp, cat['json_clasif'])
                 
