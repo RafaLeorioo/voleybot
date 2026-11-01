@@ -39,5 +39,5 @@ jobs:
         run: |
           git config --global user.name "VoleyBot Actions"
           git config --global user.email "bot@actions.github.com"
-          git add partidos.json partidos_femenino.json partidos_infantil.json partidos_cadete.json
+          git add -f partidos.json partidos_femenino.json partidos_infantil.json partidos_cadete.json
           git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 Actualización automática de resultados [skip ci]" && git push)
