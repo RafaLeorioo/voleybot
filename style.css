@@ -138,43 +138,46 @@ body {
     transform: scale(1.05);
 }
 
-/* DESPLEGABLE ADHERIDO DIRECTAMENTE AL BOTÓN (CONTINUIDAD 100%) */
+/* EXTENSIÓN DIRECTA DESDE EL BOTÓN MENÚ */
 .circular-options-container {
     position: absolute;
     bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%) scaleY(0);
-    transform-origin: bottom center;
-    background: rgba(15, 23, 42, 0.98);
+    right: 0; /* Lo alinea exactamente al borde derecho, justo encima del botón Menú */
+    transform: translateY(10px) scaleY(0);
+    transform-origin: bottom right;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.15);
-    border-bottom: none;
-    border-radius: 20px 20px 12px 12px;
-    padding: 10px;
-    margin-bottom: 6px;
+    border-radius: 25px;
+    padding: 12px 10px;
+    margin-bottom: 6px; /* Conexión visual directa */
     display: flex;
     flex-direction: column;
     gap: 6px;
-    box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.5);
-    transition: transform 0.2s ease-out, opacity 0.2s;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.6);
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s;
     opacity: 0;
     pointer-events: none;
     z-index: 1001;
-    min-width: 170px;
+    width: max-content; /* Se ajusta al tamaño de sus opciones de forma limpia */
+    min-width: 160px;
+    box-sizing: border-box;
 }
 
-/* Puente invisible inferior que conecta el menú pegado al botón */
+/* Puente invisible para que no se cierre al pasar el ratón por PC */
 .circular-options-container::after {
     content: '';
     position: absolute;
-    bottom: -12px;
+    bottom: -10px;
     left: 0;
     width: 100%;
-    height: 16px;
+    height: 12px;
     background: transparent;
 }
 
 .circular-menu-wrapper.active .circular-options-container {
-    transform: translateX(-50%) scaleY(1);
+    transform: translateY(0) scaleY(1);
     opacity: 1;
     pointer-events: auto;
 }
