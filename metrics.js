@@ -1,5 +1,4 @@
-let chartInstanciaSets = null;
-let chartInstanciaPuntos = null;
+let chartsInstancias = {};
 
 async function cargarVistaMetricas() {
     const contenedor = document.getElementById('metrics-container');
@@ -13,63 +12,87 @@ async function cargarVistaMetricas() {
 
         const colorHex = obtenerColorHex(categoriaActual.tipo);
 
+        let indexA = equipos.findIndex(eq => eq.equipo.toUpperCase().includes('BIARENSE'));
+        if (indexA === -1) indexA = 0;
+        let indexB = equipos.length > 1 ? (indexA === 0 ? 1 : 0) : indexA;
+
         let html = `
-            <div class="metrics-wrapper">
+            <div class="metrics-wrapper" style="display: flex; flex-direction: column; gap: 20px; width: 100%;">
+                
+                <!-- Tarjeta de Selección Dual (Cara a Cara) -->
                 <div class="metrics-selector-card">
-                    <span class="metrics-label">Seleccionar Equipo para Análisis</span>
-                    <select id="team-selector" class="team-select-dropdown" onchange="actualizarDashboardMetricas()">
-                `;
+                    <span class="metrics-label" style="text-align: center; font-weight: 700; margin-bottom: 10px; display: block;">Comparativa Cara a Cara entre Equipos</span>
+                    <div class="metrics-selectors-row">
+                        <div class="select-box-wrapper">
+                            <label class="select-sublabel">Equipo A (Principal):</label>
+                            <select id="team-selector-a" class="team-select-dropdown" onchange="actualizarDashboardMetricas()">
+        `;
 
         equipos.forEach((eq, index) => {
-            const esBiarense = eq.equipo.toUpperCase().includes('BIARENSE');
-            const selected = (esBiarense || index === 0) ? 'selected' : '';
+            const selected = (index === indexA) ? 'selected' : '';
             html += `<option value="${index}" ${selected}>${eq.posicion}º - ${eq.equipo}</option>`;
         });
 
         html += `
-                    </select>
-                </div>
+                            </select>
+                        </div>
+                        <div class="vs-label" style="color: ${colorHex};">VS</div>
+                        <div class="select-box-wrapper">
+                            <label class="select-sublabel">Equipo B (Rival):</label>
+                            <select id="team-selector-b" class="team-select-dropdown" onchange="actualizarDashboardMetricas()">
+        `;
 
-                <div class="metrics-grid">
-                    <!-- Tarjeta Gráfica de Sets con Botón (i) -->
-                    <div class="metric-card">
-                        <div class="metric-title-wrapper">
-                            <span class="metric-card-title" style="color: ${colorHex};">📊 Desglose de Sets</span>
-                            <button class="info-icon-btn" onclick="toggleExplicacion('sets-desc')" title="Explicación">i</button>
-                        </div>
-                        <div id="sets-desc" class="metric-explanation" style="border-left-color: ${colorHex};">
-                            Muestra la proporción de <strong>sets ganados</strong> (en color) frente a los <strong>sets perdidos</strong> (translúcido) acumulados durante toda la temporada.
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="setsChart"></canvas>
-                        </div>
-                    </div>
+        equipos.forEach((eq, index) => {
+            const selected = (index === indexB) ? 'selected' : '';
+            html += `<option value="${index}" ${selected}>${eq.posicion}º - ${eq.equipo}</option>`;
+        });
 
-                    <!-- Tarjeta Gráfica de Puntos con Botón (i) -->
-                    <div class="metric-card">
-                        <div class="metric-title-wrapper">
-                            <span class="metric-card-title" style="color: ${colorHex};">🏐 Puntos de Juego</span>
-                            <button class="info-icon-btn" onclick="toggleExplicacion('puntos-desc')" title="Explicación">i</button>
-                        </div>
-                        <div id="puntos-desc" class="metric-explanation" style="border-left-color: ${colorHex};">
-                            Compara el volumen total de <strong>puntos anotados</strong> a favor con los <strong>puntos recibidos</strong> por parte de los rivales en los partidos disputados.
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="puntosChart"></canvas>
-                        </div>
-                    </div>
-
-                    <div class="kpi-row">
-                        <div class="kpi-box">
-                            <span id="kpi-efectividad" class="kpi-value" style="color: ${colorHex};">-</span>
-                            <span class="kpi-title">% Éxito en Sets</span>
-                        </div>
-                        <div class="kpi-box">
-                            <span id="kpi-coef" class="kpi-value" style="color: ${colorHex};">-</span>
-                            <span class="kpi-title">Balance de Puntos</span>
+        html += `
+                            </select>
                         </div>
                     </div>
                 </div>
+
+                <!-- Tarjeta 1: Puntuación General -->
+                <div class="metric-card" style="width: 100%;">
+                    <div class="metric-title-wrapper">
+                        <span class="metric-card-title" style="color: ${colorHex};">Puntuación General</span>
+                    </div>
+                    <div class="chart-container" style="position: relative; height: 160px; width: 100%;">
+                        <canvas id="chartPuntuacion"></canvas>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 2: Desglose de Partidos -->
+                <div class="metric-card" style="width: 100%;">
+                    <div class="metric-title-wrapper">
+                        <span class="metric-card-title" style="color: ${colorHex};">Desglose de Partidos (Ganados / Perdidos)</span>
+                    </div>
+                    <div class="chart-container" style="position: relative; height: 220px; width: 100%;">
+                        <canvas id="chartPartidos"></canvas>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 3: Sets y Sanciones -->
+                <div class="metric-card" style="width: 100%;">
+                    <div class="metric-title-wrapper">
+                        <span class="metric-card-title" style="color: ${colorHex};">Rendimiento en Sets y Sanciones</span>
+                    </div>
+                    <div class="chart-container" style="position: relative; height: 190px; width: 100%;">
+                        <canvas id="chartSets"></canvas>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 4: Volumen de Puntos de Juego -->
+                <div class="metric-card" style="width: 100%;">
+                    <div class="metric-title-wrapper">
+                        <span class="metric-card-title" style="color: ${colorHex};">Volumen de Puntos de Juego (Tantos)</span>
+                    </div>
+                    <div class="chart-container" style="position: relative; height: 160px; width: 100%;">
+                        <canvas id="chartPuntosJuego"></canvas>
+                    </div>
+                </div>
+
             </div>
         `;
 
@@ -81,7 +104,6 @@ async function cargarVistaMetricas() {
         console.error('Error cargando métricas:', error);
         contenedor.innerHTML = `
             <div class="card" style="text-align:center; padding: 30px;">
-                <i class="fa-solid fa-triangle-exclamation" style="font-size: 2rem; color: #f59e0b; margin-bottom: 10px;"></i>
                 <h3 style="font-size: 1rem; margin-bottom: 6px;">Métricas no disponibles</h3>
                 <p style="font-size: 0.8rem; color: var(--text-muted);">Se requiere un archivo de clasificación con datos completos para generar las estadísticas.</p>
             </div>
@@ -89,86 +111,129 @@ async function cargarVistaMetricas() {
     }
 }
 
-function toggleExplicacion(id) {
-    const el = document.getElementById(id);
-    if (el) {
-        el.style.display = (el.style.display === 'block') ? 'none' : 'block';
-    }
+function extraerDatosBloques(eq) {
+    return {
+        puntuacion: [
+            parseInt(eq.ptos ?? eq.Ptos) || 0,
+            parseInt(eq.pj ?? eq.Pj) || 0
+        ],
+        partidos: [
+            parseInt(eq.pg3 ?? eq.PG3) || 0,
+            parseInt(eq.pg2 ?? eq.PG2) || 0,
+            parseInt(eq.pp1 ?? eq.PP1) || 0,
+            parseInt(eq.pp0 ?? eq.PP0) || 0
+        ],
+        sets: [
+            parseInt(eq.sf ?? eq.SF) || 0,
+            parseInt(eq.sc ?? eq.SC) || 0,
+            parseInt(eq.sa ?? eq.SA) || 0
+        ],
+        puntosJuego: [
+            parseInt(eq.pf ?? eq.PF) || 0,
+            parseInt(eq.pc ?? eq.PC) || 0
+        ]
+    };
 }
 
-function actualizarDashboardMetricas() {
-    const select = document.getElementById('team-selector');
-    if (!select || !window.equiposCacheMetricas) return;
-
-    const index = parseInt(select.value);
-    const eq = window.equiposCacheMetricas[index];
-    if (!eq) return;
-
-    const sf = parseInt(eq.sf) || 0;
-    const sc = parseInt(eq.sc) || 0;
-    const pf = parseInt(eq.pf) || 0;
-    const pc = parseInt(eq.pc) || 0;
-
-    // KPIs Intuitivos
-    const totalSets = sf + sc;
-    const porcentajeSets = totalSets > 0 ? Math.round((sf / totalSets) * 100) : 0;
+function crearGraficaBloque(canvasId, labels, dataA, dataB, teamAName, teamBName, colorHex, colorRival) {
+    const ctx = document.getElementById(canvasId).getContext('2d');
     
-    const balancePuntos = pf - pc;
-    const balancePuntosStr = balancePuntos > 0 ? `+${balancePuntos}` : `${balancePuntos}`;
-
-    document.getElementById('kpi-efectividad').innerText = `${porcentajeSets}%`;
-    document.getElementById('kpi-coef').innerText = balancePuntosStr;
-    
-    const kpiCoefEl = document.getElementById('kpi-coef');
-    if (balancePuntos > 0) {
-        kpiCoefEl.style.color = '#10b981';
-    } else if (balancePuntos < 0) {
-        kpiCoefEl.style.color = '#ef4444';
-    } else {
-        kpiCoefEl.style.color = '#fff';
+    if (chartsInstancias[canvasId]) {
+        chartsInstancias[canvasId].destroy();
     }
 
-    const colorHex = obtenerColorHex(categoriaActual.tipo);
-
-    // Gráfica de Sets
-    const ctxSets = document.getElementById('setsChart').getContext('2d');
-    if (chartInstanciaSets) chartInstanciaSets.destroy();
-    chartInstanciaSets = new Chart(ctxSets, {
-        type: 'doughnut',
-        data: {
-            labels: ['Sets a Favor', 'Sets en Contra'],
-            datasets: [{
-                data: [sf, sc],
-                backgroundColor: [colorHex, 'rgba(255, 255, 255, 0.1)']
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { position: 'bottom', labels: { color: '#fff', font: { size: 11 } } } }
-        }
-    });
-
-    // Gráfica de Puntos
-    const ctxPuntos = document.getElementById('puntosChart').getContext('2d');
-    if (chartInstanciaPuntos) chartInstanciaPuntos.destroy();
-    chartInstanciaPuntos = new Chart(ctxPuntos, {
+    chartsInstancias[canvasId] = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Anotados (PF)', 'Recibidos (PC)'],
-            datasets: [{
-                data: [pf, pc],
-                backgroundColor: [colorHex, 'rgba(148, 163, 184, 0.3)']
-            }]
+            labels: labels,
+            datasets: [
+                {
+                    label: teamAName,
+                    data: dataA,
+                    backgroundColor: colorHex,
+                    borderColor: colorHex,
+                    borderWidth: 1,
+                    borderRadius: 4
+                },
+                {
+                    label: teamBName,
+                    data: dataB,
+                    backgroundColor: colorRival,
+                    borderColor: colorRival,
+                    borderWidth: 1,
+                    borderRadius: 4
+                }
+            ]
         },
         options: {
+            indexAxis: 'y',
             responsive: true,
             maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: { color: '#fff', font: { size: 11, family: "'Plus Jakarta Sans', sans-serif" } }
+                },
+                tooltip: { mode: 'index', intersect: false }
+            },
             scales: {
-                y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255, 255, 255, 0.05)' } },
-                x: { ticks: { color: '#94a3b8' }, grid: { display: false } }
+                x: {
+                    beginAtZero: true,
+                    ticks: { color: '#94a3b8', font: { size: 10 } },
+                    grid: { color: 'rgba(255, 255, 255, 0.05)' }
+                },
+                y: {
+                    ticks: { color: '#ffffff', font: { weight: '600', size: 11 } },
+                    grid: { display: false }
+                }
             }
         }
     });
+}
+
+function actualizarDashboardMetricas() {
+    const selectA = document.getElementById('team-selector-a');
+    const selectB = document.getElementById('team-selector-b');
+    if (!selectA || !selectB || !window.equiposCacheMetricas) return;
+
+    const indexA = parseInt(selectA.value);
+    const indexB = parseInt(selectB.value);
+    const eqA = window.equiposCacheMetricas[indexA];
+    const eqB = window.equiposCacheMetricas[indexB];
+    if (!eqA || !eqB) return;
+
+    const datosA = extraerDatosBloques(eqA);
+    const datosB = extraerDatosBloques(eqB);
+
+    const colorHex = obtenerColorHex(categoriaActual.tipo);
+    const colorRival = 'rgba(148, 163, 184, 0.7)';
+
+    // Renderizar las 4 gráficas independientes
+    crearGraficaBloque(
+        'chartPuntuacion',
+        ['Ptos (Puntos Totales)', 'PJ (Partidos Jugados)'],
+        datosA.puntuacion, datosB.puntuacion,
+        eqA.equipo, eqB.equipo, colorHex, colorRival
+    );
+
+    crearGraficaBloque(
+        'chartPartidos',
+        ['PG3 (Ganados 3-0/3-1)', 'PG2 (Ganados 3-2)', 'PP1 (Perdidos 2-3)', 'PP0 (Perdidos 0-3/1-3)'],
+        datosA.partidos, datosB.partidos,
+        eqA.equipo, eqB.equipo, colorHex, colorRival
+    );
+
+    crearGraficaBloque(
+        'chartSets',
+        ['SF (Sets a Favor)', 'SC (Sets en Contra)', 'SA (Sanciones)'],
+        datosA.sets, datosB.sets,
+        eqA.equipo, eqB.equipo, colorHex, colorRival
+    );
+
+    crearGraficaBloque(
+        'chartPuntosJuego',
+        ['PF (Puntos a Favor)', 'PC (Puntos en Contra)'],
+        datosA.puntosJuego, datosB.puntosJuego,
+        eqA.equipo, eqB.equipo, colorHex, colorRival
+    );
 }
