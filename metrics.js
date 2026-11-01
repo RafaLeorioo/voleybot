@@ -14,17 +14,21 @@ async function cargarVistaMetricas() {
 
         let indexA = equipos.findIndex(eq => eq.equipo.toUpperCase().includes('BIARENSE'));
         if (indexA === -1) indexA = 0;
-        let indexB = equipos.length > 1 ? (indexA === 0 ? 1 : 0) : indexA;
+        
+        // Por defecto dejamos el Equipo B sin seleccionar (-1)
+        let indexB = -1;
 
         let html = `
             <div class="metrics-wrapper" style="display: flex; flex-direction: column; gap: 20px; width: 100%;">
                 
-                <!-- Tarjeta de Selección Dual (Cara a Cara) -->
+                <!-- Tarjeta de Selección Dual Cara a Cara Mejorada -->
                 <div class="metrics-selector-card">
-                    <span class="metrics-label" style="text-align: center; font-weight: 700; margin-bottom: 10px; display: block;">Comparativa Cara a Cara entre Equipos</span>
-                    <div class="metrics-selectors-row">
-                        <div class="select-box-wrapper">
-                            <label class="select-sublabel">Equipo A (Principal):</label>
+                    <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; text-align: center;">
+                        ⚔️ Enfrentamiento Cara a Cara
+                    </div>
+                    <div class="matchup-container">
+                        <div class="team-select-wrapper">
+                            <span class="team-role-label" style="color: ${colorHex};">Local / Principal</span>
                             <select id="team-selector-a" class="team-select-dropdown" onchange="actualizarDashboardMetricas()">
         `;
 
@@ -36,15 +40,19 @@ async function cargarVistaMetricas() {
         html += `
                             </select>
                         </div>
-                        <div class="vs-label" style="color: ${colorHex};">VS</div>
-                        <div class="select-box-wrapper">
-                            <label class="select-sublabel">Equipo B (Rival):</label>
+
+                        <div class="vs-badge-container">
+                            <span class="vs-badge" style="background-color: ${colorHex};">VS</span>
+                        </div>
+
+                        <div class="team-select-wrapper">
+                            <span class="team-role-label" style="color: #94a3b8;">Rival / Visitante</span>
                             <select id="team-selector-b" class="team-select-dropdown" onchange="actualizarDashboardMetricas()">
+                                <option value="-1" selected disabled>Selecciona rival...</option>
         `;
 
         equipos.forEach((eq, index) => {
-            const selected = (index === indexB) ? 'selected' : '';
-            html += `<option value="${index}" ${selected}>${eq.posicion}º - ${eq.equipo}</option>`;
+            html += `<option value="${index}">${eq.posicion}º - ${eq.equipo}</option>`;
         });
 
         html += `
@@ -142,28 +150,34 @@ function crearGraficaBloque(canvasId, labels, dataA, dataB, teamAName, teamBName
         chartsInstancias[canvasId].destroy();
     }
 
+    // Si no hay rival seleccionado (dataB es null), solo mostramos el dataset del equipo A
+    let datasets = [
+        {
+            label: teamAName,
+            data: dataA,
+            backgroundColor: colorHex,
+            borderColor: colorHex,
+            borderWidth: 1,
+            borderRadius: 4
+        }
+    ];
+
+    if (dataB) {
+        datasets.push({
+            label: teamBName,
+            data: dataB,
+            backgroundColor: colorRival,
+            borderColor: colorRival,
+            borderWidth: 1,
+            borderRadius: 4
+        });
+    }
+
     chartsInstancias[canvasId] = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: labels,
-            datasets: [
-                {
-                    label: teamAName,
-                    data: dataA,
-                    backgroundColor: colorHex,
-                    borderColor: colorHex,
-                    borderWidth: 1,
-                    borderRadius: 4
-                },
-                {
-                    label: teamBName,
-                    data: dataB,
-                    backgroundColor: colorRival,
-                    borderColor: colorRival,
-                    borderWidth: 1,
-                    borderRadius: 4
-                }
-            ]
+            datasets: datasets
         },
         options: {
             indexAxis: 'y',
@@ -199,41 +213,42 @@ function actualizarDashboardMetricas() {
     const indexA = parseInt(selectA.value);
     const indexB = parseInt(selectB.value);
     const eqA = window.equiposCacheMetricas[indexA];
-    const eqB = window.equiposCacheMetricas[indexB];
-    if (!eqA || !eqB) return;
+    const eqB = indexB >= 0 ? window.equiposCacheMetricas[indexB] : null;
+    
+    if (!eqA) return;
 
     const datosA = extraerDatosBloques(eqA);
-    const datosB = extraerDatosBloques(eqB);
+    const datosB = eqB ? extraerDatosBloques(eqB) : null;
 
     const colorHex = obtenerColorHex(categoriaActual.tipo);
     const colorRival = 'rgba(148, 163, 184, 0.7)';
 
-    // Renderizar las 4 gráficas independientes
+    // Renderizar las 4 gráficas independientes (con o sin rival)
     crearGraficaBloque(
         'chartPuntuacion',
         ['Ptos (Puntos Totales)', 'PJ (Partidos Jugados)'],
-        datosA.puntuacion, datosB.puntuacion,
-        eqA.equipo, eqB.equipo, colorHex, colorRival
+        datosA.puntuacion, datosB ? datosB.puntuacion : null,
+        eqA.equipo, eqB ? eqB.equipo : null, colorHex, colorRival
     );
 
     crearGraficaBloque(
         'chartPartidos',
         ['PG3 (Ganados 3-0/3-1)', 'PG2 (Ganados 3-2)', 'PP1 (Perdidos 2-3)', 'PP0 (Perdidos 0-3/1-3)'],
-        datosA.partidos, datosB.partidos,
-        eqA.equipo, eqB.equipo, colorHex, colorRival
+        datosA.partidos, datosB ? datosB.partidos : null,
+        eqA.equipo, eqB ? eqB.equipo : null, colorHex, colorRival
     );
 
     crearGraficaBloque(
         'chartSets',
         ['SF (Sets a Favor)', 'SC (Sets en Contra)', 'SA (Sanciones)'],
-        datosA.sets, datosB.sets,
-        eqA.equipo, eqB.equipo, colorHex, colorRival
+        datosA.sets, datosB ? datosB.sets : null,
+        eqA.equipo, eqB ? eqB.equipo : null, colorHex, colorRival
     );
 
     crearGraficaBloque(
         'chartPuntosJuego',
         ['PF (Puntos a Favor)', 'PC (Puntos en Contra)'],
-        datosA.puntosJuego, datosB.puntosJuego,
-        eqA.equipo, eqB.equipo, colorHex, colorRival
+        datosA.puntosJuego, datosB ? datosB.puntosJuego : null,
+        eqA.equipo, eqB ? eqB.equipo : null, colorHex, colorRival
     );
 }
