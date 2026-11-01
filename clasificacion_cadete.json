@@ -86,19 +86,33 @@
     {
         "posicion": "7",
         "equipo": "BOLLO NATURAL FRUIT CVRDG",
-        "pj": "4",
+        "pj": "5",
         "pg3": "2",
         "pg2": "0",
-        "pp1": "0",
+        "pp1": "1",
         "pp0": "2",
-        "sf": "6",
-        "sc": "7",
-        "pf": "264",
-        "pc": "293",
-        "ptos": "6"
+        "sf": "8",
+        "sc": "10",
+        "pf": "361",
+        "pc": "390",
+        "ptos": "7"
     },
     {
         "posicion": "8",
+        "equipo": "CV ALTEA SOGAI",
+        "pj": "4",
+        "pg3": "1",
+        "pg2": "1",
+        "pp1": "1",
+        "pp0": "1",
+        "sf": "8",
+        "sc": "9",
+        "pf": "328",
+        "pc": "341",
+        "ptos": "6"
+    },
+    {
+        "posicion": "9",
         "equipo": "RACING P.S. JUAN",
         "pj": "4",
         "pg3": "1",
@@ -110,20 +124,6 @@
         "pf": "358",
         "pc": "374",
         "ptos": "5"
-    },
-    {
-        "posicion": "9",
-        "equipo": "CV ALTEA SOGAI",
-        "pj": "3",
-        "pg3": "1",
-        "pg2": "0",
-        "pp1": "1",
-        "pp0": "1",
-        "sf": "5",
-        "sc": "7",
-        "pf": "231",
-        "pc": "244",
-        "ptos": "4"
     },
     {
         "posicion": "10",
