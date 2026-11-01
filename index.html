@@ -68,25 +68,42 @@
     <div id="clasificacion-container" class="container" style="display: none;"></div>
     <div id="metrics-container" class="container" style="display: none;"></div>
 
-    <!-- Barra de Navegación Inferior Flotante (Optimizada) -->
+    <!-- Barra de Navegación Inferior con Menú Circular Flotante -->
     <nav id="bottom-nav-bar" class="bottom-nav-bar" style="display: none;">
-        <!-- Botón de Retroceso Compacto (Flecha Izquierda) -->
-        <button class="floating-btn" onclick="volverAlSelector()" title="Volver a Categorías">
+        <!-- Botón de Retroceso (Flecha Izquierda) -->
+        <button class="nav-back-btn" onclick="volverAlSelector()" title="Volver a Categorías">
             <i class="fa-solid fa-arrow-left"></i>
         </button>
-        <!-- Botón para alternar entre Partidos y Clasificación -->
-        <button id="toggle-view-btn" class="floating-btn accent-btn" onclick="alternarVista()">
-            <i id="toggle-icon" class="fa-solid fa-table-list"></i>
-            <span id="toggle-text">Clasificación</span>
-        </button>
-        <!-- Botón para abrir el panel de Métricas y Gráficas -->
-        <button class="floating-btn" onclick="cambiarAVistaMetricas()">
-            <i class="fa-solid fa-chart-pie"></i> Stats
-        </button>
-        <!-- Enlace a la Federación -->
-        <a id="fvbcv-link" href="#" target="_blank" class="floating-btn">
-            <i class="fa-solid fa-globe"></i> FVBcv
-        </a>
+
+        <!-- Contenedor del Menú Circular Flotante -->
+        <div class="circular-menu-wrapper" id="circularMenuWrapper">
+            <div class="circular-options-container" id="circularOptions">
+                <button class="circular-option-btn" data-section="partidos" onclick="seleccionarOpcionMenu('partidos')">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    <span>Partidos</span>
+                </button>
+                <button class="circular-option-btn" data-section="clasificacion" onclick="seleccionarOpcionMenu('clasificacion')">
+                    <i class="fa-solid fa-list-ol"></i>
+                    <span>Clasificación</span>
+                </button>
+                <button class="circular-option-btn" data-section="metricas" onclick="seleccionarOpcionMenu('metricas')">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Stats</span>
+                </button>
+                <a id="fvbcv-link" href="#" target="_blank" class="circular-option-btn" data-section="fvbcv" onclick="cerrarMenuCircular()">
+                    <i class="fa-solid fa-globe"></i>
+                    <span>FVBcv</span>
+                </a>
+                
+                <!-- Puente invisible para mantener el hover del ratón en PC -->
+                <div class="menu-bridge"></div>
+            </div>
+            
+            <button class="menu-main-toggle-btn" id="menuToggleBtn">
+                <i class="fa-solid fa-bars"></i>
+                <span>Menú</span>
+            </button>
+        </div>
     </nav>
 
     <!-- Archivos JavaScript -->

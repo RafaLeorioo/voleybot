@@ -9,6 +9,7 @@ let vistaActual = 'partidos'; // 'partidos', 'clasificacion' o 'metricas'
 
 window.addEventListener('DOMContentLoaded', () => {
     cargarProximosPartidosGlobales();
+    inicializarMenuCircular();
 });
 
 function parsearFecha(strFecha) {
@@ -32,6 +33,73 @@ function obtenerColorHex(tipo) {
         case 'cadete': return '#f59e0b';   // Amarillo Cadete
         case 'senior': default: return '#10b981'; // Verde Senior
     }
+}
+
+// Inicialización de eventos del Menú Circular Flotante
+function inicializarMenuCircular() {
+    const menuWrapper = document.getElementById('circularMenuWrapper');
+    const menuToggleBtn = document.getElementById('menuToggleBtn');
+
+    if (menuToggleBtn && menuWrapper) {
+        menuToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            menuWrapper.classList.toggle('active');
+        });
+
+        menuWrapper.addEventListener('mouseenter', () => {
+            menuWrapper.classList.add('active');
+        });
+
+        menuWrapper.addEventListener('mouseleave', () => {
+            menuWrapper.classList.remove('active');
+        });
+
+        document.addEventListener('click', () => {
+            cerrarMenuCircular();
+        });
+    }
+}
+
+function cerrarMenuCircular() {
+    const menuWrapper = document.getElementById('circularMenuWrapper');
+    if (menuWrapper) {
+        menuWrapper.classList.remove('active');
+    }
+}
+
+// Selección de sección desde el menú circular
+function seleccionarOpcionMenu(seccion) {
+    cerrarMenuCircular();
+    if (seccion === 'partidos') {
+        vistaActual = 'partidos';
+        renderizarVistaActual();
+    } else if (seccion === 'clasificacion') {
+        vistaActual = 'clasificacion';
+        renderizarVistaActual();
+    } else if (seccion === 'metricas') {
+        cambiarAVistaMetricas();
+    }
+}
+
+function actualizarEstadoMenuActivo() {
+    const colorHex = obtenerColorHex(categoriaActual.tipo);
+    const menuToggleBtn = document.getElementById('menuToggleBtn');
+    
+    if (menuToggleBtn) {
+        menuToggleBtn.style.backgroundColor = colorHex;
+    }
+
+    const botonesOpciones = document.querySelectorAll('.circular-option-btn');
+    botonesOpciones.forEach(btn => {
+        const seccionBtn = btn.getAttribute('data-section');
+        if (seccionBtn === vistaActual) {
+            btn.classList.add('active-section');
+            btn.style.color = colorHex;
+        } else {
+            btn.classList.remove('active-section');
+            btn.style.color = '#94a3b8';
+        }
+    });
 }
 
 // Función para abrir Google Calendar directamente en una pestaña nueva con los datos del partido
@@ -151,6 +219,7 @@ async function cargarProximosPartidosGlobales() {
 }
 
 function volverAlSelector() {
+    cerrarMenuCircular();
     document.getElementById('partidos-container').style.display = 'none';
     document.getElementById('clasificacion-container').style.display = 'none';
     document.getElementById('metrics-container').style.display = 'none';
@@ -176,31 +245,9 @@ function cargarCategoria(archivoJson, archivoClasif, subtituloTexto, urlFvbcv, t
     navBar.className = `bottom-nav-bar categoria-${tipoCategoria}`;
     navBar.style.display = 'flex';
 
-    const colorHex = obtenerColorHex(tipoCategoria);
-    document.querySelectorAll('.floating-btn').forEach(btn => {
-        btn.style.borderColor = colorHex;
-    });
-    const accentBtn = document.querySelector('.floating-btn.accent-btn');
-    if (accentBtn) {
-        accentBtn.style.backgroundColor = colorHex;
-        accentBtn.style.borderColor = colorHex;
-    }
-
     document.getElementById('fvbcv-link').href = urlFvbcv;
     document.getElementById('main-subtitle').innerText = subtituloTexto;
 
-    actualizarBotonToggle();
-    renderizarVistaActual();
-}
-
-function alternarVista() {
-    // Si estábamos en métricas o partidos, alternamos hacia clasificación; si estábamos en clasificación, volvemos a partidos
-    if (vistaActual === 'clasificacion') {
-        vistaActual = 'partidos';
-    } else {
-        vistaActual = 'clasificacion';
-    }
-    actualizarBotonToggle();
     renderizarVistaActual();
 }
 
@@ -208,20 +255,9 @@ function cambiarAVistaMetricas() {
     vistaActual = 'metricas';
     document.getElementById('partidos-container').style.display = 'none';
     document.getElementById('clasificacion-container').style.display = 'none';
+    actualizarEstadoMenuActivo();
     cargarVistaMetricas();
     window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function actualizarBotonToggle() {
-    const icono = document.getElementById('toggle-icon');
-    const texto = document.getElementById('toggle-text');
-    if (vistaActual === 'clasificacion') {
-        icono.className = 'fa-solid fa-calendar-days';
-        texto.innerText = 'Partidos';
-    } else {
-        icono.className = 'fa-solid fa-table-list';
-        texto.innerText = 'Clasificación';
-    }
 }
 
 function renderizarVistaActual() {
@@ -230,6 +266,7 @@ function renderizarVistaActual() {
     const contenedorMetricas = document.getElementById('metrics-container');
 
     contenedorMetricas.style.display = 'none';
+    actualizarEstadoMenuActivo();
 
     if (vistaActual === 'partidos') {
         contenedorClasif.style.display = 'none';
