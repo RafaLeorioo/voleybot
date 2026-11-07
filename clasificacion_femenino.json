@@ -29,6 +29,20 @@
     },
     {
         "posicion": "3",
+        "equipo": "STO DOMINGO V PETRER",
+        "pj": "6",
+        "pg3": "4",
+        "pg2": "0",
+        "pp1": "1",
+        "pp0": "1",
+        "sf": "15",
+        "sc": "6",
+        "pf": "488",
+        "pc": "365",
+        "ptos": "13"
+    },
+    {
+        "posicion": "4",
         "equipo": "CV VILLENA VIBUS MONTESCAR",
         "pj": "6",
         "pg3": "4",
@@ -42,35 +56,35 @@
         "ptos": "13"
     },
     {
-        "posicion": "4",
-        "equipo": "STO DOMINGO V PETRER",
-        "pj": "5",
-        "pg3": "3",
-        "pg2": "0",
-        "pp1": "1",
-        "pp0": "1",
-        "sf": "12",
-        "sc": "6",
-        "pf": "413",
-        "pc": "319",
-        "ptos": "10"
-    },
-    {
         "posicion": "5",
         "equipo": "CARMELITAS VOLEY",
-        "pj": "6",
+        "pj": "7",
         "pg3": "3",
         "pg2": "0",
         "pp1": "1",
-        "pp0": "2",
-        "sf": "11",
-        "sc": "10",
-        "pf": "467",
-        "pc": "451",
+        "pp0": "3",
+        "sf": "12",
+        "sc": "13",
+        "pf": "557",
+        "pc": "547",
         "ptos": "10"
     },
     {
         "posicion": "6",
+        "equipo": "CV SANT JOAN",
+        "pj": "5",
+        "pg3": "3",
+        "pg2": "0",
+        "pp1": "0",
+        "pp0": "2",
+        "sf": "9",
+        "sc": "8",
+        "pf": "393",
+        "pc": "395",
+        "ptos": "9"
+    },
+    {
+        "posicion": "7",
         "equipo": "CD BIARENSE",
         "pj": "7",
         "pg3": "3",
@@ -84,7 +98,7 @@
         "ptos": "9"
     },
     {
-        "posicion": "7",
+        "posicion": "8",
         "equipo": "AVRAMAR FABRAQUER",
         "pj": "7",
         "pg3": "3",
@@ -98,7 +112,7 @@
         "ptos": "9"
     },
     {
-        "posicion": "8",
+        "posicion": "9",
         "equipo": "LA NUCÍA DEPORTE",
         "pj": "8",
         "pg3": "3",
@@ -112,7 +126,7 @@
         "ptos": "9"
     },
     {
-        "posicion": "9",
+        "posicion": "10",
         "equipo": "ILICITANO CARRÚS",
         "pj": "8",
         "pg3": "2",
@@ -126,31 +140,17 @@
         "ptos": "9"
     },
     {
-        "posicion": "10",
-        "equipo": "CV SANT JOAN",
-        "pj": "4",
-        "pg3": "2",
-        "pg2": "0",
-        "pp1": "0",
-        "pp0": "2",
-        "sf": "6",
-        "sc": "7",
-        "pf": "297",
-        "pc": "305",
-        "ptos": "6"
-    },
-    {
         "posicion": "11",
         "equipo": "CV CREVILLENT",
-        "pj": "7",
+        "pj": "8",
         "pg3": "1",
         "pg2": "1",
         "pp1": "0",
-        "pp0": "5",
+        "pp0": "6",
         "sf": "7",
-        "sc": "18",
-        "pf": "492",
-        "pc": "593",
+        "sc": "21",
+        "pf": "538",
+        "pc": "668",
         "ptos": "5"
     },
     {
