@@ -98,10 +98,10 @@
         "local": "CD BIARENSE",
         "visitante": "ILICITANO CARRÚS",
         "ubicacion": "PAB.MUN. BIAR",
-        "resultado": "VS",
-        "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "resultado": "3-0",
+        "parciales": "25-18/25-20/27-25",
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 9",
