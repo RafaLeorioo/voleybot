@@ -85,6 +85,20 @@
     },
     {
         "posicion": "7",
+        "equipo": "POLANENS SANTA POLA",
+        "pj": "3",
+        "pg3": "2",
+        "pg2": "0",
+        "pp1": "0",
+        "pp0": "1",
+        "sf": "7",
+        "sc": "3",
+        "pf": "245",
+        "pc": "203",
+        "ptos": "6"
+    },
+    {
+        "posicion": "8",
         "equipo": "C. SUNRISE TORREVIEJA",
         "pj": "5",
         "pg3": "1",
@@ -98,7 +112,7 @@
         "ptos": "6"
     },
     {
-        "posicion": "8",
+        "posicion": "9",
         "equipo": "CV SAN VICENTE ESPARTANOS",
         "pj": "3",
         "pg3": "1",
@@ -110,20 +124,6 @@
         "pf": "240",
         "pc": "224",
         "ptos": "5"
-    },
-    {
-        "posicion": "9",
-        "equipo": "POLANENS SANTA POLA",
-        "pj": "2",
-        "pg3": "1",
-        "pg2": "0",
-        "pp1": "0",
-        "pp0": "1",
-        "sf": "4",
-        "sc": "3",
-        "pf": "170",
-        "pc": "161",
-        "ptos": "3"
     },
     {
         "posicion": "10",
@@ -142,15 +142,15 @@
     {
         "posicion": "11",
         "equipo": "ATLÉTICO SALESIANO ALCOY",
-        "pj": "5",
+        "pj": "6",
         "pg3": "0",
         "pg2": "0",
         "pp1": "0",
-        "pp0": "5",
+        "pp0": "6",
         "sf": "0",
-        "sc": "15",
-        "pf": "251",
-        "pc": "377",
+        "sc": "18",
+        "pf": "293",
+        "pc": "452",
         "ptos": "0"
     },
     {
