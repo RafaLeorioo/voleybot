@@ -72,10 +72,10 @@
         "local": "CD BIARENSE",
         "visitante": "VOLEIBOL VINALOPÓ AZUL",
         "ubicacion": "PAB.MUN. BIAR",
-        "resultado": "VS",
-        "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "resultado": "3-2",
+        "parciales": "21-25/23-25/25-13/26-24/17-15",
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 8",

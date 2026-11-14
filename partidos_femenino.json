@@ -111,10 +111,10 @@
         "local": "LA NUCÍA DEPORTE",
         "visitante": "CD BIARENSE",
         "ubicacion": "PAB.MUN. LA MUIXARA (LA NUCÍA)",
-        "resultado": "VS",
-        "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "resultado": "3-2",
+        "parciales": "25-23/23-25/25-27/26-24/15-11",
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 10",

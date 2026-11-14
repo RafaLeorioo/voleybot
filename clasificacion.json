@@ -2,30 +2,30 @@
     {
         "posicion": "1",
         "equipo": "GRUPO NEXUS GUARDAMAR",
+        "pj": "6",
+        "pg3": "5",
+        "pg2": "1",
+        "pp1": "0",
+        "pp0": "0",
+        "sf": "18",
+        "sc": "3",
+        "pf": "507",
+        "pc": "367",
+        "ptos": "17"
+    },
+    {
+        "posicion": "2",
+        "equipo": "CD BIARENSE",
         "pj": "5",
         "pg3": "4",
         "pg2": "1",
         "pp1": "0",
         "pp0": "0",
         "sf": "15",
-        "sc": "3",
-        "pf": "432",
-        "pc": "346",
+        "sc": "2",
+        "pf": "415",
+        "pc": "278",
         "ptos": "14"
-    },
-    {
-        "posicion": "2",
-        "equipo": "CD BIARENSE",
-        "pj": "4",
-        "pg3": "4",
-        "pg2": "0",
-        "pp1": "0",
-        "pp0": "0",
-        "sf": "12",
-        "sc": "0",
-        "pf": "303",
-        "pc": "176",
-        "ptos": "12"
     },
     {
         "posicion": "3",
@@ -57,6 +57,20 @@
     },
     {
         "posicion": "5",
+        "equipo": "VOLEIBOL VINALOPÓ AZUL",
+        "pj": "5",
+        "pg3": "3",
+        "pg2": "0",
+        "pp1": "1",
+        "pp0": "1",
+        "sf": "12",
+        "sc": "7",
+        "pf": "427",
+        "pc": "362",
+        "ptos": "10"
+    },
+    {
+        "posicion": "6",
         "equipo": "POLANENS SANTA POLA",
         "pj": "4",
         "pg3": "3",
@@ -67,20 +81,6 @@
         "sc": "3",
         "pf": "320",
         "pc": "235",
-        "ptos": "9"
-    },
-    {
-        "posicion": "6",
-        "equipo": "VOLEIBOL VINALOPÓ AZUL",
-        "pj": "4",
-        "pg3": "3",
-        "pg2": "0",
-        "pp1": "0",
-        "pp0": "1",
-        "sf": "10",
-        "sc": "4",
-        "pf": "325",
-        "pc": "250",
         "ptos": "9"
     },
     {
@@ -170,15 +170,15 @@
     {
         "posicion": "13",
         "equipo": "CV LUCENTUM - B",
-        "pj": "3",
+        "pj": "4",
         "pg3": "0",
         "pg2": "0",
         "pp1": "0",
-        "pp0": "3",
+        "pp0": "4",
         "sf": "0",
-        "sc": "9",
-        "pf": "102",
-        "pc": "225",
+        "sc": "12",
+        "pf": "123",
+        "pc": "300",
         "ptos": "0"
     }
 ]
