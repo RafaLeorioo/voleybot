@@ -57,6 +57,20 @@
     },
     {
         "posicion": "5",
+        "equipo": "POLANENS SANTA POLA",
+        "pj": "4",
+        "pg3": "3",
+        "pg2": "0",
+        "pp1": "0",
+        "pp0": "1",
+        "sf": "10",
+        "sc": "3",
+        "pf": "320",
+        "pc": "235",
+        "ptos": "9"
+    },
+    {
+        "posicion": "6",
         "equipo": "VOLEIBOL VINALOPÓ AZUL",
         "pj": "4",
         "pg3": "3",
@@ -70,7 +84,7 @@
         "ptos": "9"
     },
     {
-        "posicion": "6",
+        "posicion": "7",
         "equipo": "CV LUCENTUM",
         "pj": "4",
         "pg3": "2",
@@ -82,20 +96,6 @@
         "pf": "342",
         "pc": "334",
         "ptos": "7"
-    },
-    {
-        "posicion": "7",
-        "equipo": "POLANENS SANTA POLA",
-        "pj": "3",
-        "pg3": "2",
-        "pg2": "0",
-        "pp1": "0",
-        "pp0": "1",
-        "sf": "7",
-        "sc": "3",
-        "pf": "245",
-        "pc": "203",
-        "ptos": "6"
     },
     {
         "posicion": "8",
@@ -156,15 +156,15 @@
     {
         "posicion": "12",
         "equipo": "CV SAN VICENTE GLADIADORES",
-        "pj": "5",
+        "pj": "6",
         "pg3": "0",
         "pg2": "0",
         "pp1": "0",
-        "pp0": "5",
+        "pp0": "6",
         "sf": "0",
-        "sc": "15",
-        "pf": "216",
-        "pc": "375",
+        "sc": "18",
+        "pf": "248",
+        "pc": "450",
         "ptos": "0"
     },
     {
