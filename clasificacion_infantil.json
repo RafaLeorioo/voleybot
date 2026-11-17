@@ -2,16 +2,16 @@
     {
         "posicion": "1",
         "equipo": "CV JESUITAS SERRA GROSSA AZUL",
-        "pj": "4",
-        "pg3": "4",
+        "pj": "5",
+        "pg3": "5",
         "pg2": "0",
         "pp1": "0",
         "pp0": "0",
-        "sf": "12",
+        "sf": "15",
         "sc": "1",
-        "pf": "316",
-        "pc": "211",
-        "ptos": "12"
+        "pf": "394",
+        "pc": "270",
+        "ptos": "15"
     },
     {
         "posicion": "2",
@@ -30,15 +30,15 @@
     {
         "posicion": "3",
         "equipo": "CV VILLENA SUPER JUMP",
-        "pj": "2",
+        "pj": "3",
         "pg3": "2",
         "pg2": "0",
         "pp1": "0",
-        "pp0": "0",
+        "pp0": "1",
         "sf": "6",
-        "sc": "1",
-        "pf": "173",
-        "pc": "132",
+        "sc": "4",
+        "pf": "232",
+        "pc": "210",
         "ptos": "6"
     },
     {
@@ -57,6 +57,20 @@
     },
     {
         "posicion": "5",
+        "equipo": "CV ALICANTE 2000 BLANCO",
+        "pj": "4",
+        "pg3": "1",
+        "pg2": "0",
+        "pp1": "1",
+        "pp0": "2",
+        "sf": "5",
+        "sc": "9",
+        "pf": "295",
+        "pc": "306",
+        "ptos": "4"
+    },
+    {
+        "posicion": "6",
         "equipo": "CD SALESIANOS ALICANTE",
         "pj": "2",
         "pg3": "1",
@@ -70,32 +84,18 @@
         "ptos": "3"
     },
     {
-        "posicion": "6",
+        "posicion": "7",
         "equipo": "CD JESUITAS SERRA GROSSA BLANCO",
-        "pj": "3",
+        "pj": "4",
         "pg3": "1",
         "pg2": "0",
         "pp1": "0",
-        "pp0": "2",
+        "pp0": "3",
         "sf": "4",
-        "sc": "7",
-        "pf": "209",
-        "pc": "249",
+        "sc": "10",
+        "pf": "264",
+        "pc": "324",
         "ptos": "3"
-    },
-    {
-        "posicion": "7",
-        "equipo": "CV ALICANTE 2000 BLANCO",
-        "pj": "3",
-        "pg3": "0",
-        "pg2": "0",
-        "pp1": "1",
-        "pp0": "2",
-        "sf": "2",
-        "sc": "9",
-        "pf": "220",
-        "pc": "251",
-        "ptos": "1"
     },
     {
         "posicion": "8",
