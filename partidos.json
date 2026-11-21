@@ -85,10 +85,10 @@
         "local": "CV CREVILLENT",
         "visitante": "CD BIARENSE P",
         "ubicacion": "AB.DEP. FÉLIX CANDELA (CREVILLENT",
-        "resultado": "VS",
-        "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "resultado": "0-3",
+        "parciales": "27-29/22-25/15-25",
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 9",

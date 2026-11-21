@@ -124,10 +124,10 @@
         "local": "AVRAMAR FABRAQUER",
         "visitante": "CD BIARENSE",
         "ubicacion": "PAB. LA ERMITA (EL CAMPELLO)",
-        "resultado": "VS",
-        "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "resultado": "3-0",
+        "parciales": "25-20/25-14/25-20",
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 11",
