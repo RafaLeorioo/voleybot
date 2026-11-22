@@ -29,6 +29,20 @@
     },
     {
         "posicion": "3",
+        "equipo": "CV ALICANTE 2000 BLANCO",
+        "pj": "5",
+        "pg3": "2",
+        "pg2": "0",
+        "pp1": "1",
+        "pp0": "2",
+        "sf": "8",
+        "sc": "9",
+        "pf": "370",
+        "pc": "339",
+        "ptos": "7"
+    },
+    {
+        "posicion": "4",
         "equipo": "CV VILLENA SUPER JUMP",
         "pj": "3",
         "pg3": "2",
@@ -42,7 +56,7 @@
         "ptos": "6"
     },
     {
-        "posicion": "4",
+        "posicion": "5",
         "equipo": "CV ALICANTE 2000 FUCSIA",
         "pj": "4",
         "pg3": "1",
@@ -54,20 +68,6 @@
         "pf": "343",
         "pc": "348",
         "ptos": "5"
-    },
-    {
-        "posicion": "5",
-        "equipo": "CV ALICANTE 2000 BLANCO",
-        "pj": "4",
-        "pg3": "1",
-        "pg2": "0",
-        "pp1": "1",
-        "pp0": "2",
-        "sf": "5",
-        "sc": "9",
-        "pf": "295",
-        "pc": "306",
-        "ptos": "4"
     },
     {
         "posicion": "6",
@@ -100,15 +100,15 @@
     {
         "posicion": "8",
         "equipo": "CV VILLENA LILLO ARTESANO",
-        "pj": "3",
+        "pj": "4",
         "pg3": "0",
         "pg2": "0",
         "pp1": "0",
-        "pp0": "3",
+        "pp0": "4",
         "sf": "1",
-        "sc": "9",
-        "pf": "167",
-        "pc": "250",
+        "sc": "12",
+        "pf": "200",
+        "pc": "325",
         "ptos": "0"
     },
     {
