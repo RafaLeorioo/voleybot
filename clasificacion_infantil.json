@@ -57,6 +57,20 @@
     },
     {
         "posicion": "5",
+        "equipo": "CD SALESIANOS ALICANTE",
+        "pj": "3",
+        "pg3": "1",
+        "pg2": "1",
+        "pp1": "0",
+        "pp0": "1",
+        "sf": "7",
+        "sc": "6",
+        "pf": "273",
+        "pc": "265",
+        "ptos": "5"
+    },
+    {
+        "posicion": "6",
         "equipo": "CV ALICANTE 2000 FUCSIA",
         "pj": "4",
         "pg3": "1",
@@ -70,32 +84,18 @@
         "ptos": "5"
     },
     {
-        "posicion": "6",
-        "equipo": "CD SALESIANOS ALICANTE",
-        "pj": "2",
-        "pg3": "1",
-        "pg2": "0",
-        "pp1": "0",
-        "pp0": "1",
-        "sf": "4",
-        "sc": "4",
-        "pf": "166",
-        "pc": "175",
-        "ptos": "3"
-    },
-    {
         "posicion": "7",
         "equipo": "CD JESUITAS SERRA GROSSA BLANCO",
-        "pj": "4",
+        "pj": "5",
         "pg3": "1",
         "pg2": "0",
-        "pp1": "0",
+        "pp1": "1",
         "pp0": "3",
-        "sf": "4",
-        "sc": "10",
-        "pf": "264",
-        "pc": "324",
-        "ptos": "3"
+        "sf": "6",
+        "sc": "13",
+        "pf": "354",
+        "pc": "431",
+        "ptos": "4"
     },
     {
         "posicion": "8",
