@@ -85,10 +85,10 @@
         "local": "RACING P.S. JUAN",
         "visitante": "CD BIARENSE",
         "ubicacion": "PAB.MUN. CDAD. JARDÍN (ALICANTE)",
-        "resultado": "VS",
-        "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "resultado": "3-0",
+        "parciales": "25-19/25-13/25-19",
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 8",
