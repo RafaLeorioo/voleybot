@@ -111,10 +111,10 @@
         "local": "ILICITANO CARRÚS",
         "visitante": "CD BIARENSE",
         "ubicacion": "I.E.S. CARRÚS (ELCHE)",
-        "resultado": "VS",
-        "parciales": "",
-        "jugado": false,
-        "estado": "Pendiente"
+        "resultado": "3-0",
+        "parciales": "25-11/25-12/25-13",
+        "jugado": true,
+        "estado": "Finalizado"
     },
     {
         "jornada": "Jornada 10",
